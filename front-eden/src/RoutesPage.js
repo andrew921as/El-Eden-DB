@@ -1,6 +1,6 @@
 import { useRoutes, Navigate } from "react-router-dom";
-import Home from "./Components/Home";
-import NotFound from "./Components/NotFound";
+import Home from "./Pages/Home";
+import NotFound from "./Pages/NotFound";
 
 export default function Routes() {
   return useRoutes([
