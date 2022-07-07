@@ -9,6 +9,8 @@ import {
   List,
   ListItemButton,
   Button,
+  Typography,
+  Box,
 } from '@mui/material'
 import iconoOso from '../Images/IconoOso.png'
 import { Link as RouterLink } from 'react-router-dom'
@@ -32,7 +34,10 @@ function MenuArriba() {
             sx={{ backgroundColor: "#FDD68D" }}
           >
             <Button onClick={()=>setIsOpen(true)}>
-              <img src={iconoOso} />
+              <Stack direction='row' alignItems='center' spacing={1}>
+                <img src={iconoOso} />
+                <Typography color='#f54021'> menu</Typography>
+              </Stack>
             </Button>
             <React.Fragment>
               <Drawer
@@ -67,12 +72,33 @@ function MenuArriba() {
             </React.Fragment>
           </Container>
         ) : (
-          <Container className='MenuC'>
-            <Container sx={{ height: 65, backgroundColor: "#FDD68D", borderRadius: 2, paddingTop: 1 }}>
-              <Stack direction="row" alignItems='center' justifyContent='space-between'>
-                <img src={iconoOso} />
-                <Stack direction="row" spacing={6} alignItems='center' justifyContent='flex-end'>
-                  <Link underline='none' variant='subtitle1' color='#f54021' component={RouterLink} to='/'>
+              <Stack
+              className='MenuC'
+              sx={{ height: 150, backgroundColor: "#FDD68D", paddingTop: 2 }} 
+              direction="row" 
+              alignItems='flex-start' 
+              justifyContent='space-between'
+              >
+                <Stack direction="row" spacing={2} alignItems='center'>
+                  <img src={iconoOso} />
+                  <Typography variant='h1' sx={{fontWeight:'bold'}} color='#ff5c0c'>EL EDEN</Typography>
+                </Stack>
+                <Box sx={{ marginRight:3 }}>
+                <Typography>Andrew921as</Typography>
+                </Box>
+              </Stack>
+        )
+      }
+
+    </div>
+  )
+}
+
+export default MenuArriba
+
+/**Codigo para hacer un menu
+ * 
+ * <Link underline='none' variant='subtitle1' color='#f54021' component={RouterLink} to='/'>
                     Inicio
                   </Link>
                   <Link underline='none' variant='subtitle1' color='#f54021' component={RouterLink} to='/Registro-Usuario'>
@@ -84,15 +110,4 @@ function MenuArriba() {
                   <Link underline='none' variant='subtitle1' color='#f54021' component={RouterLink} to='/Buscar-Animal'>
                     Buscar Animal
                   </Link>
-                </Stack>
-              </Stack>
-            </Container>
-          </Container>
-        )
-      }
-
-    </div>
-  )
-}
-
-export default MenuArriba
+ */
