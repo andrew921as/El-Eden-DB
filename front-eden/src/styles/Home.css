@@ -1,0 +1,10 @@
+.Contenedor-buttones{
+    background: url('../Images/FondoKoala.png');
+    background-size: cover;
+    background-attachment: fixed;
+    padding-top: 30px;
+}
+
+stack{
+    padding-top: 50px;
+}
