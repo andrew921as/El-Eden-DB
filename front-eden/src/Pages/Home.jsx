@@ -1,11 +1,11 @@
 import React from 'react';
 import ButtonHome from '../Components/ButtonHome'
 import '../styles/Home.css';
-import { Stack, Typography } from '@mui/material';
+import { Stack} from '@mui/material';
 import { GiPolarBear } from "react-icons/gi";
-import { IoSearchCircleSharp } from "react-icons/io5";
+import { IoSearchCircleSharp, IoPersonAddSharp } from "react-icons/io5";
 import { BsCashCoin } from "react-icons/bs";
-import { IoPersonAddSharp } from "react-icons/io5";
+
 
 import MenuArriba from '../Components/MenuArriba';
 
