@@ -5,7 +5,7 @@ function Buttons({texto, icono}){
 
     return(
         <div>
-            <button>           
+            <button class="boton">           
              {icono}{texto}
             </button>
 

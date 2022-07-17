@@ -34,7 +34,12 @@ function MenuArriba() {
             sx={{ backgroundColor: "#FDD68D" }}
           >
             <Button onClick={()=>setIsOpen(true)}>
-              <Stack direction='row' alignItems='center' spacing={1}>
+              <Stack 
+              direction='row'
+              justifyContent="flex-start"
+              alignItems='center' 
+              spacing={1}
+              >
                 <img src={iconoOso} />
                 <Typography color='#f54021'> menu</Typography>
               </Stack>

@@ -1,5 +1,5 @@
 
-button{
+.boton{
     align-items: center;
     background-clip: padding-box;
     background-color:#fff;
@@ -23,7 +23,7 @@ button{
     gap: 30px;
 }
 
-button:hover{
+.boton:hover{
     background-color: #FA824C;
     opacity: 10;
 }
