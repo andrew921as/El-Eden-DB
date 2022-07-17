@@ -1,13 +1,14 @@
 import React from 'react';
 import ButtonHome from '../Components/ButtonHome'
-import '../styles/Home.css';
+import MenuArriba from '../Components/MenuArriba';
+import Footer from '../Components/Footer';
+
 import { Stack} from '@mui/material';
 import { GiPolarBear } from "react-icons/gi";
 import { IoSearchCircleSharp, IoPersonAddSharp } from "react-icons/io5";
 import { BsCashCoin } from "react-icons/bs";
 
-
-import MenuArriba from '../Components/MenuArriba';
+import '../styles/Home.css';
 
 function Home() {
   return (
@@ -15,9 +16,9 @@ function Home() {
       <MenuArriba/>
       <div className='Contenedor-buttones'>
         <Stack 
-        spacing={4} 
+        spacing={7} 
         direction={'column'} 
-        alignItems={'flex-end'}
+        alignItems={'flex-start'}
         >
         <ButtonHome
         texto={'Registrar Cliente'}
@@ -39,7 +40,12 @@ function Home() {
         </Stack>
 
       </div>
-
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <Footer/>
     </div>
   )
 }

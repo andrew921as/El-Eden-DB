@@ -1,12 +1,11 @@
 import React from "react";
 import '../styles/ButtonHome.css';
-import { MdEmojiNature } from "react-icons/md";
 
 function Buttons({texto, icono}){
 
     return(
         <div>
-            <button>           
+            <button class="boton">           
              {icono}{texto}
             </button>
 
