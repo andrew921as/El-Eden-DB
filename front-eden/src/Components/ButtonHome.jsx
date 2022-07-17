@@ -1,6 +1,5 @@
 import React from "react";
 import '../styles/ButtonHome.css';
-import { MdEmojiNature } from "react-icons/md";
 
 function Buttons({texto, icono}){
 
