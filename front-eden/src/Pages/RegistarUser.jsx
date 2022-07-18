@@ -129,5 +129,5 @@ export default function RegistarUser() {
   )
 }
 
-//<Item>2</Item>
+//
 //<TextField id="Nombre" label='Filled' variant='Filled'></TextField>
