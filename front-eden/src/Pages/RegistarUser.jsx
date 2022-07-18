@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Container, Grid, Stack, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { useFormik, Form, FormikProvider } from 'formik';
+import { useFormik} from 'formik';
 
 import MenuArriba from '../Components/MenuArriba';
 import Footer from '../Components/Footer';
@@ -14,7 +14,7 @@ export default function RegistarUser() {
 
   const navigate = useNavigate();
 
-  const formProp = useFormik({
+  const formik = useFormik({
     initialValues: {
       Nombre: '',
       Apellido: '',
@@ -24,7 +24,7 @@ export default function RegistarUser() {
       Cedula:''
     },
     onSubmit:(values)=>{
-      console.log(values)
+      alert(JSON.stringify(values, null, 2));
     }
   });
 
@@ -33,37 +33,36 @@ export default function RegistarUser() {
       <MenuArriba />
       <Stack spacing={8} justifyContent="center">
         <Typography alignSelf={'center'} variant='h1' color={'#ff5c0c'}>Registrar usuario</Typography>
-        <FormikProvider value={formProp}>
-          <Form>
+        <form onSubmit={formik.handleSubmit}>
             <Grid container rowSpacing={6}>
               <Grid item xs={12} md={6}>
                 <Container>
-                  <TextField fullWidth id="Nombre" label="Nombre" variant="filled" name='Nombre' />
+                  <TextField fullWidth id="Nombre" label="Nombre" variant="filled" name='Nombre' value={formik.values.Nombre} onChange={formik.handleChange}/>
                 </Container>
               </Grid>
               <Grid item xs={12} md={6}>
                 <Container>
-                  <TextField fullWidth id="Apellido" label="Apellido" variant="filled" name='Apellido' />
+                  <TextField fullWidth id="Apellido" label="Apellido" variant="filled" name='Apellido' value={formik.values.Apellido} onChange={formik.handleChange}/>
                 </Container>
               </Grid>
               <Grid item xs={12} md={6}>
                 <Container>
-                  <TextField fullWidth id="Email" label="E-mail" variant="filled" name='Email' />
+                  <TextField fullWidth id="Email" label="E-mail" variant="filled" name='Email' value={formik.values.Email} onChange={formik.handleChange}/>
                 </Container>
               </Grid>
               <Grid item xs={12} md={6}>
                 <Container>
-                  <TextField fullWidth id="Direccion" label="Direccion" variant="filled" name='Direccion' />
+                  <TextField fullWidth id="Direccion" label="Direccion" variant="filled" name='Direccion' value={formik.values.Direccion} onChange={formik.handleChange}/>
                 </Container>
               </Grid>
               <Grid item xs={12} md={6}>
                 <Container>
-                  <TextField fullWidth id="Telefono" label="Télefono" variant="filled" name='Telefono' />
+                  <TextField fullWidth id="Telefono" label="Télefono" variant="filled" name='Telefono' value={formik.values.Telefono} onChange={formik.handleChange}/>
                 </Container>
               </Grid>
               <Grid item xs={12} md={6}>
                 <Container>
-                  <TextField fullWidth id="Cedula" label="Cedula" variant="filled" name='Cedula' />
+                  <TextField fullWidth id="Cedula" label="Cedula" variant="filled" name='Cedula' value={formik.values.Cedula} onChange={formik.handleChange}/>
                 </Container>
               </Grid>
             </Grid>
@@ -115,8 +114,7 @@ export default function RegistarUser() {
                 </Button>
               </Container>
             </Stack>
-          </Form>
-        </FormikProvider>
+          </form>
       </Stack>
       <br />
       <br />
