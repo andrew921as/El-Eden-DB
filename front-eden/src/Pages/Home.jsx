@@ -18,6 +18,7 @@ import HandshakeIcon from '@mui/icons-material/Handshake';
 import PetsIcon from '@mui/icons-material/Pets';
 import StoreIcon from '@mui/icons-material/Store';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { useNavigate } from 'react-router-dom';
 
 import MenuArriba from '../Components/MenuArriba';
 import themeHome from '../styles/ThemeHome';
@@ -34,7 +35,7 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
 }));
 
 function Home() {
-
+  const navigate = useNavigate();
   const theme = useTheme();
   const match = useMediaQuery(theme.breakpoints.down('md'));
   console.log(match);
@@ -61,8 +62,8 @@ function Home() {
               </AccordionSummary>
               <AccordionDetails>
 
-                <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Registrar Cliente</StyledMenuItem>
-                <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Buscar</StyledMenuItem>
+                <StyledMenuItem onClick={() => {navigate('/Registro-Usuario')} }><ChevronRightIcon fontSize='1.5rem' />Registrar</StyledMenuItem>
+                <StyledMenuItem ><ChevronRightIcon fontSize='1.5rem' />Buscar</StyledMenuItem>
 
               </AccordionDetails>
             </Accordion>
@@ -93,8 +94,8 @@ function Home() {
               </AccordionSummary>
               <AccordionDetails>
 
-                <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Registrar</StyledMenuItem>
-                <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Buscar</StyledMenuItem>
+                <StyledMenuItem onClick={() => navigate('/Registro-Animal')}><ChevronRightIcon fontSize='1.5rem' />Registrar</StyledMenuItem>
+                <StyledMenuItem onClick={() => navigate('/Buscar-Animal')}><ChevronRightIcon fontSize='1.5rem' />Buscar</StyledMenuItem>
 
               </AccordionDetails>
             </Accordion>
@@ -110,7 +111,7 @@ function Home() {
               <AccordionDetails>
 
                 <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Registrar Pago</StyledMenuItem>
-                <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Buscar</StyledMenuItem>
+                <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Buscar Transacción</StyledMenuItem>
 
               </AccordionDetails>
             </Accordion>
