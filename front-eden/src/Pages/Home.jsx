@@ -12,13 +12,16 @@ import {
   styled,
 } from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import MenuArriba from '../Components/MenuArriba';
-import themeHome from '../styles/ThemeHome';
+
 import PersonIcon from '@mui/icons-material/Person';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 import PetsIcon from '@mui/icons-material/Pets';
 import StoreIcon from '@mui/icons-material/Store';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
+import MenuArriba from '../Components/MenuArriba';
+import themeHome from '../styles/ThemeHome';
+
 
 const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
   width: '800px',
@@ -27,7 +30,7 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
   },
   [theme.breakpoints.down('sm')]: {
     width: '300px'
-  }, 
+  },
 }));
 
 function Home() {
@@ -38,13 +41,14 @@ function Home() {
 
   return (
     <div className='Contenedor-principal'>
+      <MenuArriba />
       <ThemeProvider theme={themeHome}>
-        <MenuArriba />
         <div className='Contenedor-buttones'>
           <Stack
-            spacing={4}
+            spacing={6}
             direction={'column'}
-            alignItems={match ? 'center' : 'flex-end'}
+            alignItems={match ? 'center' : 'flex-start'}
+            sx={{paddingBottom:30, paddingTop:8}}
           >
 
             <Accordion>
@@ -73,8 +77,8 @@ function Home() {
               </AccordionSummary>
               <AccordionDetails>
 
-                  <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Registrar</StyledMenuItem>
-                  <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Buscar</StyledMenuItem>
+                <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Registrar</StyledMenuItem>
+                <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Buscar</StyledMenuItem>
 
               </AccordionDetails>
             </Accordion>
@@ -89,8 +93,8 @@ function Home() {
               </AccordionSummary>
               <AccordionDetails>
 
-                  <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Registrar</StyledMenuItem>
-                  <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Buscar</StyledMenuItem>
+                <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Registrar</StyledMenuItem>
+                <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Buscar</StyledMenuItem>
 
               </AccordionDetails>
             </Accordion>
@@ -105,14 +109,12 @@ function Home() {
               </AccordionSummary>
               <AccordionDetails>
 
-                  <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Registrar Pago</StyledMenuItem>
-                  <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Buscar</StyledMenuItem>
+                <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Registrar Pago</StyledMenuItem>
+                <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Buscar</StyledMenuItem>
 
               </AccordionDetails>
             </Accordion>
           </Stack>
-
-
         </div>
       </ThemeProvider>
     </div>

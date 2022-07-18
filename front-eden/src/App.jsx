@@ -1,7 +1,7 @@
 
 import Routes from "./RoutesPage";
 import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
-
+import Footer from "./Components/Footer";
 
 
 const theme = createTheme({
@@ -28,6 +28,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Routes/>
+        <Footer/>
       </ThemeProvider>
     </div>
   );

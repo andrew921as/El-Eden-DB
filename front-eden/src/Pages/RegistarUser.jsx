@@ -23,14 +23,8 @@ export default function RegistarUser() {
       Telefono:'',
       Cedula:''
     },
-    onSubmit: async (values, {resetForm}) => {
-      const Nombre=values.Nombre
-      const Apellido=values.Apellido
-      const Email=values.Email
-      const Direccion=values.Direccion
-      const Telefono=values.Telefono
-      const Cedula=values.Cedula
-      console.log("El valor de la direccion"+Direccion)
+    onSubmit:(values)=>{
+      console.log(values)
     }
   });
 
@@ -131,7 +125,6 @@ export default function RegistarUser() {
       <br />
       <br />
       <br />
-      <Footer />
     </div>
   )
 }
