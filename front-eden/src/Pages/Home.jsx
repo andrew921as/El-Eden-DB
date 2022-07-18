@@ -25,7 +25,7 @@ import themeHome from '../styles/ThemeHome';
 
 
 const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
-  width: '800px',
+  width: '500px',
   [theme.breakpoints.down('md')]: {
     width: '500px'
   },
@@ -49,7 +49,7 @@ function Home() {
             spacing={6}
             direction={'column'}
             alignItems={match ? 'center' : 'flex-start'}
-            sx={{paddingBottom:30, paddingTop:8}}
+            sx={{paddingBottom:30, paddingTop:8}} 
           >
 
             <Accordion>
