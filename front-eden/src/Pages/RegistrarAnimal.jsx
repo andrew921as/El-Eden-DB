@@ -2,6 +2,8 @@ import { React, useState } from 'react'
 import { Button, Container, Grid, Stack, TextField, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { KeyboardDatePicker } from '@material-ui/pickers'
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 import { useFormik } from 'formik';
 
@@ -21,7 +23,8 @@ export default function RegistarUser() {
       Tipo: '',
       Edad: '',
       MotivoI: '',
-      Fecha: '',
+      FechaI: '',
+      FechaS: '',
       Observaciones: ''
     },
     onSubmit: (values) => {
@@ -53,28 +56,46 @@ export default function RegistarUser() {
             </Grid>
             <Grid item xs={12} md={6}>
               <Container>
-                <TextField fullWidth id="MotivoI" label="Motivo Ingreso" variant="filled" name='MotivoI' value={formik.values.MotivoI} onChange={formik.handleChange} />
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    fullWidth
+                    id="FechaI"
+                    label="Fecha Ingreso"  
+                    inputVariant="filled"
+                    format="MM/dd/yyyy"
+                    value={formik.values.FechaI}
+                    onChange={(val) => {
+                      formik.setFieldValue("FechaI", val);
+                    }}
+                   
+                  />
+                </MuiPickersUtilsProvider>
               </Container>
             </Grid>
             <Grid item xs={12} md={6}>
               <Container>
-                <KeyboardDatePicker
-                  fullWidth
-                  id="Fecha"
-                  label="Fecha salida"
-                  inputVariant="outlined"
-                  format="MM/dd/yyyy"
-                  value={formik.values.Fecha}
-                  onChange={(val) => {
-                    formik.setFieldValue("Fecha", val);
-                  }}
-                  KeyboardButtonProps={{
-                    "aria-label": "change date"
-                  }}
-                />
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    fullWidth
+                    id="FechaS"
+                    label="Fecha salida"  
+                    inputVariant="filled"
+                    format="MM/dd/yyyy"
+                    value={formik.values.FechaS}
+                    onChange={(val) => {
+                      formik.setFieldValue("FechaS", val);
+                    }}
+                   
+                  />
+                </MuiPickersUtilsProvider>
               </Container>
             </Grid>
-            <Grid item xs={12} md={12}>
+            <Grid item xs={12} md={6}>
+              <Container>
+                <TextField fullWidth id="MotivoI" label="Motivo Ingreso" variant="filled" name='MotivoI' value={formik.values.MotivoI} onChange={formik.handleChange} />
+              </Container>
+            </Grid>
+            <Grid item xs={12} md={6}>
               <Container>
                 <TextField sx={{ minHeight: 6 }} fullWidth id="Observaciones" label="Observaciones" variant="filled" name='Observaciones' value={formik.values.Observaciones} onChange={formik.handleChange} />
               </Container>
