@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { useFormik} from 'formik';
 
 import MenuArriba from '../Components/MenuArriba';
-import Footer from '../Components/Footer';
 
 import '../styles/RegistrarUsu.css';
 

@@ -23,7 +23,6 @@ function MenuArriba() {
 
   const theme = useTheme();
   const match = useMediaQuery(theme.breakpoints.down('md'));
-  console.log(match);
 
   return (
     <div>

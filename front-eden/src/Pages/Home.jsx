@@ -38,7 +38,6 @@ function Home() {
   const navigate = useNavigate();
   const theme = useTheme();
   const match = useMediaQuery(theme.breakpoints.down('md'));
-  console.log(match);
 
   return (
     <div className='Contenedor-principal'>
