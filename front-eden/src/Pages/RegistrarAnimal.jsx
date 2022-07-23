@@ -12,8 +12,7 @@ import MenuArriba from '../Components/MenuArriba';
 import '../styles/RegistrarUsu.css';
 
 
-export default function RegistarUser() {
-  const [selectedDate, handleDateChange] = useState(new Date());
+export default function RegistarAnimal() {
 
   const navigate = useNavigate();
 

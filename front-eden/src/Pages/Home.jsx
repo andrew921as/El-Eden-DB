@@ -76,8 +76,8 @@ function Home() {
                 <Typography>Voluntarios</Typography>
               </AccordionSummary>
               <AccordionDetails>
-
-                <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Registrar</StyledMenuItem>
+              
+                <StyledMenuItem onClick={() => {navigate('/Registro-Voluntario')} }><ChevronRightIcon fontSize='1.5rem' />Registrar</StyledMenuItem>
                 <StyledMenuItem><ChevronRightIcon fontSize='1.5rem' />Buscar</StyledMenuItem>
 
               </AccordionDetails>
