@@ -28,7 +28,6 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Routes/>
-        <Footer/>
       </ThemeProvider>
     </div>
   );

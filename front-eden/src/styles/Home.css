@@ -1,7 +1,63 @@
+
 .Contenedor-principal{
     background: url('../Images/FondoKoala.png');
     background-size: cover;
     background-attachment: fixed;
     min-width: 100%;
+    height: 100vh;
+    width: 100vh;
 }
 
+.Contenedor-buttones{
+    background-color: rgba(229 229 229  /82%);
+    width: 45%;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+.contenedor-logoff{
+    display: flex;
+    align-items: left;
+    align-content: left;
+    text-align: left;
+    width: 45%;
+}
+
+.Icono-main{
+    width: 200px;
+    height: 200px;
+}
+
+.Contenedor-icono{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (min-width: 1900px){
+    .Icono-main{
+        width: 300px;
+        height: 300px;
+    }
+
+    .Contenedor-icono{
+        justify-content: center;
+        display: flex;
+        margin: 50px;
+    }
+}
+
+@media (max-width: 1000px){
+    .Contenedor-buttones{
+        width: 100%;
+        padding: 30px;
+    }
+
+    .Contenedor-principal{
+        height: max-content;
+    }
+
+}

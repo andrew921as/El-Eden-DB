@@ -1,6 +1,7 @@
 import React from "react";
 import '../styles/ButtonHome.css';
 
+
 function Buttons({texto, icono}){
 
     return(

@@ -11,19 +11,47 @@ import {
   Button,
   Typography,
   Box,
-} from '@mui/material'
-import iconoOso from '../Images/IconoOso.png'
-import { Link as RouterLink } from 'react-router-dom'
+  Menu,
+  MenuItem,
+  ThemeProvider,
+  styled
 
+} from '@mui/material'
+import IconoSinTitulo from '../Images/IconoSinTitulo.png'
+import { Link as RouterLink } from 'react-router-dom'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import LogoutIcon from '@mui/icons-material/Logout';
 import "../styles/Menu.css"
+import themeMenuArriba from '../styles/Theme';
+
+const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
+  backgroundColor: '#EAE0D5',
+  borderRadius: 0,
+  height: '30px',
+  color: '#ff5c0c',
+  fontSize: 20,
+
+
+  '&: hover': {
+    backgroundColor: '#CEC2B5'
+  },
+
+}));
 
 
 function MenuArriba() {
   const [isOpen, setIsOpen] = useState(false)
-
   const theme = useTheme();
   const match = useMediaQuery(theme.breakpoints.down('md'));
   console.log(match);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <div>
@@ -31,16 +59,16 @@ function MenuArriba() {
         match ? (
           <Container
             className='MenuCel'
-            sx={{ backgroundColor: "#FDD68D" }}
+            sx={{ backgroundColor: "#EAE0D5" }}
           >
-            <Button onClick={()=>setIsOpen(true)}>
-              <Stack 
-              direction='row'
-              justifyContent="flex-start"
-              alignItems='center' 
-              spacing={1}
+            <Button onClick={() => setIsOpen(true)}>
+              <Stack
+                direction='row'
+                justifyContent="center"
+                alignItems='center'
+                spacing={1}
               >
-                <img src={iconoOso} />
+                <img src={IconoSinTitulo} />
                 <Typography color='#f54021'> menu</Typography>
               </Stack>
             </Button>
@@ -48,7 +76,7 @@ function MenuArriba() {
               <Drawer
                 anchor='left'
                 open={isOpen}
-                onClose={()=>setIsOpen(false)}
+                onClose={() => setIsOpen(false)}
               >
                 <List>
                   <ListItemButton>
@@ -77,21 +105,60 @@ function MenuArriba() {
             </React.Fragment>
           </Container>
         ) : (
-              <Stack
-              className='MenuC'
-              sx={{ height: 150, backgroundColor: "#FDD68D", paddingTop: 2 }} 
-              direction="row" 
-              alignItems='flex-start' 
-              justifyContent='space-between'
-              >
-                <Stack direction="row" spacing={2} alignItems='center'>
-                  <img src={iconoOso} />
-                  <Typography variant='h1' sx={{fontWeight:'bold'}} color='#ff5c0c'>EL EDEN</Typography>
-                </Stack>
-                <Box sx={{ marginRight:3 }}>
-                <Typography>Andrew921as</Typography>
-                </Box>
-              </Stack>
+
+          <Stack
+            className='MenuC'
+            sx={{ height: 110, backgroundColor: "#EAE0D5", paddingTop: 2 }}
+            direction="row"
+            alignItems='flex-start'
+            justifyContent='space-between'
+          >
+            <Stack direction="row" spacing={2} alignItems='center'>
+              <img src={IconoSinTitulo} />
+              <Typography variant='h2' sx={{ fontWeight: 'bold' }} color='#ff5c0c'>EL EDEN</Typography>
+            </Stack>
+            <ThemeProvider theme={themeMenuArriba}>
+              <Box sx={{ justifyContent: 'center', margin: 2 }}>
+
+                <Button
+                  id="basic-button"
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                  size='large'
+                  sx={{ color: '#FE6A16', fontSize: '20px' }}
+                  endIcon={<KeyboardArrowDownIcon />}
+                >
+                  Andrew921as
+                </Button>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                >
+
+                  <StyledMenuItem onClick={handleClose}>
+                    <LogoutIcon />
+                    Log Out
+                  </StyledMenuItem>
+                </Menu>
+              </Box>
+            </ThemeProvider>
+          </Stack>
+
         )
       }
 
