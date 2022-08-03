@@ -51,15 +51,15 @@ function Home() {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-  
+
 
 
   return (
     <div className='Contenedor-principal'>
       <ThemeProvider theme={themeHome}>
         <div className='Contenedor-buttones'>
-        <div className='contenedor-logoff'>
-            <IconButton aria-label="log-off" sx={{gap:2, borderRadius: 0, color: '#d84707'}}><ArrowBackIcon />Sign off</IconButton>
+          <div className='contenedor-logoff'>
+            <IconButton aria-label="log-off" sx={{ gap: 2, borderRadius: 0, color: '#d84707' }}><ArrowBackIcon />Sign off</IconButton>
           </div>
           <div className='Contenedor-icono'>
             <img className='Icono-main' src={iconoOso} />
@@ -69,7 +69,7 @@ function Home() {
             spacing={2}
             direction={'column'}
             alignItems={'center'}
-            sx={{padding: 4}}
+            sx={{ padding: 4 }}
           >
             <StyledAcordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
               <AccordionSummary aria-controls="panel1d-content" id="panel1d-header" expandIcon={<ExpandMoreIcon />}>
