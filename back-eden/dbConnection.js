@@ -19,8 +19,8 @@ const getAnimales = () => {
 }
 const createAnimal = (body) => {
     return new Promise(function (resolve, reject) {
-        const { id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso } = body
-        pool.query('INSERT INTO animales (id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *;', [id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso], (error, results) => {
+        const { id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida } = body
+        pool.query('INSERT INTO animales (id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *; INSERT INTO tiempo_estancia_animal (id_animal, fecha_ingreso, fecha_salida, tiempo_estancia) VALUES ($1, $9, $10, 5000) RETURNING *; INSERT INTO fecha_salida_animal (id_animal, estado, fecha_salida) VALUES ($1, $8, $10) RETURNING *;', [id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida], (error, results) => {
             if (error) {
                 reject(error)
             }

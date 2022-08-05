@@ -10,7 +10,7 @@ import {
   styled,
   ThemeProvider,
 } from '@mui/material';
-import theme from '../styles/Theme';
+import theme from '../Theme';
 import DataTable from '../Components/DataTableAnimales';
 import '../styles/BuscarAnimal.css';
 

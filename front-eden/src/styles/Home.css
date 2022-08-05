@@ -36,25 +36,3 @@
     flex-direction: column;
     align-items: center;
 }
-
-@media (min-width: 1900px){
-    .Icono-main{
-        width: 300px;
-        height: 300px;
-    }
-
-    .Contenedor-icono{
-        justify-content: center;
-        display: flex;
-        margin: 50px;
-    }
-}
-
-@media (max-width: 1000px){
-    .Contenedor-buttones{
-        width: 100%;
-        padding: 30px;
-    }
-
-
-}

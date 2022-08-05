@@ -24,9 +24,22 @@ const theme = createTheme({
 
         MuiTypography: {
             defaultProps: {
-                fontSize: '2rem'
+                fontSize: '2rem',
+                fontFamily: 'Public Sans, sans-serif',
+                fontWeightRegular: 400,
+                fontWeightMedium: 600,
+                fontWeightBold: 700,
             }
         },
+
+        overrides: {
+            MuiCssBaseline: {
+              '@global': {
+                '@font-face': [],
+              },
+            },
+          },
+          
         MuiMenuItem: {
             styleOverrides: {
                 root: {

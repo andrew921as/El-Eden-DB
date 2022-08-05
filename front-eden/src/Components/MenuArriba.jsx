@@ -22,7 +22,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import LogoutIcon from '@mui/icons-material/Logout';
 import "../styles/Menu.css"
-import themeMenuArriba from '../styles/Theme';
+import theme from '../Theme';
 
 const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
   backgroundColor: '#EAE0D5',
@@ -117,7 +117,7 @@ function MenuArriba() {
               <img src={IconoSinTitulo} />
               <Typography variant='h2' sx={{ fontWeight: 'bold' }} color='#ff5c0c'>EL EDEN</Typography>
             </Stack>
-            <ThemeProvider theme={themeMenuArriba}>
+            <ThemeProvider theme={theme}>
               <Box sx={{ justifyContent: 'center', margin: 2 }}>
 
                 <Button

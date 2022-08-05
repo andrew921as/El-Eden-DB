@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Container, Grid, Stack, TextField, Typography, Box, ThemeProvider, useTheme, useMediaQuery} from '@mui/material';
-import theme from '../styles/Theme';
+import theme from '../Theme';
 import { useNavigate } from 'react-router-dom';
 
 

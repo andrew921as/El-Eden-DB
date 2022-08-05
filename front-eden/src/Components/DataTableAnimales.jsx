@@ -12,7 +12,7 @@ import {
 
 } from '@mui/material';
 import MasOpcionesBoton from './MasOpciones';
-import theme from '../styles/Theme';
+import theme from '../Theme';
 
 function createData(id, nombre, especie, estado, MotivoIngreso, FechaIngreso, FechaSalida, acciones) {
     return { id, nombre, especie, estado, MotivoIngreso, FechaIngreso, FechaSalida, acciones };

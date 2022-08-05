@@ -18,7 +18,8 @@ function createAnimal(
   motivo_ingreso,
   observaciones,
   estado,
-  fecha_ingreso) {
+  fecha_ingreso,
+  fecha_salida) {
  /* 
   let id_animal = prompt('Ingresar codigo identificador')
   let nombre_animal = prompt('Ingresar nombre')
@@ -29,13 +30,14 @@ function createAnimal(
   let observaciones = prompt('Ingresar observaciones')
   let estado = prompt('Ingresar estado')
   let fecha_ingreso = prompt('Ingresar fecha de ingreso')
-*/
+   */
   fetch(`http://localhost:3001/animales`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso }),
+      //akki sepuede pone el console log creo
+      body: JSON.stringify({ id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida }),
   })
       .then(response => {
           return response.text();

@@ -9,6 +9,8 @@ import { useFormik } from 'formik';
 
 import MenuArriba from '../Components/MenuArriba';
 
+import { createAnimal } from '../Functions/SqlFunctions';
+
 import '../styles/RegistrarUsu.css';
 
 
@@ -24,10 +26,23 @@ export default function RegistarAnimal() {
       MotivoI: '',
       FechaI: '',
       FechaS: '',
-      Observaciones: ''
+      Observaciones: '',
+      Talla:'',
+      Estado:''
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      let animalData = JSON.stringify(values, null, 2)
+      alert(animalData);
+      const nombre =JSON.parse(animalData).Nombre
+      const tipo =JSON.parse(animalData).Tipo
+      const talla =JSON.parse(animalData).Talla
+      const edad =JSON.parse(animalData).Edad
+      const motivoIngreso =JSON.parse(animalData).MotivoI
+      const observaciones =JSON.parse(animalData).Observaciones
+      const estado =JSON.parse(animalData).Estado
+      const fechaI =JSON.parse(animalData).FechaI
+      const fechaS =JSON.parse(animalData).FechaS
+      createAnimal('008', nombre, talla,edad,tipo,motivoIngreso,observaciones,estado,fechaI,fechaS);
     }
   });
 
@@ -84,7 +99,6 @@ export default function RegistarAnimal() {
                     onChange={(val) => {
                       formik.setFieldValue("FechaS", val);
                     }}
-                   
                   />
                 </MuiPickersUtilsProvider>
               </Container>
@@ -97,6 +111,16 @@ export default function RegistarAnimal() {
             <Grid item xs={12} md={6}>
               <Container>
                 <TextField sx={{ minHeight: 6 }} fullWidth id="Observaciones" label="Observaciones" variant="filled" name='Observaciones' value={formik.values.Observaciones} onChange={formik.handleChange} />
+              </Container>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Container>
+                <TextField fullWidth id="Talla" label="Talla" variant="filled" name='Talla' value={formik.values.Talla} onChange={formik.handleChange} />
+              </Container>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Container>
+                <TextField sx={{ minHeight: 6 }} fullWidth id="Estado" label="Estado" variant="filled" name='Estado' value={formik.values.Estado} onChange={formik.handleChange} />
               </Container>
             </Grid>
           </Grid>
