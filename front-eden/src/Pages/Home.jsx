@@ -61,16 +61,17 @@ function Home() {
           <div className='contenedor-logoff'>
             <IconButton aria-label="log-off" sx={{ gap: 2, borderRadius: 0, color: '#d84707' }}><ArrowBackIcon />Sign off</IconButton>
           </div>
-          <div className='Contenedor-icono'>
-            <img className='Icono-main' src={iconoOso} />
-            <Typography sx={{ fontSize: '1.8rem', color: '#d84707', fontWeight: 3 }} >Bienvenido, Andrew921as</Typography>
-          </div>
+ 
           <Stack
             spacing={2}
             direction={'column'}
             alignItems={'center'}
-            sx={{ padding: 4 }}
+            sx={{ padding: 1 }}
           >
+
+            <img className='Icono-main' src={iconoOso} />
+            <Typography sx={{ fontSize: '1.8rem', color: '#d84707', fontWeight: 3 }} >Bienvenido, Andrew921as</Typography>
+
             <StyledAcordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
               <AccordionSummary aria-controls="panel1d-content" id="panel1d-header" expandIcon={<ExpandMoreIcon />}>
                 <PersonIcon sx={{ fontSize: '2.7rem' }} />
