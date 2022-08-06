@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Container, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Button, Container, Grid, Stack, TextField, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { useFormik } from 'formik';
@@ -28,6 +28,35 @@ export default function RegistrarVolun() {
   return (
     <div className='RegistrarUsuCont'>
       <MenuArriba />
+      <Box sx={{ 
+        width: {
+          xs: '100%',
+          sm: '100%',
+          md: '100%',
+          lg: '45%',
+          xl: '45%'
+        }, 
+        backgroundColor: 'rgba(226, 226, 226, 0.95)', 
+        paddingTop: 5, 
+        borderRadius: '15px', 
+        flexDirection: "column", 
+        alignContent: "right", 
+        marginTop: {
+          xs: 0,
+          sm: 0,
+          md: 0,
+          lg: 8,
+          xl: 8
+        },
+        marginLeft: {
+          xs: 0,
+          sm: 0,
+          md: 0,
+          lg: 15,
+          xl: 15
+        }
+
+        }}>
       <Stack spacing={8} justifyContent="center">
         <Typography alignSelf={'center'} variant='h1' color={'#ff5c0c'}>Registrar Voluntario</Typography>
         <form onSubmit={formik.handleSubmit}>
@@ -53,56 +82,59 @@ export default function RegistrarVolun() {
               <TextField fullWidth id="Telefono" label="Télefono" variant="filled" name='Telefono' value={formik.values.Telefono} onChange={formik.handleChange} />
             </Container>
           </Stack>
-          <Stack direction={'row'} spacing={4} justifyContent={'space-between'} sx={{ paddingTop: 5 }}>
+          <Stack direction={'row'} spacing={4} justifyContent={'space-between'} sx={{ paddingTop: 5, paddingBottom: 5}}>
             <Container>
               <Button
-                variant="text"
-                size='large'
+                variant="outlined"
+                size='medium'
                 fullWidth
                 onClick={() => { navigate('/') }}
+                sx={{border: '3px solid #881600', borderRadius: 10, ':hover':{border: '3px solid #881600'}}}
               >
                 <Typography
                   sx={{
                     fontSize: {
-                      xs: 30,
-                      sm: 30,
-                      md: 50,
-                      lg: 50,
-                      xl: 50
+                      xs: 20,
+                      sm: 20,
+                      md: 30,
+                      lg: 30,
+                      xl: 30
                     }
                   }}
                   color={'#ff5c0c'}
                 >
-                  Salir
+                  Cancelar
                 </Typography>
               </Button>
             </Container>
             <Container>
               <Button
-                variant="text"
-                size='large'
+                variant="outlined"
+                size='medium'
                 fullWidth
                 type='submit'
+                sx={{border: '3px solid #881600', borderRadius: 10, ':hover':{border: '3px solid #881600'}}}
               >
                 <Typography
                   sx={{
                     fontSize: {
-                      xs: 30,
-                      sm: 30,
-                      md: 50,
-                      lg: 50,
-                      xl: 50
+                      xs: 20,
+                      sm: 20,
+                      md: 30,
+                      lg: 30,
+                      xl: 30
                     }
                   }}
                   color={'#ff5c0c'}
                 >
-                  Enviar
+                  Guardar
                 </Typography>
               </Button>
             </Container>
           </Stack>
         </form>
       </Stack>
+      </Box>
       <br />
       <br />
       <br />

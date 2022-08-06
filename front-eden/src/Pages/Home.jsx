@@ -12,7 +12,7 @@ import {
   styled,
   IconButton,
   useMediaQuery,
-  Box,
+  Box
 } from '@mui/material';
 
 import PersonIcon from '@mui/icons-material/Person';
@@ -25,7 +25,6 @@ import { useNavigate } from 'react-router-dom';
 import iconoOso from '../Images/IconoOso.png'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import MenuArriba from '../Components/MenuArriba';
-import theme from '../Theme';
 
 
 const StyledAcordion = styled(Accordion)(({ theme }) => ({
@@ -43,6 +42,15 @@ const StyledAcordion = styled(Accordion)(({ theme }) => ({
 
 }));
 
+const StyledBox = styled(Box)(({ theme }) => ({
+
+  width: '45%',
+  [theme.breakpoints.down('md')]: {
+    width: '100%'
+  },
+
+}));
+
 function Home() {
   const navigate = useNavigate();
   const theme = useTheme();
@@ -55,16 +63,24 @@ function Home() {
   
   return (
     <div className='Contenedor-principal'>
-        <div className='Contenedor-buttones'> 
-        <Box sx={{
-          width: '45%'
-
-        }}>
+          <Box
+          sx={{
+             width: {
+              xs: '100%',
+              sm: '100%',
+              md: '100%',
+              lg: '45%',
+              xl: '45%'
+            },
+             backgroundColor:'rgba(226, 226, 226, 0.8)',
+             height:'100%',
+          }}
+          >
           <Stack
             spacing={2}
             direction={'column'}
             alignItems={'center'}
-            sx={{ padding: 1 }}
+            sx={{ padding: 1, paddingTop:'20%'}}
           >
             <img className='Icono-main' src={iconoOso} />
             <Typography sx={{ fontSize: '1.8rem', color: '#d84707', fontWeight: 3 }} >Bienvenido, Andrew921as</Typography>
@@ -132,8 +148,7 @@ function Home() {
             </StyledAcordion>
             <IconButton  sx={{ gap: 2, borderRadius: 0, color: '#d84707' }}><ArrowBackIcon />Sign off</IconButton>
           </Stack>
-        </Box>
-        </div>
+          </Box> 
     </div>
   )
 }

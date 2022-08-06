@@ -6,4 +6,8 @@
   height: 100vh;
 }
 
-
+@media (max-width: 540px) {
+  .RegistrarUsuCont{
+    background: #E8F1F2;
+  }
+}

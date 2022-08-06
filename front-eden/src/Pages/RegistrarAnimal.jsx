@@ -1,5 +1,5 @@
 import { React, useState } from 'react'
-import { Button, Container, Grid, Stack, TextField, Typography } from '@mui/material';
+import { Button, Container, Grid, Stack, TextField, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { KeyboardDatePicker } from '@material-ui/pickers'
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -49,7 +49,41 @@ export default function RegistarAnimal() {
   return (
     <div className='RegistrarUsuCont'>
       <MenuArriba />
-      <Stack spacing={8} justifyContent="center">
+      <Box sx={{ 
+        width: {
+          xs: '100%',
+          sm: '100%',
+          md: '100%',
+          lg: '45%',
+          xl: '45%'
+        }, 
+        backgroundColor: 'rgba(226, 226, 226, 0.95)', 
+        paddingTop: 5, 
+        borderRadius: '15px', 
+        flexDirection: "column", 
+        alignContent: "right", 
+        marginTop: {
+          xs: 0,
+          sm: 0,
+          md: 0,
+          lg: 8,
+          xl: 8
+        },
+        marginLeft: {
+          xs: 0,
+          sm: 0,
+          md: 0,
+          lg: 15,
+          xl: 15
+        }
+
+        }}>
+      <Stack
+      spacing={8} 
+      justifyContent="center" 
+      direction={'column'}
+      alignItems={'center'}
+      sx={{paddingBottom:4, paddingTop:3}}>
         <Typography alignSelf={'center'} variant='h1' color={'#ff5c0c'}>Registrar Animal</Typography>
         <form onSubmit={formik.handleSubmit}>
           <Grid container rowSpacing={6}>
@@ -127,22 +161,23 @@ export default function RegistarAnimal() {
           <Stack direction={'row'} spacing={4} justifyContent={'space-between'} sx={{ paddingTop: 7 }}>
             <Container>
               <Button
-                variant="text"
-                size='large'
-                fullWidth
-                onClick={() => { navigate('/') }}
-              >
+                    variant="outlined"
+                    size='medium'
+                    fullWidth
+                    onClick={() => { navigate('/') }}
+                    sx={{border: '3px solid #881600', borderRadius: 10, ':hover':{border: '3px solid #881600'}}}
+                >
                 <Typography
                   sx={{
                     fontSize: {
-                      xs: 30,
-                      sm: 30,
-                      md: 50,
-                      lg: 50,
-                      xl: 50
+                      xs: 20,
+                      sm: 20,
+                      md: 30,
+                      lg: 30,
+                      xl: 30
                     }
                   }}
-                  color={'#ff5c0c'}
+                  color={'#881600'}
                 >
                   Salir
                 </Typography>
@@ -150,22 +185,23 @@ export default function RegistarAnimal() {
             </Container>
             <Container>
               <Button
-                variant="text"
-                size='large'
+                sx={{border:'3px solid #881600', borderRadius: 10, ':hover':{border: '3px solid #881600'}}}
+                variant="outlined"
+                size='medium'
                 fullWidth
                 type='submit'
               >
                 <Typography
                   sx={{
                     fontSize: {
-                      xs: 30,
-                      sm: 30,
-                      md: 50,
-                      lg: 50,
-                      xl: 50
+                      xs: 20,
+                      sm: 20,
+                      md: 30,
+                      lg: 30,
+                      xl: 30
                     }
                   }}
-                  color={'#ff5c0c'}
+                  color={'#881600'}
                 >
                   Registrar
                 </Typography>
@@ -174,6 +210,7 @@ export default function RegistarAnimal() {
           </Stack>
         </form>
       </Stack>
+      </Box>
       <br />
       <br />
       <br />
