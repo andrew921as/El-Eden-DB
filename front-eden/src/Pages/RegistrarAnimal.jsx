@@ -100,7 +100,7 @@ export default function RegistarAnimal() {
           direction={'column'}
           alignItems={'center'}
           sx={{ paddingBottom: 4, paddingTop: 3 }}>
-          <Typography alignSelf={'center'} variant='h1' color={'#ff5c0c'}>Registrar Animal</Typography>
+          <Typography alignSelf={'center'} variant='h1' color={'#881600'}>Registrar nuevo animal</Typography>
           <form onSubmit={formik.handleSubmit}>
             <Grid container rowSpacing={6}>
               <Grid item xs={12} md={4}>

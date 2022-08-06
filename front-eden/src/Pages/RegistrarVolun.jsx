@@ -60,7 +60,7 @@ export default function RegistrarVolun() {
         <Stack spacing={8}
           justifyContent="center"
           >
-          <Typography alignSelf={'center'} variant='h1' color={'#ff5c0c'}>Registrar Voluntario</Typography>
+          <Typography alignSelf={'center'} variant='h1' color={'#881600'}>Registrar Voluntario</Typography>
           <form onSubmit={formik.handleSubmit}>
             <Stack
               spacing={6}
@@ -103,7 +103,7 @@ export default function RegistrarVolun() {
                         xl: 30
                       }
                     }}
-                    color={'#ff5c0c'}
+                    color={'#881600'}
                   >
                     Cancelar
                   </Typography>
@@ -127,7 +127,7 @@ export default function RegistrarVolun() {
                         xl: 30
                       }
                     }}
-                    color={'#ff5c0c'}
+                    color={'#881600'}
                   >
                     Guardar
                   </Typography>
