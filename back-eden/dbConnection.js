@@ -1,9 +1,9 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
-    user: 'Andres',
+    user: 'postgres',
     host: 'localhost',
     database: 'Eden2',
-    password: 'Contralacena2014',
+    password: 'pg123',
     port: 5432,
 });
 
@@ -20,12 +20,52 @@ const getAnimales = () => {
 const createAnimal = (body) => {
     return new Promise(function (resolve, reject) {
         const { id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida } = body
-        pool.query('INSERT INTO animales (id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *; INSERT INTO tiempo_estancia_animal (id_animal, fecha_ingreso, fecha_salida, tiempo_estancia) VALUES ($1, $9, $10, 5000) RETURNING *; INSERT INTO fecha_salida_animal (id_animal, estado, fecha_salida) VALUES ($1, $8, $10) RETURNING *;', [id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida], (error, results) => {
-            if (error) {
-                reject(error)
+        let tiempo_estancia = 0;
+        const tiempo_estancia_func = (fecha_ingreso, fecha_salida) => {
+            let indexIngreso = 0;
+            let indexSalida = 0;
+            let counter = 0;
+            for (let i = 0; i < fecha_ingreso.length; i++) {
+                if (fecha_ingreso[i] === "-") {
+                    counter++;
+                }
+                if (counter == 2) {
+                    indexIngreso = i;
+                    counter = 0;
+                    break;
+                }
             }
-            resolve(`A new merchant has been added added: ${results.rows[0]}`)
-        })
+            for (let i = 0; i < fecha_salida.length; i++) {
+                if (fecha_salida[i] == "-") {
+                    counter++;
+                }
+                if (counter == 2) {
+                    indexSalida = i;
+                    break;
+                }
+            }
+            indexSalida = parseInt(fecha_salida.slice(indexSalida + 1, indexSalida + 3))
+            indexIngreso = parseInt(fecha_ingreso.slice(indexIngreso + 1, indexIngreso + 3))
+            tiempo_estancia = indexSalida - indexIngreso
+        }
+        if (!fecha_salida) {
+            pool.query('INSERT INTO datos_animal (id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida, tiempo_estancia) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NULL, NULL) RETURNING *;', [id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso], (error, results) => {
+                if (error) {
+                    reject(error)
+                }
+                resolve(`A new animal has been added added: ${nombre_animal}`)
+            })
+        }
+        else {
+            tiempo_estancia_func(fecha_ingreso, fecha_salida)
+            pool.query('INSERT INTO datos_animal (id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida, tiempo_estancia) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *;', [id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida, tiempo_estancia], (error, results) => {
+                if (error) {
+                    reject(error)
+                }
+                resolve(`A new animal has been added added: ${nombre_animal}`)
+            })
+        }
+        
     })
 }
 const deleteAnimal = (id) => {
