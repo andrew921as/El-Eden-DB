@@ -24,7 +24,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useNavigate } from 'react-router-dom';
 import iconoOso from '../Images/IconoOso.png'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import MenuArriba from '../Components/MenuArriba';
+
+import { user } from '../Functions/SqlFunctions';
 
 
 const StyledAcordion = styled(Accordion)(({ theme }) => ({
@@ -83,7 +84,7 @@ function Home() {
             sx={{ padding: 1, paddingTop:'20%'}}
           >
             <img className='Icono-main' src={iconoOso} />
-            <Typography sx={{ fontSize: '1.8rem', color: '#d84707', fontWeight: 3 }} >Bienvenido, Andrew921as</Typography>
+            <Typography sx={{ fontSize: '1.8rem', color: '#d84707', fontWeight: 3 }} >{"Bienvenido, "+user}</Typography>
 
             <StyledAcordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
               <AccordionSummary aria-controls="panel1d-content" id="panel1d-header" expandIcon={<ExpandMoreIcon />}>

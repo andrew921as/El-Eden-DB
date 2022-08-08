@@ -1,3 +1,7 @@
+
+const user = "Carlos es gay"
+
+
 //Obtener lista de animales
 function getAnimales() {
   fetch('http://localhost:3001')
@@ -20,17 +24,6 @@ function createAnimal(
   estado,
   fecha_ingreso,
   fecha_salida) {
- /* 
-  let id_animal = prompt('Ingresar codigo identificador')
-  let nombre_animal = prompt('Ingresar nombre')
-  let talla = prompt('Ingresar talla')
-  let edad = prompt('Ingresar edad')
-  let tipo = prompt('Ingresar tipo')
-  let motivo_ingreso = prompt('Ingresar motivo de ingreso')
-  let observaciones = prompt('Ingresar observaciones')
-  let estado = prompt('Ingresar estado')
-  let fecha_ingreso = prompt('Ingresar fecha de ingreso')
-   */
   fetch(`http://localhost:3001/animales`, {
       method: 'POST',
       headers: {
@@ -67,5 +60,6 @@ export {
   getAnimales,
   createAnimal,
   deleteAnimal,
+  user,
 
 }

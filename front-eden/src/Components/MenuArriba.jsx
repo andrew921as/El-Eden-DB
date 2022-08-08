@@ -21,8 +21,11 @@ import IconoSinTitulo from '../Images/IconoSinTitulo.png'
 import { Link as RouterLink } from 'react-router-dom'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import LogoutIcon from '@mui/icons-material/Logout';
+
+import {user} from '../Functions/SqlFunctions'
+
 import "../styles/Menu.css"
-import theme from '../Theme';
+
 
 const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
   backgroundColor: '#EAE0D5',
@@ -130,7 +133,7 @@ function MenuArriba() {
                   sx={{ color: '#FE6A16', fontSize: '20px' }}
                   endIcon={<KeyboardArrowDownIcon />}
                 >
-                  Andrew921as
+                  {user}
                 </Button>
                 <Menu
                   id="basic-menu"
