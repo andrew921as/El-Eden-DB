@@ -5,6 +5,7 @@ import RegistarUser from "./Pages/RegistarUser";
 import RegistrarAnimal from "./Pages/RegistrarAnimal";
 import BuscarAnimal from "./Pages/BuscarAnimal";
 import RegistrarVolun from "./Pages/RegistrarVolun";
+import RegistrarPago from "./Pages/RegistrarPago";
 
 export default function Routes() {
   return useRoutes([
@@ -13,6 +14,7 @@ export default function Routes() {
     { path:'/Registro-Animal', element:<RegistrarAnimal/> },
     { path:'/Buscar-Animal', element:<BuscarAnimal/> },
     { path:'/Registro-Voluntario', element:<RegistrarVolun/> },
+    { path:'/Registro-Pago', element:<RegistrarPago/> },
     {path:'*', element:<NotFound/>}
   ])
 }

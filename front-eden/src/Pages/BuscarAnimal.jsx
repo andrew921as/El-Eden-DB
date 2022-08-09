@@ -8,10 +8,9 @@ import {
   FormControl,
   Select,
   styled,
-  ThemeProvider,
 } from '@mui/material';
-import theme from '../Theme';
 import DataTable from '../Components/DataTableAnimales';
+
 import '../styles/BuscarAnimal.css';
 
 const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
@@ -35,13 +34,16 @@ export default function BuscarAnimal() {
   }
 
   return (
-    <div>
+    <div className='FullCont'>
       <MenuArriba />
-      <ThemeProvider theme={theme}>
         <div className='contenedor-buscar-animal'>
           <div className='buscar-contenedor'>
-            <Stack direction='row' spacing={2}>
-              <FormControl variant="filled" sx={{ minWidth: 400 }}>
+            <Stack 
+            direction='row' 
+            spacing={2}
+            
+            >
+              <FormControl variant="filled" sx={{ minWidth: 400, backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
                 <InputLabel id="demo-simple-select-filled-label">Tipo de busqueda</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
@@ -49,22 +51,20 @@ export default function BuscarAnimal() {
                   value={Tipo}
                   label="Age"
                   onChange={handleChange}
-                  sx={{ width: '70rem'}}
+                  sx={{ width: '70rem', backgroundColor: 'rgba(226, 226, 226, 0.95)', ":hover":{backgroundColor: 'rgba(226, 226, 226, 0.95)'}}}
                 >
                   <StyledMenuItem value={10}>Identificador</StyledMenuItem>
                   <StyledMenuItem value={20}>Nombre</StyledMenuItem>
-                  <StyledMenuItem value={30}>Fecha Ingreso</StyledMenuItem>
-                  <StyledMenuItem value={40}>Fecha  Salida</StyledMenuItem>
+
                 </Select>
               </FormControl>
-              <TextField id="outlined-basic" variant="filled" label="Busqueda..." />
+              <TextField id="outlined-basic" variant="filled" label="Busqueda..." sx={{backgroundColor: 'rgba(226, 226, 226, 0.95)'}}/>
             </Stack>
           </div>
           <div className='tabla-container'>
             <DataTable />
           </div>
         </div>
-      </ThemeProvider>
     </div>
   )
 }

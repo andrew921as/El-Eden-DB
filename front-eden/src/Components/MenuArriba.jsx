@@ -155,7 +155,7 @@ function MenuArriba() {
 
                   <StyledMenuItem onClick={handleClose}>
                     <LogoutIcon />
-                    Log Out
+                    Cerrar sesion
                   </StyledMenuItem>
                 </Menu>
               </Box>
