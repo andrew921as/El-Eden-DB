@@ -40,17 +40,17 @@ function Login() {
         }}>
 
         <Stack
-          spacing={match ? 10 : 5}
+          spacing={match ? 8.3 : 5}
           justifyContent="center"
           direction={'column'}
           alignItems={'center'}
         >
-          <Box>
-            <img className='Icono-main' src={iconoOso} />
-          </Box>
-          <Box sx={{display: 'flex', gap: 2}}>
-          <ForestIcon fontSize="large" />
-            <Typography variant="h1" sx={{ fontWeight: 3 }}>User Login</Typography>
+            <img className='Icono-main' src={iconoOso} height='100'/>
+          <Box sx={{display: 'flex', gap: 1, flexDirection: 'row', justifyContent: 'center'}}>
+            <Box sx={match? {padding: 1}: ''}>
+            <ForestIcon fontSize="large"/>
+            </Box>
+            <Typography variant="h1" sx= { match ?{ fontWeight: 3 , fontSize: '3rem'}:{ fontWeight: 3} }>Login</Typography>
           </Box>
           <Box sx={{ width: '80%', display: 'flex' }}>
             <TextField
