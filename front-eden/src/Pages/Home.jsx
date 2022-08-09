@@ -147,7 +147,9 @@ function Home() {
 
               </AccordionDetails>
             </StyledAcordion>
-            <IconButton  sx={{ gap: 2, borderRadius: 0, color: '#d84707' }}><ArrowBackIcon />Cerrar sesión</IconButton>
+
+            <IconButton  sx={{ gap: 2, borderRadius: 0, color: '#d84707' }} onClick={() => navigate('/Login')}><ArrowBackIcon />Sign off</IconButton>
+
           </Stack>
           </Box> 
     </div>
