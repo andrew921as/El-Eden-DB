@@ -32,6 +32,26 @@ app.post('/animales', (req, res) => {
         })
 })
 
+app.post('/patrocinadores', (req, res) => {
+    dbConnection.createPatrocinador(req.body)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        })
+})
+
+app.post('/voluntarios', (req, res) => {
+    dbConnection.createVoluntario(req.body)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        })
+})
+
 app.delete('/animales/:id', (req, res) => {
     dbConnection.deleteAnimal(req.params.id)
         .then(response => {

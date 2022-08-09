@@ -6,6 +6,8 @@ import { useFormik } from 'formik';
 
 import MenuArriba from '../Components/MenuArriba';
 
+import { createVoluntario } from '../Functions/SqlFunctions';
+
 import '../styles/RegistrarUsu.css';
 
 
@@ -19,10 +21,24 @@ export default function RegistrarVolun() {
       Cedula: '',
       Cargo: '',
       Telefono: '',
+      UsserName: '',
+      Password:'',
+
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    }
+        let volunteerData = JSON.stringify(values, null, 2)
+        alert(volunteerData);
+        const nombre = JSON.parse(volunteerData).Nombre
+        const cedula = JSON.parse(volunteerData).Cedula
+        const cargo = JSON.parse(volunteerData).Cargo
+        const telefono = JSON.parse(volunteerData).Telefono
+        const usuario = JSON.parse(volunteerData).UsserName
+        const contrasena = JSON.parse(volunteerData).Password
+
+        /* createAnimal('008', nombre, talla, edad, tipo, motivoIngreso, observaciones, estado, fechaI, fechaS);*/
+        createVoluntario(nombre,cedula,cargo,telefono,usuario,contrasena);
+          //createPatrocinador('59485217', 'Carlos', 'Carloscaceres', 'carlitos@carlitos.com','3156421563', 'larga', 'primer', '56-56','albergue');
+       }
   });
 
   return (
@@ -57,7 +73,7 @@ export default function RegistrarVolun() {
         }
 
       }}>
-        <Stack spacing={8}
+        <Stack spacing={4}
           justifyContent="center"
           >
           <Typography alignSelf={'center'} variant='h1' color={'#881600'}>Registrar Voluntario</Typography>
@@ -83,6 +99,14 @@ export default function RegistrarVolun() {
               <Container>
                 <TextField fullWidth id="Telefono" label="Télefono" variant="filled" name='Telefono' value={formik.values.Telefono} onChange={formik.handleChange} />
               </Container>
+
+              <Stack spacing={4}
+              direction='row'
+              justifyContent="center"
+              >
+                <TextField fullWidth id="UsserName" label="Nombre de usuario" variant="filled" name='UsserName' value={formik.values.UsserName} onChange={formik.handleChange} />
+                <TextField fullWidth id="Password" label="Contraseña" type="password" variant="filled" name='Password' value={formik.values.Password} onChange={formik.handleChange} />
+              </Stack>
             </Stack>
             <Stack direction={'row'} spacing={4} justifyContent={'space-between'} sx={{ paddingTop: 5, paddingBottom: 5 }}>
               <Container>

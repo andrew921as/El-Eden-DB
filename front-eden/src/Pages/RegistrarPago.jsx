@@ -13,8 +13,10 @@ import { clientId, clientName, getClientDataP } from '../Functions/UtilityF';
 
 export default function RegistrarPago() {
 
-	const [isDonor, setIsDonor]=useState(false);
-	const [selectorC, setSelectorC]=useState("");
+	const [noDonor, setNoDonor]=useState(true);
+	const [namepage, setNamePage]=useState("");
+
+
 
 
 	useEffect(() => {
@@ -22,8 +24,7 @@ export default function RegistrarPago() {
 			await getClientDataP({ id: "1234", name: "Julio" });
 		}
 		traemeDatos();
-		console.log(isDonor);
-		console.log(selectorC);
+		console.log(noDonor);
 	});
 
 
@@ -31,8 +32,8 @@ export default function RegistrarPago() {
 
 	const formik = useFormik({
 		initialValues: {
-			ClienteId: '',
-			Nombre: '',
+			ClienteId: clientId,
+			Nombre: clientName,
 			MotivoP: '',
 			Direccion: '',
 			Telefono: '',
@@ -85,7 +86,7 @@ export default function RegistrarPago() {
 						sx={{ paddingBottom: 4, paddingTop: 3 }}
 					>
 
-						<Typography alignSelf={'center'} variant='h1' color={'#881600'}>Pago</Typography>
+						<Typography alignSelf={'center'} variant='h1' color={'#881600'}>{"Pago "+namepage}</Typography>
 
 						<form onSubmit={formik.handleSubmit}>
 							<Grid container rowSpacing={6}>
@@ -99,24 +100,64 @@ export default function RegistrarPago() {
 										<TextField fullWidth id="Apellido" label="Nombre Cliente" variant="filled" name='Apellido' value={clientName} onChange={formik.handleChange} />
 									</Container>
 								</Grid>
-								<Grid item xs={11} md={6}>
+								<Grid item xs={4} md={2}>
 									<Container>
-										<FormControl fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
-											<InputLabel id="demo-simple-select-filled-label">Motivo Pago</InputLabel>
-											<Select
-												labelId="MotivoP"
-												id="MotivoP"
-												name='MotivoP'
-												value={selectorC}
-												label="Motivo Pago"
-												onChange={(value)=>{ setSelectorC(value)}}
-											>
-												<MenuItem sx={{ borderRadius: 0 }} value={"Albergue"}>Albergue</MenuItem>
-												<MenuItem sx={{ borderRadius: 0 }} value={"Apadrinamiento"}>Apadrinamiento</MenuItem>
-												<MenuItem sx={{ borderRadius: 0 }} value={"Donacion"}>Donacion</MenuItem>
+									<Button
+										variant="outlined"
+										size='small'
+										onClick={() => {setNamePage("Apadrinamiento"); setNoDonor(true); }}
+										sx={{ border: '3px solid #881600', borderRadius: 15, ':hover': { border: '3px solid #881600' } }}
 
-											</Select>
-										</FormControl>
+									>
+										<Typography
+											sx={{
+												fontSize: 20
+											}}
+											color={'#881600'}
+										>
+											Ap
+										</Typography>
+									</Button>
+									</Container>
+								</Grid>
+								<Grid item xs={4} md={2}>
+									<Container>
+									<Button
+										variant="outlined"
+										size='small'
+										onClick={() => {setNamePage("Albergue"); setNoDonor(true);  }}
+										sx={{ border: '3px solid #881600', borderRadius: 15, ':hover': { border: '3px solid #881600' } }}
+
+									>
+										<Typography
+											sx={{
+												fontSize: 20
+											}}
+											color={'#881600'}
+										>
+											Al
+										</Typography>
+									</Button>
+									</Container>
+								</Grid>
+								<Grid item xs={4} md={2}>
+									<Container>
+									<Button
+										variant="outlined"
+										size='small'
+										onClick={() => {setNamePage("Donador"); setNoDonor(false) }}
+										sx={{ border: '3px solid #881600', borderRadius: 15, ':hover': { border: '3px solid #881600' } }}
+
+									>
+										<Typography
+											sx={{
+												fontSize: 20
+											}}
+											color={'#881600'}
+										>
+											Do
+										</Typography>
+									</Button>
 									</Container>
 								</Grid>
 								<Grid item xs={11} md={6}>
@@ -140,7 +181,10 @@ export default function RegistrarPago() {
 									</Button>
 									</Container>
 								</Grid>
-								<Grid item xs={11} md={4}>
+							</Grid>	
+								{noDonor ? 
+							<Grid container rowSpacing={2} sx={{ paddingTop: 3}}>
+								<Grid item xs={11} md={4} >
 									<Container>
 										<TextField fullWidth id="Telefono" label="Id Animal" variant="filled" name='Telefono' value={formik.values.Telefono} onChange={formik.handleChange} />
 									</Container>
@@ -180,13 +224,22 @@ export default function RegistrarPago() {
 										</Typography>
 									</Button>
 									</Container>
-								</Grid>
+							  </Grid>
 								<Grid item xs={7} md={8}>
 									<Container>
 										<TextField fullWidth id="Cedula" label="Valor a pagar" variant="filled" name='Cedula' value={formik.values.Cedula} onChange={formik.handleChange} />
 									</Container>
 								</Grid>
-							</Grid>
+							</Grid>	
+								:  
+							  <Box sx={{paddingTop:3}}>
+									<Container>
+									 <TextField fullWidth id="ValorPago" label="Valor a pagar" variant="filled" name='ValorPago'/>
+									</Container>
+								</Box>
+								}								
+									
+						  
 							<Stack direction={'row'} spacing={2} justifyContent={'space-between'} sx={{ paddingTop: 5 }}>
 								<Container>
 									<Button
@@ -246,3 +299,24 @@ export default function RegistrarPago() {
 		</div>
 	)
 }
+/**
+ * <Container>
+										<FormControl fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
+											<InputLabel id="demo-simple-select-filled-label">Motivo Pago</InputLabel>
+											<Select
+												labelId="MotivoP"
+												id="MotivoP"
+												name='MotivoP'
+												value={formik.values.MotivoP}
+												label="Motivo Pago"
+												onChange={formik.handleChange}
+											>
+												<MenuItem sx={{ borderRadius: 0 }} value={"Albergue"}>Albergue</MenuItem>
+												<MenuItem sx={{ borderRadius: 0 }} value={"Apadrinamiento"}>Apadrinamiento</MenuItem>
+												<MenuItem sx={{ borderRadius: 0 }} value={"Donacion"}>Donacion</MenuItem>
+
+											</Select>
+										</FormControl>
+									</Container>
+ * 
+ */

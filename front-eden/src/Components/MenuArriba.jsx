@@ -46,7 +46,6 @@ function MenuArriba() {
   const [isOpen, setIsOpen] = useState(false)
   const theme = useTheme();
   const match = useMediaQuery(theme.breakpoints.down('md'));
-  console.log(match);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {

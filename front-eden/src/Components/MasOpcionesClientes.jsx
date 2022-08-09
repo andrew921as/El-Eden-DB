@@ -6,8 +6,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
-
 import {
     IconButton,
     Tooltip,
@@ -15,7 +13,8 @@ import {
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../styles/MasOpciones.css';
 import ClearIcon from '@mui/icons-material/Clear';
-export default function MasOpcionesBoton() {
+
+export default function MasOpcionesBotonCliente() {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -25,10 +24,6 @@ export default function MasOpcionesBoton() {
     const handleClose = () => {
         setOpen(false);
     };
-
-    // const handleSelection = (data) => {
-    //     nombre = data.Id;
-    // };
 
     return (
         <div>
@@ -49,11 +44,10 @@ export default function MasOpcionesBoton() {
                     <TextField margin="dense" id="name" label="Nombre" fullWidth variant="standard" />
                     <TextField margin="dense" id="name" label="Nombre" fullWidth variant="standard" />
                     <TextField margin="dense" id="name" label="Nombre" fullWidth variant="standard" />
-                </DialogContent>    
+                </DialogContent>
                 <DialogActions sx={{ backgroundColor: '#EAE0D5', justifyContent: "space-between" }}>
                 <Button variant="contained" onClick={handleClose} endIcon={<DeleteIcon />} >Eliminar Registro</Button>
-                <Button variant="contained" onClick={handleClose} endIcon={<SaveAsIcon />} >Guardar</Button>
-                <Button variant="contained"  endIcon={<HowToRegIcon />} >Seleccionar</Button>
+                    <Button variant="contained" onClick={handleClose} endIcon={<SaveAsIcon />} >Guardar</Button>
                 </DialogActions>
             </Dialog>
         </div>

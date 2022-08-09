@@ -96,7 +96,9 @@ function Home() {
                 <MenuItem onClick={() => navigate('/Registro-Usuario')}>
                   <ChevronRightIcon fontSize='1.5rem' />Registrar nuevo cliente
                 </MenuItem>
-                <MenuItem ><ChevronRightIcon fontSize='1.5rem' />Buscar cliente</MenuItem>
+                <MenuItem onClick={() => navigate('/Buscar-Cliente')}>
+                  <ChevronRightIcon fontSize='1.5rem' />Buscar cliente
+                </MenuItem>
 
               </AccordionDetails>
             </StyledAcordion>

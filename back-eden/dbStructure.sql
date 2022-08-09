@@ -52,6 +52,9 @@ Numero_casa varchar(10) NULL,
 Telefono char(10) NULL,
 CONSTRAINT PK_PATROCINADOR PRIMARY KEY ( Cedula));
 
+
+
+
 CREATE TABLE CLIENTE(
 Cedula varchar(11) NOT NULL,
 CONSTRAINT PK_CLIENTE PRIMARY KEY ( Cedula));
@@ -93,74 +96,98 @@ CREATE TABLE datos_animal (
 CONSTRAINT PK_DATOS_ANIMAL PRIMARY KEY (id_animal)
 );
 
+CREATE TABLE datos_patrocinador (
+    cedula varchar(11) NOT NULL,
+    nombre varchar(15) NOT NULL,
+    apellido varchar(15) NULL,
+    correo varchar(40) NULL,
+    telefono varchar(20) NULL,
+    tipo_via varchar(15) NULL,
+    numero_calle varchar(7) NULL,
+    numero_casa varchar(10) NULL,
+    tipo varchar(20) NULL,
+CONSTRAINT PK_DATOS_PATROCINADOR PRIMARY KEY (cedula)
+);
+
+CREATE TABLE datos_voluntario (
+    nombre varchar(30) NOT NULL,
+    cedula varchar(11) NOT NULL,
+    cargo varchar(50) NULL,
+    telefono varchar(15) NULL,
+    username varchar(20) NULL,
+    password varchar(20) NULL,
+CONSTRAINT PK_DATOS_VOLUNTARIO PRIMARY KEY (cedula)
+);
+--** No se si hay que referenciar que la llave foránea se hereda desde LA otra relación muchos a muchos que hay antes o se hereda desde la llave primaria de la tabla grande como pasa con Patrocinadores que su llave primaria es cedula pero la hereda en todo lado.
+
+--***Yo estoy haciendo las restricciones de llave justo como en el MR, que una llave foránea use de referencia a otra llave foránea y así, postgresql no debería tener problemas con eso
+
 -- Constraints --
 
 ALTER TABLE DONADOR
 ADD CONSTRAINT FK_DONADOR_PATROCINADOR FOREIGN KEY(Cedula)
 REFERENCES PATROCINADOR(Cedula)
-on delete restrict on update restrict;
+on delete cascade on update cascade;
 
 ALTER TABLE D_PAGAN_A
 ADD CONSTRAINT FK_D_PAGAN_A_DONADOR FOREIGN KEY(Cedula)
 REFERENCES DONADOR(Cedula)
-on delete restrict on update restrict;
+on delete cascade on update cascade;
 
 ALTER TABLE D_PAGAN_A
 ADD CONSTRAINT FK_D_PAGAN_A_VOLUNTARIOS FOREIGN KEY(Id_voluntario)
 REFERENCES VOLUNTARIOS(Id_voluntario)
-on delete restrict on update restrict;
+on delete cascade on update cascade;
 
 ALTER TABLE USUARIOS
 ADD CONSTRAINT FK_USUARIOS_VOLUNTARIOS FOREIGN KEY(Id_voluntario)
 REFERENCES VOLUNTARIOS(Id_voluntario)
-on delete restrict on update restrict;
+on delete cascade on update cascade;
 
 ALTER TABLE CLIENTE
 ADD CONSTRAINT FK_CLIENTE_PATROCINADOR FOREIGN KEY(Cedula)
 REFERENCES PATROCINADOR(Cedula)
-on delete restrict on update restrict;
+on delete cascade on update cascade;
 
 ALTER TABLE TIPO_CLIENTE
 ADD CONSTRAINT FK_TIPO_CLIENTE_CLIENTE FOREIGN KEY(Cedula)
 REFERENCES CLIENTE(Cedula)
-on delete restrict on update restrict;
+on delete cascade on update cascade;
 
 ALTER TABLE C_PAGAN_POR
 ADD CONSTRAINT FK_C_PAGAN_POR_CLIENTE FOREIGN KEY(Cedula)
 REFERENCES CLIENTE(Cedula)
-on delete restrict on update restrict;
+on delete cascade on update cascade;
 
 ALTER TABLE C_PAGAN_POR
 ADD CONSTRAINT FK_C_PAGAN_POR_ANIMALES FOREIGN KEY(Id_animal)
 REFERENCES ANIMALES(Id_animal)
-on delete restrict on update restrict;
+on delete cascade on update cascade;
 
 ALTER TABLE C_PAGAN_POR
 ADD CONSTRAINT FK_C_PAGAN_POR_VOLUNTARIOS FOREIGN KEY(Id_voluntario)
 REFERENCES VOLUNTARIOS(Id_voluntario)
-on delete restrict on update restrict;
+on delete cascade on update cascade;
 
 ALTER TABLE CUIDAN
 ADD CONSTRAINT FK_CUIDAN_VOLUNTARIOS FOREIGN KEY(Id_voluntario)
 REFERENCES VOLUNTARIOS(Id_voluntario)
-on delete restrict on update restrict;
+on delete cascade on update cascade;
 
 ALTER TABLE CUIDAN
 ADD CONSTRAINT FK_CUIDAN_ANIMALES FOREIGN KEY(Id_animal)
 REFERENCES ANIMALES(Id_animal)
-on delete restrict on update restrict;
+on delete cascade on update cascade;
 
 ALTER TABLE FECHA_SALIDA_ANIMAL
 ADD CONSTRAINT FK_FECHA_SALIDA_ANIMAL_ANIMALES FOREIGN KEY(Id_animal)
 REFERENCES ANIMALES(Id_animal)
-on delete restrict on update restrict;
+on delete cascade on update cascade;
 
 ALTER TABLE TIEMPO_ESTANCIA_ANIMAL
 ADD CONSTRAINT FK_TIEMPO_ESTANCIA_ANIMAL_ANIMALES FOREIGN KEY(Id_animal)
 REFERENCES ANIMALES(Id_animal)
-on delete restrict on update restrict;
-
-–Funciones–
+on delete cascade on update cascade;
 
 CREATE OR REPLACE FUNCTION f_crear_animal() RETURNS trigger AS
 $$
@@ -174,3 +201,45 @@ END
 $$ LANGUAGE plpgsql
 
 CREATE TRIGGER insertar_animal AFTER INSERT ON datos_animal FOR EACH ROW EXECUTE PROCEDURE f_crear_animal();
+
+drop function f_crear_animal cascade;
+delete from animales cascade;
+delete from datos_animal cascade;
+
+CREATE OR REPLACE FUNCTION f_crear_patrocinador() RETURNS trigger AS
+$$
+
+BEGIN
+    IF (new.tipo != 'donador') THEN
+        INSERT INTO patrocinador (cedula,nombre,apellido,correo,tipo_via,numero_calle,numero_casa,telefono) VALUES (new.cedula,new.nombre,new.apellido,new.correo,new.tipo_via,new.numero_calle,new.numero_casa,new.telefono);
+        INSERT INTO cliente(cedula) VALUES (new.cedula);
+        INSERT INTO tipo_cliente(cedula,tipo) VALUES (new.cedula,new.tipo);
+    ELSE 
+        INSERT INTO patrocinador (cedula,nombre,apellido,correo,tipo_via,numero_calle,numero_casa,telefono) VALUES (new.cedula,new.nombre,new.apellido,new.correo,new.tipo_via,new.numero_calle,new.numero_casa,new.telefono);
+        INSERT INTO donador(cedula) VALUES (new.cedula);
+    END IF;
+RETURN NULL;
+END
+$$ LANGUAGE plpgsql
+
+CREATE TRIGGER insertar_patrocinador AFTER INSERT ON datos_patrocinador FOR EACH ROW EXECUTE PROCEDURE f_crear_patrocinador();
+
+drop function f_crear_patrocinador cascade;
+delete from patrocinador cascade;
+delete from datos_patrocinador cascade;
+
+CREATE OR REPLACE FUNCTION f_crear_voluntario() RETURNS trigger AS
+$$
+
+BEGIN
+        INSERT INTO voluntarios (id_voluntario,cargo,nombre_voluntario,numero_telefono) VALUES (new.cedula,new.cargo,new.nombre,new.telefono);
+        INSERT INTO usuarios(user_name,password,id_voluntario) VALUES (new.username,new.password,new.cedula);
+RETURN NULL;
+END
+$$ LANGUAGE plpgsql
+
+CREATE TRIGGER insertar_voluntario AFTER INSERT ON datos_voluntario FOR EACH ROW EXECUTE PROCEDURE f_crear_voluntario();
+
+drop function f_crear_voluntario cascade;
+delete from patrocinador cascade;
+delete from datos_patrocinador cascade;

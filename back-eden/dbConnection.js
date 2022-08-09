@@ -62,12 +62,38 @@ const createAnimal = (body) => {
                 if (error) {
                     reject(error)
                 }
-                resolve(`A new animal has been added added: ${nombre_animal}`)
+                resolve(`A new animal has been added: ${nombre_animal}`)
             })
         }
         
     })
 }
+
+const createPatrocinador = (body) => {
+    return new Promise(function (resolve, reject) {
+        const { cedula, nombre, apellido, correo, telefono, tipo_via, numero_calle, numero_casa, tipo } = body
+        pool.query('INSERT INTO datos_patrocinador (cedula,nombre,apellido,correo,telefono,tipo_via,numero_calle,numero_casa,tipo) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *;', [cedula, nombre, apellido, correo, telefono, tipo_via, numero_calle, numero_casa, tipo], (error, results) => {
+        if (error) {
+            reject(error)
+        }
+        resolve(`A new patrocinador has been added: ${nombre}`)
+    })
+})
+}
+
+const createVoluntario = (body) => {
+    return new Promise(function (resolve, reject) {
+        const { nombre, cedula, cargo, telefono, usuario, contrasena } = body
+        pool.query('INSERT INTO datos_voluntario (nombre,cedula,cargo,telefono,username,password) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;', [nombre, cedula, cargo, telefono, usuario, contrasena], (error, results) => {
+            if (error) {
+                reject(error)
+            }
+            resolve(`A new patrocinador has been added: ${nombre}`)
+        })
+    })
+}
+
+
 const deleteAnimal = (id) => {
     return new Promise(function (resolve, reject) {
         //const id = parseInt(request.params.id)
@@ -83,5 +109,7 @@ const deleteAnimal = (id) => {
 module.exports = {
     getAnimales,
     createAnimal,
+    createPatrocinador,
+    createVoluntario,
     deleteAnimal,
 }

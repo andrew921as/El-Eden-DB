@@ -41,6 +41,64 @@ function createAnimal(
       });
 }
 
+function createPatrocinador(
+    cedula,
+    nombre,
+    apellido,
+    correo,
+    telefono,
+    tipo_via,
+    numero_calle,
+    numero_casa,
+    tipo
+    ) {
+    fetch(`http://localhost:3001/patrocinadores`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        //akki sepuede pone el console log creo
+        body: JSON.stringify({
+            cedula,
+            nombre,
+            apellido,
+            correo,
+            telefono,
+            tipo_via,
+            numero_calle,
+            numero_casa,
+            tipo }),
+    })
+        .then(response => {
+            return response.text();
+        })
+        .then(data => {
+            alert(data);
+            getAnimales();
+        });
+}
+
+function createVoluntario(nombre, cedula, cargo, telefono, usuario, contrasena) {
+    fetch(`http://localhost:3001/voluntarios`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        //akki sepuede pone el console log creo
+        
+        body: JSON.stringify({ nombre, cedula, cargo, telefono, usuario, contrasena}),
+    })
+        .then(response => {
+            
+            return response.text();
+        })
+        .then(data => {
+            alert(data);
+            getAnimales();
+        });
+}
+
+
 //Borrar un animal
 function deleteAnimal() {
   let id = prompt('Ingresar codigo animal a borrar');
@@ -59,6 +117,8 @@ function deleteAnimal() {
 export {
   getAnimales,
   createAnimal,
+  createPatrocinador,
+  createVoluntario,
   deleteAnimal,
   user,
 

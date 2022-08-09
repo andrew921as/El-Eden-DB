@@ -7,7 +7,7 @@ import BuscarAnimal from "./Pages/BuscarAnimal";
 import RegistrarVolun from "./Pages/RegistrarVolun";
 import Login from './Pages/Login';
 import RegistrarPago from "./Pages/RegistrarPago";
-
+import BuscarCliente from "./Pages/BuscarCliente"
 
 export default function Routes() {
   return useRoutes([
@@ -18,6 +18,7 @@ export default function Routes() {
     { path:'/Registro-Voluntario', element:<RegistrarVolun/> },
     { path:'/Login', element:<Login/> },
     { path:'/Registro-Pago', element:<RegistrarPago/> },
+    { path:'/Buscar-Cliente', element:<BuscarCliente/> },
 
     {path:'*', element:<NotFound/>}
   ])
