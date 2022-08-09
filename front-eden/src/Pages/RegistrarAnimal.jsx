@@ -1,5 +1,18 @@
 import { React, useState } from 'react'
-import { Button, Container, Grid, Stack, TextField, Typography, Box } from '@mui/material';
+import { 
+  Button, 
+  Container, 
+  Grid, 
+  Stack, 
+  TextField, 
+  Typography, 
+  Box,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+
+  } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -48,18 +61,6 @@ export default function RegistarAnimal() {
       // createAnimal('008', nombre, talla, edad, tipo, motivoIngreso, observaciones, estado, fechaI, fechaS);
     }
   });
-
-  const [valueI, setValueI] = useState(new Date('2014-08-18T21:11:54'));
-
-  const handleChangeI = (newValue) => {
-    setValueI(newValue);
-  };
-
-  const [valueS, setValueS] = useState(new Date('2014-08-18T21:11:54'));
-
-  const handleChangeS = (newValue) => {
-    setValueS(newValue);
-  };
 
 
   return (
@@ -169,7 +170,21 @@ export default function RegistarAnimal() {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Container>
-                  <TextField fullWidth id="MotivoI" label="Motivo Ingreso" variant="filled" name='MotivoI' value={formik.values.MotivoI} onChange={formik.handleChange} />
+                <FormControl fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
+                  <InputLabel id="demo-simple-select-filled-label">Motivo Ingreso</InputLabel>
+                  <Select
+                   labelId="MotivoI"
+                   id="MotivoI"
+                   name='MotivoI'
+                   value={formik.values.MotivoI}
+                    label="MotivoI"
+                    onChange={formik.handleChange}
+                  >
+                    <MenuItem sx={{ borderRadius: 0}} value={"Albergue"}>Albergue</MenuItem>
+                    <MenuItem sx={{ borderRadius: 0}} value={"Rescate"}>Rescate</MenuItem>
+
+                  </Select>
+                </FormControl>
                 </Container>
               </Grid>
               <Grid item xs={12} md={6}>
@@ -179,12 +194,41 @@ export default function RegistarAnimal() {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Container>
-                  <TextField fullWidth id="Talla" label="Talla" variant="filled" name='Talla' value={formik.values.Talla} onChange={formik.handleChange} />
+                <FormControl fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
+                  <InputLabel id="demo-simple-select-filled-label">Talla</InputLabel>
+                  <Select
+                   labelId="Talla"
+                   id="Talla"
+                   name='Talla'
+                   value={formik.values.Talla}
+                    label="Talla"
+                    onChange={formik.handleChange}
+                  >
+                    <MenuItem sx={{ borderRadius: 0}} value={"P"}>Pequeño</MenuItem>
+                    <MenuItem sx={{ borderRadius: 0}} value={"M"}>Mediano</MenuItem>
+                    <MenuItem sx={{ borderRadius: 0}} value={"G"}>Grande</MenuItem>
+
+                  </Select>
+                </FormControl>
                 </Container>
               </Grid>
               <Grid item xs={12} md={6}>
                 <Container>
-                  <TextField sx={{ minHeight: 6 }} fullWidth id="Estado" label="Estado" variant="filled" name='Estado' value={formik.values.Estado} onChange={formik.handleChange} />
+                <FormControl fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
+                  <InputLabel id="demo-simple-select-filled-label">Estado</InputLabel>
+                  <Select
+                   labelId="Estado"
+                   id="Estado"
+                   name='Estado'
+                   value={formik.values.Estado}
+                    label="Estado"
+                    onChange={formik.handleChange}
+                  >
+                    <MenuItem sx={{ borderRadius: 0}} value={"S"}>Sano</MenuItem>
+                    <MenuItem sx={{ borderRadius: 0}} value={"E"}>Enfermo</MenuItem>
+
+                  </Select>
+                </FormControl>
                 </Container>
               </Grid>
             </Grid>

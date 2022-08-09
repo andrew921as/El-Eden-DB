@@ -138,7 +138,7 @@ function Home() {
               </AccordionSummary>
               <AccordionDetails>
 
-                <MenuItem>
+                <MenuItem onClick={() => navigate('/Registro-Pago')}>
                   <ChevronRightIcon fontSize='1.5rem' />Pago
                 </MenuItem>
                 <MenuItem>
@@ -147,7 +147,9 @@ function Home() {
 
               </AccordionDetails>
             </StyledAcordion>
+
             <IconButton  sx={{ gap: 2, borderRadius: 0, color: '#d84707' }} onClick={() => navigate('/Login')}><ArrowBackIcon />Sign off</IconButton>
+
           </Stack>
           </Box> 
     </div>

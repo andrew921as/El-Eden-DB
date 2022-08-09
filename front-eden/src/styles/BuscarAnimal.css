@@ -1,5 +1,14 @@
+.FullCont{
+    background: url('../Images/PandaRed.png');
+    background-size: cover;
+    background-attachment: fixed;
+    min-width: 100%;
+    height: 100vh;
+  }
+
 .buscar-contenedor {
     margin: 3em 4em 1em 4em;
+    border-radius: 30px;
 
 }
 
