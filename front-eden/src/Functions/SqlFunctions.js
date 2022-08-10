@@ -1,6 +1,6 @@
 
-const user = "Carlos es gay"
-
+const user = "Carlos es gay";
+let busquedaPa= [];
 
 
 function getPatrocinadores(tipoBusqueda, data) {
@@ -9,8 +9,20 @@ function getPatrocinadores(tipoBusqueda, data) {
           return response.text();
       })
       .then(data => {
+         busquedaPa=data;
           console.log(data)
       });
+}
+
+function getAllPatrocinadores() {
+    fetch(`http://localhost:3001/patrocinadores/todos`)
+        .then(response => {
+            return response.text();
+        })
+        .then(data => {
+            busquedaPa = data;
+            console.log(data)
+        });
 }
 
 function getAnimales(tipoBusqueda, data) {
@@ -19,9 +31,42 @@ function getAnimales(tipoBusqueda, data) {
             return response.text();
         })
         .then(data => {
+            console.log(data);
+        });
+}
+
+function getAllAnimales() {
+    fetch(`http://localhost:3001/animales/todos`)
+        .then(response => {
+            return response.text();
+        })
+        .then(data => {
+            busquedaPa = data;
             console.log(data)
         });
 }
+
+function getVoluntarios(tipoBusqueda, data) {
+    fetch(`http://localhost:3001/voluntarios/${tipoBusqueda}/${data}`)
+        .then(response => {
+            return response.text();
+        })
+        .then(data => {
+            console.log(data)
+        });
+}
+
+function getAllVoluntarios() {
+    fetch(`http://localhost:3001/voluntarios/todos`)
+        .then(response => {
+            return response.text();
+        })
+        .then(data => {
+            busquedaPa = data;
+            console.log(data)
+        });
+}
+
 
 //Crear animales
 function createAnimal(
@@ -128,10 +173,15 @@ function deleteAnimal() {
 export {
   getAnimales,
   getPatrocinadores,
+  getVoluntarios,
+  getAllAnimales,
+  getAllPatrocinadores,
+  getAllVoluntarios,
   createAnimal,
   createPatrocinador,
   createVoluntario,
   deleteAnimal,
   user,
+  busquedaPa,
 
 }

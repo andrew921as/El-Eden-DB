@@ -20,9 +20,15 @@ const getAnimales = () => {
 
 const getPatrocinador = (tipoDato,dato) => {
     return new Promise(function (resolve, reject) {
-        console.log(tipoDato)
-        console.log(dato)
-        if (tipoDato == "Cedula") {
+        if (tipoDato == "Todos") {
+            pool.query(`SELECT * FROM patrocinador ORDER BY cedula ASC;`, (error, results) => {
+                if (error) {
+                    reject(error)
+                }
+                resolve(results.rows);
+            })
+        }
+        else if (tipoDato == "Cedula") {
             pool.query(`SELECT * FROM patrocinador WHERE cedula = '${dato}' ORDER BY cedula ASC;`, (error, results) => {
                 if (error) {
                     reject(error)
@@ -43,9 +49,15 @@ const getPatrocinador = (tipoDato,dato) => {
 
 const getAnimal = (tipoDato, dato) => {
     return new Promise(function (resolve, reject) {
-        console.log(tipoDato)
-        console.log(dato)
-        if (tipoDato == "Id animal") {
+        if (tipoDato == "Todos") {
+            pool.query(`SELECT * FROM animales ORDER BY id_animal ASC;`, (error, results) => {
+                if (error) {
+                    reject(error)
+                }
+                resolve(results.rows);
+            })
+        }
+        else if (tipoDato == "Id Animal") {
             pool.query(`SELECT * FROM animales WHERE id_animal = '${dato}' ORDER BY id_animal ASC;`, (error, results) => {
                 if (error) {
                     reject(error)
@@ -55,6 +67,37 @@ const getAnimal = (tipoDato, dato) => {
         }
         else {
             pool.query(`SELECT * FROM animales WHERE nombre_animal = '${dato}' ORDER BY id_animal ASC;`, (error, results) => {
+                if (error) {
+                    reject(error)
+                }
+                resolve(results.rows);
+            })
+        }
+    })
+}
+
+const getVoluntario = (tipoDato, dato) => {
+    return new Promise(function (resolve, reject) {
+        console.log(tipoDato)
+        console.log(dato)
+        if (tipoDato == "Todos") {
+            pool.query(`SELECT * FROM voluntarios ORDER BY id_voluntario ASC;`, (error, results) => {
+                if (error) {
+                    reject(error)
+                }
+                resolve(results.rows);
+            })
+        }
+        else if (tipoDato == "Id Voluntario") {
+            pool.query(`SELECT * FROM voluntarios WHERE id_voluntario = '${dato}' ORDER BY id_voluntario ASC;`, (error, results) => {
+                if (error) {
+                    reject(error)
+                }
+                resolve(results.rows);
+            })
+        }
+        else {
+            pool.query(`SELECT * FROM voluntarios WHERE nombre_voluntario = '${dato}' ORDER BY id_voluntario ASC;`, (error, results) => {
                 if (error) {
                     reject(error)
                 }
@@ -156,6 +199,7 @@ const deleteAnimal = (id) => {
 module.exports = {
     getAnimal,
     getPatrocinador,
+    getVoluntario,
     createAnimal,
     createPatrocinador,
     createVoluntario,

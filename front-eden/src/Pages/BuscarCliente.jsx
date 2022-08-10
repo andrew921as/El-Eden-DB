@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import MenuArriba from '../Components/MenuArriba';
 import {
   Stack,
@@ -15,7 +15,7 @@ import DataTable from '../Components/DataTableClientes';
 
 import { useFormik } from 'formik';
 
-import { getPatrocinadores } from '../Functions/SqlFunctions';
+import { getPatrocinadores, busquedaPa } from '../Functions/SqlFunctions';
 
 import '../styles/BuscarAnimal.css';
 //import { getPatrocinador } from '../../../back-eden/dbConnection';
@@ -34,16 +34,20 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
 
 export default function BuscarCliente() {
 
+  const [patro, setPatro]=useState([]);
+
   const formik = useFormik({
     initialValues: {
       TipoDato: '',
       Dato: '',
     },
-      onSubmit: (values) => {
+      onSubmit: async(values) => {
           let userData = JSON.stringify(values, null, 2)
           const tipoBusqueda = JSON.parse(userData).TipoDato;
           const dato = JSON.parse(userData).Dato
-          getPatrocinadores(tipoBusqueda,dato);
+          await getPatrocinadores(tipoBusqueda,dato);
+          await setPatro(busquedaPa)
+          console.log(patro)
           //alert(userData);
       }
   });
@@ -88,7 +92,7 @@ export default function BuscarCliente() {
           </form>
           </div>
           <div className='tabla-container'>
-            <DataTable />
+            <DataTable datosBd={patro} />
           </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react'
 import {
     Paper,
     TableRow,
@@ -11,7 +11,10 @@ import {
     styled
 
 } from '@mui/material';
+import {busquedaPa} from '../Functions/SqlFunctions';
+
 import MasOpcionesClientes from './MasOpcionesClientes';
+
 import theme from '../Theme';
 
 function createData(id, nombre, cargo, telefono, Acciones) {
@@ -23,17 +26,14 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     color: '#fff'
 }));
 
-const rows = [
-    createData(1,
-        'Pepito',
-        'Perez',
-        '45757587',
-        'c@2',
-        <MasOpcionesClientes />
-    ),
-];
 
-export default function BasicTable() {
+export default function BasicTable({datosBd}) {
+
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+
+    const rows = busquedaPa;
+
     return (
         <ThemeProvider theme={theme}>
             <TableContainer component={Paper}>
@@ -49,16 +49,16 @@ export default function BasicTable() {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                    {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                             <TableRow
                                 key={row.id}
                             >
-                                <TableCell component="th" scope="row" align="center"> {row.Cedula}</TableCell>
-                                <TableCell align="center">{row.Nombre}</TableCell>
-                                <TableCell align="center">{row.Apellido}</TableCell>
-                                <TableCell align="center">{row.Telefono}</TableCell>
-                                <TableCell align="center">{row.Correo}</TableCell>
-                                <TableCell align="center">{row.Acciones}</TableCell>
+                                <TableCell component="th" scope="row" align="center"> {row.cedula}</TableCell>
+                                <TableCell align="center">{row.nombre}</TableCell>
+                                <TableCell align="center">{row.apellido}</TableCell>
+                                <TableCell align="center">{row.telefono}</TableCell>
+                                <TableCell align="center">{row.correo}</TableCell>
+                                <MasOpcionesClientes />
                             </TableRow>
                         ))}
                     </TableBody>
