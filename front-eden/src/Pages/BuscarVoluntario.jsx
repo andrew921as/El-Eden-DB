@@ -8,14 +8,8 @@ import {
   FormControl,
   Select,
   styled,
-  Button,
 } from '@mui/material';
-
-import DataTable from '../Components/DataTableClientes';
-
-import { useFormik } from 'formik';
-
-import { getPatrocinadores } from '../Functions/SqlFunctions';
+import DataTable from '../Components/DataTableAnimales';
 
 import '../styles/BuscarAnimal.css';
 
@@ -31,19 +25,7 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
 
 
 
-export default function BuscarCliente() {
-
-  const formik = useFormik({
-    initialValues: {
-      TipoDato: '',
-      Dato: '',
-    },
-      onSubmit: (values) => {
-        let userData = JSON.stringify(values, null, 2)
-          alert(getPatrocinadores());
-      }
-  });
-
+export default function BuscarVoluntario() {
 
   const [Tipo, setTipo] = React.useState('');
 
@@ -56,32 +38,28 @@ export default function BuscarCliente() {
       <MenuArriba />
         <div className='contenedor-buscar-animal'>
           <div className='buscar-contenedor'>
-          <form onSubmit={formik.handleSubmit}>
             <Stack 
             direction='row' 
             spacing={2}
             
             >
               <FormControl variant="filled" sx={{ minWidth: 400, backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
-                <InputLabel id="Tipobusqueda">Tipo de busqueda</InputLabel>
+                <InputLabel id="demo-simple-select-filled-label">Tipo de busqueda</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
-                  value={formik.values.TipoDato}
+                  value={Tipo}
                   label="Age"
-                  name="TipoDato"
-                  onChange={formik.handleChange}
+                  onChange={handleChange}
                   sx={{ width: '70rem', backgroundColor: 'rgba(226, 226, 226, 0.95)', ":hover":{backgroundColor: 'rgba(226, 226, 226, 0.95)'}}}
                 >
-                  <StyledMenuItem value={"Identificador"}>Identificador</StyledMenuItem>
-                  <StyledMenuItem value={"Nombre"}>Nombre</StyledMenuItem>
+                  <StyledMenuItem value={10}>Identificador</StyledMenuItem>
+                  <StyledMenuItem value={20}>Nombre</StyledMenuItem>
 
                 </Select>
               </FormControl>
-              <TextField name="Dato" id="TextoBusqueda" variant="filled" label="Busqueda..." value={formik.values.Dato} onChange={formik.handleChange} sx={{backgroundColor: 'rgba(226, 226, 226, 0.95)'}}/>
-              <Button variant='contained' type='submit'> Buscar</Button>
+              <TextField id="outlined-basic" variant="filled" label="Busqueda..." sx={{backgroundColor: 'rgba(226, 226, 226, 0.95)'}}/>
             </Stack>
-          </form>
           </div>
           <div className='tabla-container'>
             <DataTable />
@@ -90,4 +68,3 @@ export default function BuscarCliente() {
     </div>
   )
 }
-

@@ -12,6 +12,16 @@ function getAnimales() {
         console.log("Hola")
       });
 }
+
+function getPatrocinadores(){
+    fetch('http://localhost:3001/patrocinadores')
+      .then(response => {
+          return response.text();
+      })
+      .then(data => {
+        console.log("Hola")
+      });
+}
 //Crear animales
 function createAnimal(
   id_animal,
@@ -116,6 +126,7 @@ function deleteAnimal() {
 
 export {
   getAnimales,
+  getPatrocinadores,
   createAnimal,
   createPatrocinador,
   createVoluntario,

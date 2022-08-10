@@ -22,6 +22,16 @@ app.get('/', (req, res) => {
         })
 })
 
+app.get('/patrocinadores', (req, res) => {
+    dbConnection.getPatrocinador(req.body)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        })
+})
+
 app.post('/animales', (req, res) => {
     dbConnection.createAnimal(req.body)
         .then(response => {

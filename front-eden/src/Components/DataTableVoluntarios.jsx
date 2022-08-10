@@ -14,8 +14,8 @@ import {
 import MasOpcionesClientes from './MasOpcionesClientes';
 import theme from '../Theme';
 
-function createData(id, nombre, cargo, telefono, Acciones) {
-    return { id, nombre, cargo, telefono, Acciones };
+function createData(Cedula, Nombre, Apellido, Telefono, Correo, Acciones) {
+    return { Cedula, Nombre, Apellido, Telefono, Correo, Acciones };
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -24,13 +24,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const rows = [
-    createData(1,
-        'Pepito',
-        'Perez',
-        '45757587',
-        'c@2',
-        <MasOpcionesClientes />
-    ),
+    {Cedula:123, Nombre:"Holaloco", Apellido:"Queloquiza", Telefono:123456, Correo:"locos@loquiando.com"}
 ];
 
 export default function BasicTable() {
@@ -58,7 +52,7 @@ export default function BasicTable() {
                                 <TableCell align="center">{row.Apellido}</TableCell>
                                 <TableCell align="center">{row.Telefono}</TableCell>
                                 <TableCell align="center">{row.Correo}</TableCell>
-                                <TableCell align="center">{row.Acciones}</TableCell>
+                                <MasOpcionesClientes  />
                             </TableRow>
                         ))}
                     </TableBody>

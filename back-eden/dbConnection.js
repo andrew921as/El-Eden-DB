@@ -13,10 +13,22 @@ const getAnimales = () => {
             if (error) {
                 reject(error)
             }
-            resolve(results.rows);
+            resolve(`???'`);
         })
     })
 }
+
+const getPatrocinador = () => {
+    return new Promise(function (resolve, reject) {
+        pool.query('SELECT * FROM patrocinadores ORDER BY id_animal ASC;', (error, results) => {
+            if (error) {
+                reject(error)
+            }
+            resolve(`Pija`);
+        })
+    })
+}
+
 const createAnimal = (body) => {
     return new Promise(function (resolve, reject) {
         const { id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida } = body
@@ -108,6 +120,7 @@ const deleteAnimal = (id) => {
 
 module.exports = {
     getAnimales,
+    getPatrocinador,
     createAnimal,
     createPatrocinador,
     createVoluntario,

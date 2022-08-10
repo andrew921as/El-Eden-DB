@@ -111,7 +111,7 @@ function Home() {
               <AccordionDetails>
 
                 <MenuItem onClick={() => navigate('/Registro-Voluntario')}><ChevronRightIcon fontSize='1.5rem' />Añadir nuevo voluntario</MenuItem>
-                <MenuItem><ChevronRightIcon fontSize='1.5rem' />Buscar voluntario</MenuItem>
+                <MenuItem onClick={() => navigate('/Buscar-Voluntario')}><ChevronRightIcon fontSize='1.5rem' />Buscar voluntario</MenuItem>
 
               </AccordionDetails>
             </StyledAcordion>

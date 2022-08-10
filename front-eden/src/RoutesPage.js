@@ -8,6 +8,7 @@ import RegistrarVolun from "./Pages/RegistrarVolun";
 import Login from './Pages/Login';
 import RegistrarPago from "./Pages/RegistrarPago";
 import BuscarCliente from "./Pages/BuscarCliente"
+import BuscarVoluntario from "./Pages/BuscarVoluntario";
 
 export default function Routes() {
   return useRoutes([
@@ -19,7 +20,7 @@ export default function Routes() {
     { path:'/Login', element:<Login/> },
     { path:'/Registro-Pago', element:<RegistrarPago/> },
     { path:'/Buscar-Cliente', element:<BuscarCliente/> },
-
+    { path:'/Buscar-Voluntario', element:<BuscarVoluntario/> },
     {path:'*', element:<NotFound/>}
   ])
 }
