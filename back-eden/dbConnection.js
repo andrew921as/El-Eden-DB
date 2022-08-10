@@ -18,14 +18,49 @@ const getAnimales = () => {
     })
 }
 
-const getPatrocinador = () => {
+const getPatrocinador = (tipoDato,dato) => {
     return new Promise(function (resolve, reject) {
-        pool.query('SELECT * FROM patrocinadores ORDER BY id_animal ASC;', (error, results) => {
-            if (error) {
-                reject(error)
-            }
-            resolve(`Pija`);
-        })
+        console.log(tipoDato)
+        console.log(dato)
+        if (tipoDato == "Cedula") {
+            pool.query(`SELECT * FROM patrocinador WHERE cedula = '${dato}' ORDER BY cedula ASC;`, (error, results) => {
+                if (error) {
+                    reject(error)
+                }
+                resolve(results.rows);
+            })
+        }
+        else {
+            pool.query(`SELECT * FROM patrocinador WHERE nombre = '${dato}' ORDER BY cedula ASC;`, (error, results) => {
+                if (error) {
+                    reject(error)
+                }
+                resolve(results.rows);
+            })
+        }
+    })
+}
+
+const getAnimal = (tipoDato, dato) => {
+    return new Promise(function (resolve, reject) {
+        console.log(tipoDato)
+        console.log(dato)
+        if (tipoDato == "Id animal") {
+            pool.query(`SELECT * FROM animales WHERE id_animal = '${dato}' ORDER BY id_animal ASC;`, (error, results) => {
+                if (error) {
+                    reject(error)
+                }
+                resolve(results.rows);
+            })
+        }
+        else {
+            pool.query(`SELECT * FROM animales WHERE nombre_animal = '${dato}' ORDER BY id_animal ASC;`, (error, results) => {
+                if (error) {
+                    reject(error)
+                }
+                resolve(results.rows);
+            })
+        }
     })
 }
 
@@ -119,7 +154,7 @@ const deleteAnimal = (id) => {
 }
 
 module.exports = {
-    getAnimales,
+    getAnimal,
     getPatrocinador,
     createAnimal,
     createPatrocinador,

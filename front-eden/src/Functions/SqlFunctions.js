@@ -2,26 +2,27 @@
 const user = "Carlos es gay"
 
 
-//Obtener lista de animales
-function getAnimales() {
-  fetch('http://localhost:3001')
+
+function getPatrocinadores(tipoBusqueda, data) {
+    fetch(`http://localhost:3001/patrocinadores/${tipoBusqueda}/${data}`)
       .then(response => {
           return response.text();
       })
       .then(data => {
-        console.log("Hola")
+          console.log(data)
       });
 }
 
-function getPatrocinadores(){
-    fetch('http://localhost:3001/patrocinadores')
-      .then(response => {
-          return response.text();
-      })
-      .then(data => {
-        console.log("Hola")
-      });
+function getAnimales(tipoBusqueda, data) {
+    fetch(`http://localhost:3001/animales/${tipoBusqueda}/${data}`)
+        .then(response => {
+            return response.text();
+        })
+        .then(data => {
+            console.log(data)
+        });
 }
+
 //Crear animales
 function createAnimal(
   id_animal,

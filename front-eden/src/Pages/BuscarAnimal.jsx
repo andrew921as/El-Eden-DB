@@ -8,8 +8,13 @@ import {
   FormControl,
   Select,
   styled,
+  Button,
 } from '@mui/material';
 import DataTable from '../Components/DataTableAnimales';
+
+import { useFormik } from 'formik';
+
+import { getAnimales } from '../Functions/SqlFunctions';
 
 import '../styles/BuscarAnimal.css';
 
@@ -27,6 +32,20 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
 
 export default function BuscarAnimal() {
 
+    const formik = useFormik({
+        initialValues: {
+            TipoDato: '',
+            Dato: '',
+        },
+        onSubmit: (values) => {
+            let userData = JSON.stringify(values, null, 2)
+            const tipoBusqueda = JSON.parse(userData).TipoDato;
+            const dato = JSON.parse(userData).Dato
+            getAnimales(tipoBusqueda, dato);
+            //alert(userData);
+        }
+    });
+
   const [Tipo, setTipo] = React.useState('');
 
   const handleChange = (event) => {
@@ -38,28 +57,32 @@ export default function BuscarAnimal() {
       <MenuArriba />
         <div className='contenedor-buscar-animal'>
           <div className='buscar-contenedor'>
-            <Stack 
-            direction='row' 
-            spacing={2}
-            
-            >
-              <FormControl variant="filled" sx={{ minWidth: 400, backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
-                <InputLabel id="demo-simple-select-filled-label">Tipo de busqueda</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={Tipo}
-                  label="Age"
-                  onChange={handleChange}
-                  sx={{ width: '70rem', backgroundColor: 'rgba(226, 226, 226, 0.95)', ":hover":{backgroundColor: 'rgba(226, 226, 226, 0.95)'}}}
-                >
-                  <StyledMenuItem value={10}>Identificador</StyledMenuItem>
-                  <StyledMenuItem value={20}>Nombre</StyledMenuItem>
+                  <form onSubmit={formik.handleSubmit}>
+                      <Stack
+                          direction='row'
+                          spacing={2}
 
-                </Select>
-              </FormControl>
-              <TextField id="outlined-basic" variant="filled" label="Busqueda..." sx={{backgroundColor: 'rgba(226, 226, 226, 0.95)'}}/>
-            </Stack>
+                      >
+                          <FormControl variant="filled" sx={{ minWidth: 400, backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
+                              <InputLabel id="Tipobusqueda">Tipo de busqueda</InputLabel>
+                              <Select
+                                  labelId="demo-simple-select-label"
+                                  id="demo-simple-select"
+                                  value={formik.values.TipoDato}
+                                  label="Age"
+                                  name="TipoDato"
+                                  onChange={formik.handleChange}
+                                  sx={{ width: '70rem', backgroundColor: 'rgba(226, 226, 226, 0.95)', ":hover": { backgroundColor: 'rgba(226, 226, 226, 0.95)' } }}
+                              >
+                                  <StyledMenuItem value={"Identificador"}>Identificador</StyledMenuItem>
+                                  <StyledMenuItem value={"Nombre"}>Nombre</StyledMenuItem>
+
+                              </Select>
+                          </FormControl>
+                          <TextField name="Dato" id="TextoBusqueda" variant="filled" label="Busqueda..." value={formik.values.Dato} onChange={formik.handleChange} sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }} />
+                          <Button variant='contained' type='submit'> Buscar</Button>
+                      </Stack>
+                  </form>
           </div>
           <div className='tabla-container'>
             <DataTable />

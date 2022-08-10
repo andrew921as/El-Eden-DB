@@ -22,8 +22,36 @@ app.get('/', (req, res) => {
         })
 })
 
-app.get('/patrocinadores', (req, res) => {
-    dbConnection.getPatrocinador(req.body)
+app.get('/animales/Nombre/:data', (req, res) => {
+    dbConnection.getAnimal("Nombre", req.params.data)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        })
+})
+app.get('/animales/Identificador/:data', (req, res) => {
+    dbConnection.getAnimal("Id Animal", req.params.data)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        })
+})
+
+app.get('/patrocinadores/Nombre/:data', (req, res) => {
+    dbConnection.getPatrocinador("Nombre",req.params.data)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        })
+})
+app.get('/patrocinadores/Identificador/:data', (req, res) => {
+    dbConnection.getPatrocinador("Cedula",req.params.data)
         .then(response => {
             res.status(200).send(response);
         })

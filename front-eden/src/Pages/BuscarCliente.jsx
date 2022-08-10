@@ -18,6 +18,7 @@ import { useFormik } from 'formik';
 import { getPatrocinadores } from '../Functions/SqlFunctions';
 
 import '../styles/BuscarAnimal.css';
+//import { getPatrocinador } from '../../../back-eden/dbConnection';
 
 const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
   backgroundColor: '#EAE0D5',
@@ -39,8 +40,11 @@ export default function BuscarCliente() {
       Dato: '',
     },
       onSubmit: (values) => {
-        let userData = JSON.stringify(values, null, 2)
-          alert(getPatrocinadores());
+          let userData = JSON.stringify(values, null, 2)
+          const tipoBusqueda = JSON.parse(userData).TipoDato;
+          const dato = JSON.parse(userData).Dato
+          getPatrocinadores(tipoBusqueda,dato);
+          //alert(userData);
       }
   });
 
