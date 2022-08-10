@@ -1,32 +1,32 @@
 
 const user = "Carlos es gay";
-let busquedaPa= [];
+let busquedas;
 
 
-function getPatrocinadores(tipoBusqueda, data) {
-    fetch(`http://localhost:3001/patrocinadores/${tipoBusqueda}/${data}`)
+async function getPatrocinadores(tipoBusqueda, data) {
+   await fetch(`http://localhost:3001/patrocinadores/${tipoBusqueda}/${data}`)
       .then(response => {
           return response.text();
       })
       .then(data => {
-         busquedaPa=data;
-          console.log(data)
+        busquedas=JSON.parse(data);
+          console.log("Es la busqueda pa "+JSON.stringify(data))
       });
 }
 
-function getAllPatrocinadores() {
-    fetch(`http://localhost:3001/patrocinadores/todos`)
+async function getAllPatrocinadores() {
+    await fetch(`http://localhost:3001/patrocinadores/todos`)
         .then(response => {
             return response.text();
         })
         .then(data => {
-            busquedaPa = data;
+            busquedas=JSON.parse(data);
             console.log(data)
         });
 }
 
-function getAnimales(tipoBusqueda, data) {
-    fetch(`http://localhost:3001/animales/${tipoBusqueda}/${data}`)
+async function getAnimales(tipoBusqueda, data) {
+    await fetch(`http://localhost:3001/animales/${tipoBusqueda}/${data}`)
         .then(response => {
             return response.text();
         })
@@ -35,19 +35,19 @@ function getAnimales(tipoBusqueda, data) {
         });
 }
 
-function getAllAnimales() {
-    fetch(`http://localhost:3001/animales/todos`)
+async function getAllAnimales() {
+    await fetch(`http://localhost:3001/animales/todos`)
         .then(response => {
             return response.text();
         })
         .then(data => {
-            busquedaPa = data;
+            busquedas = data;
             console.log(data)
         });
 }
 
-function getVoluntarios(tipoBusqueda, data) {
-    fetch(`http://localhost:3001/voluntarios/${tipoBusqueda}/${data}`)
+async function getVoluntarios(tipoBusqueda, data) {
+    await fetch(`http://localhost:3001/voluntarios/${tipoBusqueda}/${data}`)
         .then(response => {
             return response.text();
         })
@@ -56,20 +56,19 @@ function getVoluntarios(tipoBusqueda, data) {
         });
 }
 
-function getAllVoluntarios() {
-    fetch(`http://localhost:3001/voluntarios/todos`)
+async function getAllVoluntarios() {
+    await fetch(`http://localhost:3001/voluntarios/todos`)
         .then(response => {
             return response.text();
         })
         .then(data => {
-            busquedaPa = data;
             console.log(data)
         });
 }
 
 
 //Crear animales
-function createAnimal(
+async function createAnimal(
   id_animal,
   nombre_animal,
   talla,
@@ -80,7 +79,7 @@ function createAnimal(
   estado,
   fecha_ingreso,
   fecha_salida) {
-  fetch(`http://localhost:3001/animales`, {
+    await fetch(`http://localhost:3001/animales`, {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -97,7 +96,7 @@ function createAnimal(
       });
 }
 
-function createPatrocinador(
+async function createPatrocinador(
     cedula,
     nombre,
     apellido,
@@ -108,7 +107,7 @@ function createPatrocinador(
     numero_casa,
     tipo
     ) {
-    fetch(`http://localhost:3001/patrocinadores`, {
+        await fetch(`http://localhost:3001/patrocinadores`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -134,8 +133,8 @@ function createPatrocinador(
         });
 }
 
-function createVoluntario(nombre, cedula, cargo, telefono, usuario, contrasena) {
-    fetch(`http://localhost:3001/voluntarios`, {
+async function createVoluntario(nombre, cedula, cargo, telefono, usuario, contrasena) {
+    await fetch(`http://localhost:3001/voluntarios`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -156,9 +155,9 @@ function createVoluntario(nombre, cedula, cargo, telefono, usuario, contrasena) 
 
 
 //Borrar un animal
-function deleteAnimal() {
+async function deleteAnimal() {
   let id = prompt('Ingresar codigo animal a borrar');
-  fetch(`http://localhost:3001/animales/${id}`, {
+  await fetch(`http://localhost:3001/animales/${id}`, {
       method: 'DELETE',
   })
       .then(response => {
@@ -182,6 +181,6 @@ export {
   createVoluntario,
   deleteAnimal,
   user,
-  busquedaPa,
+  busquedas,
 
 }

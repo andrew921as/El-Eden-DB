@@ -15,7 +15,7 @@ import DataTable from '../Components/DataTableClientes';
 
 import { useFormik } from 'formik';
 
-import { getPatrocinadores, busquedaPa } from '../Functions/SqlFunctions';
+import { getPatrocinadores, busquedas, getAllPatrocinadores } from '../Functions/SqlFunctions';
 
 import '../styles/BuscarAnimal.css';
 //import { getPatrocinador } from '../../../back-eden/dbConnection';
@@ -46,9 +46,8 @@ export default function BuscarCliente() {
           const tipoBusqueda = JSON.parse(userData).TipoDato;
           const dato = JSON.parse(userData).Dato
           await getPatrocinadores(tipoBusqueda,dato);
-          await setPatro(busquedaPa)
-          console.log(patro)
-          //alert(userData);
+          console.log(busquedas);
+          setPatro(busquedas)
       }
   });
 
@@ -58,6 +57,14 @@ export default function BuscarCliente() {
   const handleChange = (event) => {
     setTipo(event.target.value);
   }
+  const todosDatos = async()=> {
+    await getAllPatrocinadores();
+    setPatro(busquedas)
+  }
+
+  useEffect(()=>{
+   todosDatos();
+  },[])
 
   return (
     <div className='FullCont'>
@@ -92,10 +99,9 @@ export default function BuscarCliente() {
           </form>
           </div>
           <div className='tabla-container'>
-            <DataTable datosBd={patro} />
+          <DataTable datosBd={patro} />
           </div>
         </div>
     </div>
   )
 }
-

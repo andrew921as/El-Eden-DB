@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
     Paper,
     TableRow,
@@ -11,7 +11,7 @@ import {
     styled
 
 } from '@mui/material';
-import {busquedaPa} from '../Functions/SqlFunctions';
+import {busquedas} from '../Functions/SqlFunctions';
 
 import MasOpcionesClientes from './MasOpcionesClientes';
 
@@ -32,7 +32,13 @@ export default function BasicTable({datosBd}) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
-    const rows = busquedaPa;
+
+    const rows = [{"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"},
+    {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"}, 
+    {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"}, 
+    {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"}, 
+    {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"}, 
+    {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"},  ];
 
     return (
         <ThemeProvider theme={theme}>
@@ -49,7 +55,7 @@ export default function BasicTable({datosBd}) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                    {datosBd.map((row) => (
                             <TableRow
                                 key={row.id}
                             >
