@@ -55,7 +55,7 @@ export default function BasicTable({datosBd}) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {datosBd.map((row) => (
+                    {rows.map((row) => (
                             <TableRow
                                 key={row.id}
                             >
@@ -64,7 +64,7 @@ export default function BasicTable({datosBd}) {
                                 <TableCell align="center">{row.apellido}</TableCell>
                                 <TableCell align="center">{row.telefono}</TableCell>
                                 <TableCell align="center">{row.correo}</TableCell>
-                                <MasOpcionesClientes />
+                                <MasOpcionesClientes row={row}  />
                             </TableRow>
                         ))}
                     </TableBody>

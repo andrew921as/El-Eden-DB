@@ -14,7 +14,7 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../styles/MasOpciones.css';
 import ClearIcon from '@mui/icons-material/Clear';
 
-export default function MasOpcionesBotonCliente() {
+export default function MasOpcionesBotonCliente(row) {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -24,6 +24,12 @@ export default function MasOpcionesBotonCliente() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const eliminarReg = ()=>{
+        //Row te devuelve un dato raro busca a ver
+        console.log(row);
+        console.log(row.row.nombre);
+    }
 
     return (
         <div>
@@ -46,7 +52,7 @@ export default function MasOpcionesBotonCliente() {
                     <TextField margin="dense" id="name" label="Nombre" fullWidth variant="standard" />
                 </DialogContent>
                 <DialogActions sx={{ backgroundColor: '#EAE0D5', justifyContent: "space-between" }}>
-                <Button variant="contained" onClick={handleClose} endIcon={<DeleteIcon />} >Eliminar Registro</Button>
+                <Button variant="contained" onClick={eliminarReg} endIcon={<DeleteIcon />} >Eliminar Registro</Button>
                     <Button variant="contained" onClick={handleClose} endIcon={<SaveAsIcon />} >Guardar</Button>
                 </DialogActions>
             </Dialog>
