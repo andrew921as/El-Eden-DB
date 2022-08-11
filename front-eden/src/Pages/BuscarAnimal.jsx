@@ -10,7 +10,7 @@ import {
   styled,
   Button,
 } from '@mui/material';
-import DataTable from '../Components/DataTableAnimales';
+import DataTableAnimales from '../Components/DataTableAnimales';
 
 import { useFormik } from 'formik';
 
@@ -85,7 +85,7 @@ export default function BuscarAnimal() {
                   </form>
           </div>
           <div className='tabla-container'>
-            <DataTable />
+            <DataTableAnimales />
           </div>
         </div>
     </div>

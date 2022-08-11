@@ -11,8 +11,8 @@ import {
     styled
 
 } from '@mui/material';
-import MasOpcionesClientes from './MasOpcionesClientes';
 import theme from '../Theme';
+import MasOpcionesBotonVoluntarios from './MasOpcionesVoluntarios';
 
 function createData(Cedula, Nombre, Apellido, Telefono, Correo, Acciones) {
     return { Cedula, Nombre, Apellido, Telefono, Correo, Acciones };
@@ -27,7 +27,7 @@ const rows = [
     {Cedula:123, Nombre:"Holaloco", Apellido:"Queloquiza", Telefono:123456, Correo:"locos@loquiando.com"}
 ];
 
-export default function BasicTable() {
+export default function VolutariosTable() {
     return (
         <ThemeProvider theme={theme}>
             <TableContainer component={Paper}>
@@ -52,7 +52,7 @@ export default function BasicTable() {
                                 <TableCell align="center">{row.Apellido}</TableCell>
                                 <TableCell align="center">{row.Telefono}</TableCell>
                                 <TableCell align="center">{row.Correo}</TableCell>
-                                <MasOpcionesClientes  />
+                                <MasOpcionesBotonVoluntarios row={row} />
                             </TableRow>
                         ))}
                     </TableBody>

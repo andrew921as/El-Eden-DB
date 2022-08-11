@@ -9,15 +9,12 @@ import MenuArriba from '../Components/MenuArriba';
 
 import '../styles/RegistrarUsu.css';
 
-import { clientId, clientName, getClientDataP } from '../Functions/UtilityF';
+import { clientId, clientName, getClientDataP, clienteCedula, clienteNombre, getCliente, idAnimal, nombreAnimal, especieAnimal} from '../Functions/UtilityF';
 
-export default function RegistrarPago() {
+export default function RegistrarPago(nombre) {
 
 	const [noDonor, setNoDonor]=useState(true);
 	const [namepage, setNamePage]=useState("");
-
-
-
 
 	useEffect(() => {
 		async function traemeDatos() {
@@ -25,6 +22,7 @@ export default function RegistrarPago() {
 		}
 		traemeDatos();
 		console.log(noDonor);
+		console.log(clienteCedula)
 	});
 
 
@@ -32,8 +30,8 @@ export default function RegistrarPago() {
 
 	const formik = useFormik({
 		initialValues: {
-			ClienteId: clientId,
-			Nombre: clientName,
+			ClienteId: clienteCedula,
+			Nombre: clienteNombre,
 			MotivoP: '',
 			Direccion: '',
 			Telefono: '',
@@ -92,12 +90,12 @@ export default function RegistrarPago() {
 							<Grid container rowSpacing={6}>
 								<Grid item xs={11} md={6}>
 									<Container>
-										<TextField fullWidth id="Nombre" label="Cliente ID" variant="filled" name='Nombre' value={clientId} onChange={formik.handleChange} />
+										<TextField fullWidth id="ClienteId" label="Cliente ID" variant="filled" name='ClienteId' value={clienteCedula} onChange={formik.handleChange} />
 									</Container>
 								</Grid>
 								<Grid item xs={11} md={6}>
 									<Container>
-										<TextField fullWidth id="Apellido" label="Nombre Cliente" variant="filled" name='Apellido' value={clientName} onChange={formik.handleChange} />
+										<TextField fullWidth id="Apellido" label="Nombre Cliente" variant="filled" name='Apellido' value={clienteNombre} onChange={formik.handleChange} />
 									</Container>
 								</Grid>
 								<Grid item xs={4} md={2}>
@@ -186,17 +184,17 @@ export default function RegistrarPago() {
 							<Grid container rowSpacing={2} sx={{ paddingTop: 3}}>
 								<Grid item xs={11} md={4} >
 									<Container>
-										<TextField fullWidth id="Telefono" label="Id Animal" variant="filled" name='Telefono' value={formik.values.Telefono} onChange={formik.handleChange} />
+										<TextField fullWidth id="Telefono" label="Id Animal" variant="filled" name='Telefono' value={idAnimal} onChange={formik.handleChange} />
 									</Container>
 								</Grid>
 								<Grid item xs={11} md={4}>
 									<Container>
-										<TextField fullWidth id="Cedula" label="Nombre Animal" variant="filled" name='Cedula' value={formik.values.Cedula} onChange={formik.handleChange} />
+										<TextField fullWidth id="Cedula" label="Nombre Animal" variant="filled" name='Cedula' value={nombreAnimal} onChange={formik.handleChange} />
 									</Container>
 								</Grid>
 								<Grid item xs={11} md={4}>
 									<Container>
-										<TextField fullWidth id="Cedula" label="Tipo de animal" variant="filled" name='Cedula' value={formik.values.Cedula} onChange={formik.handleChange} />
+										<TextField fullWidth id="Cedula" label="Tipo de animal" variant="filled" name='Cedula' value={especieAnimal} onChange={formik.handleChange} />
 									</Container>
 								</Grid>
 								<Grid item xs={4} md={4}>

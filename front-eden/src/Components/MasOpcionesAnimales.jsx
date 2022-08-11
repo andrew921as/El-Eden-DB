@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import { useNavigate } from 'react-router-dom';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import { clienteNombre, clienteCedula, getCliente } from '../Functions/UtilityF';
+import { getAnimal } from '../Functions/UtilityF';
 
 import {
     IconButton,
@@ -18,11 +18,10 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../styles/MasOpciones.css';
 import ClearIcon from '@mui/icons-material/Clear';
 
-export default function MasOpcionesCliente(row) {
+export default function MasOpcionesAnimales(row) {
 
-
-     function registrarPago() {
-        getCliente(row.row)
+    function registrarPago() {
+        getAnimal(row.row)
         navigate('/Registro-Pago');
     };
 
@@ -56,19 +55,19 @@ export default function MasOpcionesCliente(row) {
                     <Button variant="text" onClick={handleClose} endIcon={<ClearIcon />}>Cancelar</Button>
                 </div>
                 <DialogContent sx={{ backgroundColor: '#EAE0D5' }}>
-                    <TextField margin="dense" id="cedula" label="Cédula" fullWidth variant="standard" defaultValue={row.row.cedula} />
-                    <TextField margin="dense" id="nombre" label="Nombre" fullWidth variant="standard" defaultValue={row.row.nombre} />
-                    <TextField margin="dense" id="apellido" label="Apellido" fullWidth variant="standard" defaultValue={row.row.apellido} />
-                    <TextField margin="dense" id="correo" label="Correo electrónico" fullWidth variant="standard" defaultValue={row.row.correo} />
-                    <TextField margin="dense" id="tipoVia" label="Tipo de vía" fullWidth variant="standard" defaultValue={row.row.tipo_via} />
-                    <TextField margin="dense" id="calle" label="Número de calle" fullWidth variant="standard" defaultValue={row.row.numero_calle} />
-                    <TextField margin="dense" id="casa" label="Número de casa" fullWidth variant="standard" defaultValue={row.row.numero_casa} />
-                    <TextField margin="dense" id="telefono" label="Teléfono" fullWidth variant="standard" defaultValue={row.row.telefono} />
+                    <TextField margin="dense" id="Id" label="id" fullWidth variant="standard" defaultValue={row.row.id} />
+                    <TextField margin="dense" id="nombre" label="Nombre" fullWidth variant="standard" defaultValue={row.row.Nombre} />
+                    <TextField margin="dense" id="especie" label="Especie" fullWidth variant="standard" defaultValue={row.row.Especie} />
+                    <TextField margin="dense" id="estado" label="estado" fullWidth variant="standard" defaultValue={row.row.Estado} />
+                    <TextField margin="dense" id="MotivoIngreso" label="Motivo de ingreso" fullWidth variant="standard" defaultValue={row.row.MotivoIngreso} />
+                    <TextField margin="dense" id="FechaIngreso" label="Fecha de ingreso" fullWidth variant="standard" defaultValue={row.row.FechaIngreso} />
+                    <TextField margin="dense" id="FechaSalida" label="Fecha de salida" fullWidth variant="standard" defaultValue={row.row.FechaSalida} />
+                    <TextField margin="dense" id="observacion" label="observacion" fullWidth variant="standard" defaultValue={row.row.Observacion} />
                 </DialogContent>
                 <DialogActions sx={{ backgroundColor: '#EAE0D5', justifyContent: "space-between" }}>
                     <Button variant="contained" onClick={eliminarReg} endIcon={<DeleteIcon />} >Eliminar Registro</Button>
                     <Button variant="contained" onClick={handleClose} endIcon={<SaveAsIcon />} >Guardar</Button>
-                    <Button variant="contained" onClick={registrarPago} endIcon={<AttachMoneyIcon />} >Registrar Pago</Button>
+                    <Button variant="contained" endIcon={<AttachMoneyIcon />} onClick={registrarPago} >Seleccionar</Button>
                 </DialogActions>
             </Dialog> 
         </div>

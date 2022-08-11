@@ -11,11 +11,11 @@ import {
     styled
 
 } from '@mui/material';
-import MasOpcionesBoton from './MasOpciones';
+import MasOpcionesBotonAnimales from './MasOpcionesAnimales';
 import theme from '../Theme';
 
-function createData(id, nombre, especie, estado, MotivoIngreso, FechaIngreso, FechaSalida, acciones) {
-    return { id, nombre, especie, estado, MotivoIngreso, FechaIngreso, FechaSalida, acciones };
+function createData(id, nombre, especie, estado, MotivoIngreso, FechaIngreso, FechaSalida) {
+    return { id, nombre, especie, estado, MotivoIngreso, FechaIngreso, FechaSalida };
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -24,18 +24,10 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const rows = [
-    createData(1,
-        'Pepito',
-        'Perro',
-        'sano',
-        'albergue',
-        '27/01/2022',
-        'N/a',
-        <MasOpcionesBoton />
-    ),
+    {id:123, Nombre:"Lupa", Especie:"Shitzu", Estado:'Enferma', MotivoIngreso:'hemorragia', FechaIngreso:'02/20/2018', FechaSalida: '02/25/2018'}
 ];
 
-export default function BasicTable() {
+export default function AnimalesTable() {
     return (
         <ThemeProvider theme={theme}>
             <TableContainer component={Paper}>
@@ -46,9 +38,6 @@ export default function BasicTable() {
                             <StyledTableCell align="center">Nombre</StyledTableCell>
                             <StyledTableCell align="center">Especie</StyledTableCell>
                             <StyledTableCell align="center">Estado</StyledTableCell>
-                            <StyledTableCell align="center">Motivo de Ingreso</StyledTableCell>
-                            <StyledTableCell align="center">Fecha ingreso</StyledTableCell>
-                            <StyledTableCell align="center">Fecha salida</StyledTableCell>
                             <StyledTableCell align="center">Acciones</StyledTableCell>
                         </TableRow>
                     </TableHead>
@@ -58,13 +47,10 @@ export default function BasicTable() {
                                 key={row.id}
                             >
                                 <TableCell component="th" scope="row" align="center"> {row.id}</TableCell>
-                                <TableCell align="center">{row.nombre}</TableCell>
-                                <TableCell align="center">{row.especie}</TableCell>
-                                <TableCell align="center">{row.estado}</TableCell>
-                                <TableCell align="center">{row.MotivoIngreso}</TableCell>
-                                <TableCell align="center">{row.FechaIngreso}</TableCell>
-                                <TableCell align="center">{row.FechaSalida}</TableCell>
-                                <TableCell align="center">{row.acciones}</TableCell>
+                                <TableCell align="center">{row.Nombre}</TableCell>
+                                <TableCell align="center">{row.Especie}</TableCell>
+                                <TableCell align="center">{row.Estado}</TableCell>
+                                <MasOpcionesBotonAnimales row={row} />
                             </TableRow>
                         ))}
                     </TableBody>

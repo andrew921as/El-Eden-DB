@@ -27,7 +27,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 
-export default function BasicTable({datosBd}) {
+export default function ClienteTable({datosBd}) {
 
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -35,7 +35,7 @@ export default function BasicTable({datosBd}) {
 
     const rows = [{"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"},
     {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"}, 
-    {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"}, 
+    {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"111111", "correo":"Noes@noes"}, 
     {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"}, 
     {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"}, 
     {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"},  ];
