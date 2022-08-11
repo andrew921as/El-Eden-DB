@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react'
 import {
     Paper,
     TableRow,
@@ -23,34 +23,33 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     color: '#fff'
 }));
 
-const rows = [
-    {id:123, Nombre:"Lupa", Especie:"Shitzu", Estado:'Enferma', MotivoIngreso:'hemorragia', FechaIngreso:'02/20/2018', FechaSalida: '02/25/2018'}
-];
 
-export default function AnimalesTable() {
+export default function AnimalesTable({datosBd, reload}) {
     return (
         <ThemeProvider theme={theme}>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead sx={{}}>
                         <TableRow>
-                            <StyledTableCell align="center">Identificación</StyledTableCell>
+                            <StyledTableCell align="center">Identificador</StyledTableCell>
                             <StyledTableCell align="center">Nombre</StyledTableCell>
                             <StyledTableCell align="center">Especie</StyledTableCell>
                             <StyledTableCell align="center">Estado</StyledTableCell>
+                            <StyledTableCell align="center">Ingreso</StyledTableCell>
                             <StyledTableCell align="center">Acciones</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {datosBd.map((row) => (
                             <TableRow
                                 key={row.id}
                             >
-                                <TableCell component="th" scope="row" align="center"> {row.id}</TableCell>
-                                <TableCell align="center">{row.Nombre}</TableCell>
-                                <TableCell align="center">{row.Especie}</TableCell>
-                                <TableCell align="center">{row.Estado}</TableCell>
-                                <MasOpcionesBotonAnimales row={row} />
+                                <TableCell component="th" scope="row" align="center"> {row.id_animal}</TableCell>
+                                <TableCell align="center">{row.nombre_animal}</TableCell>
+                                <TableCell align="center">{row.tipo}</TableCell>
+                                <TableCell align="center">{row.estado}</TableCell>
+                                <TableCell align="center">{row.motivo_ingreso}</TableCell>
+                                <TableCell align="center"><MasOpcionesBotonAnimales row={row} reload={reload} /></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

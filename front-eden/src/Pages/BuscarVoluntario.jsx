@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import MenuArriba from '../Components/MenuArriba';
 import {
   Stack,
@@ -12,9 +12,11 @@ import {
 } from '@mui/material';
 import VolutariosTable from '../Components/DataTableVoluntarios';
 
+import ButtonBack from '../Components/ButtonBack';
+
 import { useFormik } from 'formik';
 
-import { getVoluntarios } from '../Functions/SqlFunctions';
+import { getVoluntarios, busquedas, getAllVoluntarios } from '../Functions/SqlFunctions';
 
 import '../styles/BuscarAnimal.css';
 
@@ -32,29 +34,42 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
 
 export default function BuscarVoluntario() {
 
+  const [voluntario, setVoluntario]=useState([]);
+  const [Tipo, setTipo] = React.useState('');
+
     const formik = useFormik({
         initialValues: {
             TipoDato: '',
             Dato: '',
         },
-        onSubmit: (values) => {
-            let userData = JSON.stringify(values, null, 2)
-            const tipoBusqueda = JSON.parse(userData).TipoDato;
-            const dato = JSON.parse(userData).Dato
-            getVoluntarios(tipoBusqueda, dato);
-            //alert(userData);
+        onSubmit: async (values) => {
+            let volunData = JSON.stringify(values, null, 2)
+            const tipoBusqueda = JSON.parse(volunData).TipoDato;
+            const dato = JSON.parse(volunData).Dato
+            await getVoluntarios(tipoBusqueda, dato, false);
+            setVoluntario(busquedas)
         }
     });
 
-  const [Tipo, setTipo] = React.useState('');
+  
 
   const handleChange = (event) => {
     setTipo(event.target.value);
   }
 
+  const todosDatos = async()=> {
+    await getAllVoluntarios();
+    setVoluntario(busquedas)
+  }
+
+  useEffect(()=>{
+   todosDatos();
+  },[])
+
   return (
     <div className='FullCont'>
       <MenuArriba />
+      <ButtonBack/>
         <div className='contenedor-buscar-animal'>
           <div className='buscar-contenedor'>
                   <form onSubmit={formik.handleSubmit}>
@@ -85,7 +100,7 @@ export default function BuscarVoluntario() {
                   </form>
           </div>
           <div className='tabla-container'>
-            <VolutariosTable />
+            <VolutariosTable datosBd={voluntario}/>
           </div>
         </div>
     </div>

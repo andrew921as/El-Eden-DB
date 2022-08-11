@@ -27,6 +27,8 @@ import MenuArriba from '../Components/MenuArriba';
 
 import { createAnimal } from '../Functions/SqlFunctions';
 
+import ButtonBack from '../Components/ButtonBack';
+
 import '../styles/RegistrarUsu.css';
 
 
@@ -67,6 +69,7 @@ export default function RegistarAnimal() {
   return (
     <div className='RegistrarUsuCont'>
       <MenuArriba />
+      <ButtonBack/>
       <Box sx={{
         width: {
           xs: '100%',

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import MenuArriba from '../Components/MenuArriba';
 import {
   Stack,
@@ -12,9 +12,11 @@ import {
 } from '@mui/material';
 import DataTableAnimales from '../Components/DataTableAnimales';
 
+import ButtonBack from '../Components/ButtonBack';
+
 import { useFormik } from 'formik';
 
-import { getAnimales } from '../Functions/SqlFunctions';
+import { getAnimales, busquedas, getAllAnimales } from '../Functions/SqlFunctions';
 
 import '../styles/BuscarAnimal.css';
 
@@ -32,17 +34,20 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
 
 export default function BuscarAnimal() {
 
+  const [animal, setAnimal]=useState([]);
+  
+
     const formik = useFormik({
         initialValues: {
             TipoDato: '',
             Dato: '',
         },
-        onSubmit: (values) => {
-            let userData = JSON.stringify(values, null, 2)
-            const tipoBusqueda = JSON.parse(userData).TipoDato;
-            const dato = JSON.parse(userData).Dato
-            getAnimales(tipoBusqueda, dato);
-            //alert(userData);
+        onSubmit: async (values) => {
+            let animalData = JSON.stringify(values, null, 2)
+            const tipoBusqueda = JSON.parse(animalData).TipoDato;
+            const dato = JSON.parse(animalData).Dato
+            await getAnimales(tipoBusqueda, dato);
+            setAnimal(busquedas);
         }
     });
 
@@ -52,9 +57,20 @@ export default function BuscarAnimal() {
     setTipo(event.target.value);
   }
 
+  const todosDatos = async()=> {
+    await getAllAnimales();
+    setAnimal(busquedas)
+  }
+
+  useEffect(()=>{
+   todosDatos();
+  },[])
+
+
   return (
     <div className='FullCont'>
       <MenuArriba />
+      <ButtonBack/>
         <div className='contenedor-buscar-animal'>
           <div className='buscar-contenedor'>
                   <form onSubmit={formik.handleSubmit}>
@@ -85,7 +101,7 @@ export default function BuscarAnimal() {
                   </form>
           </div>
           <div className='tabla-container'>
-            <DataTableAnimales />
+            <DataTableAnimales datosBd={animal} reload={setAnimal}/>
           </div>
         </div>
     </div>

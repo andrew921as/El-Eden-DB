@@ -13,6 +13,8 @@ import {
 
 import DataTable from '../Components/DataTableClientes';
 
+import ButtonBack from '../Components/ButtonBack';
+
 import { useFormik } from 'formik';
 
 import { getPatrocinadores, busquedas, getAllPatrocinadores } from '../Functions/SqlFunctions';
@@ -49,6 +51,7 @@ export default function BuscarCliente() {
           console.log(busquedas);
           setPatro(busquedas)
       }
+      
   });
 
 
@@ -68,6 +71,7 @@ export default function BuscarCliente() {
 
   return (
     <div className='FullCont'>
+    <ButtonBack/>
       <MenuArriba />
         <div className='contenedor-buscar-animal'>
           <div className='buscar-contenedor'>
@@ -99,7 +103,7 @@ export default function BuscarCliente() {
           </form>
           </div>
           <div className='tabla-container'>
-          <DataTable datosBd={patro} />
+          <DataTable datosBd={patro} reload={setPatro}/>
           </div>
         </div>
     </div>

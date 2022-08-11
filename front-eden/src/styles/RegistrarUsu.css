@@ -6,6 +6,11 @@
   height: 100vh;
 }
 
+.precios{
+  height: 500px;
+  width: 600px;
+}
+
 @media (max-width: 540px) {
   .RegistrarUsuCont{
     background: #E8F1F2;

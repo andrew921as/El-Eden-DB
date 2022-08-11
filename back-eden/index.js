@@ -91,7 +91,9 @@ app.get('/voluntarios/todos', (req, res) => {
 })
 
 app.get('/voluntarios/Nombre/:data', (req, res) => {
+    console.log(req.params.data)
     dbConnection.getVoluntario("Nombre", req.params.data)
+        
         .then(response => {
             res.status(200).send(response);
         })
@@ -101,6 +103,16 @@ app.get('/voluntarios/Nombre/:data', (req, res) => {
 })
 app.get('/voluntarios/Identificador/:data', (req, res) => {
     dbConnection.getVoluntario("Id Voluntario", req.params.data)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        })
+})
+
+app.post('/login', (req, res) => {
+    dbConnection.validarLogin(req.body)
         .then(response => {
             res.status(200).send(response);
         })
@@ -131,6 +143,36 @@ app.post('/patrocinadores', (req, res) => {
 
 app.post('/voluntarios', (req, res) => {
     dbConnection.createVoluntario(req.body)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        })
+})
+
+app.put('/animales', (req, res) => {
+    dbConnection.actualizarAnimal(req.body)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        })
+})
+
+app.put('/patrocinadores', (req, res) => {
+    dbConnection.actualizarPatrocinador(req.body)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        })
+})
+
+app.put('/voluntarios', (req, res) => {
+    dbConnection.actualizarVoluntario(req.body)
         .then(response => {
             res.status(200).send(response);
         })

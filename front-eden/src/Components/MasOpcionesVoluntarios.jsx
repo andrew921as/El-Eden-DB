@@ -8,8 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import { useNavigate } from 'react-router-dom';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import { clienteNombre, clienteCedula, getCliente } from '../Functions/UtilityF';
-
+import { useFormik } from 'formik';
 import {
     IconButton,
     Tooltip,
@@ -17,6 +16,8 @@ import {
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../styles/MasOpciones.css';
 import ClearIcon from '@mui/icons-material/Clear';
+import { actualizarVoluntario, getAllVoluntarios, busquedas } from '../Functions/SqlFunctions'
+
 
 export default function MasOpcionesVoluntarios(row) {
 
@@ -36,6 +37,36 @@ export default function MasOpcionesVoluntarios(row) {
         console.log(row.row.nombre);
     }
 
+    const formik = useFormik({
+        initialValues: {
+            Cedula: row.row.cedula,
+            Nombre: row.row.nombre,
+            Telefono: row.row.telefono,
+            Cargo: row.row.cargo,
+            UsserName: row.row.username,
+            Password: row.row.password
+    },
+    onSubmit: (values) => {
+        let voluntarioData = JSON.stringify(values, null, 2)
+          alert(voluntarioData);
+          const cedula = JSON.parse(voluntarioData).Cedula;
+          const nombre = JSON.parse(voluntarioData).Nombre;
+          const apellido_voluntario = JSON.parse(voluntarioData).Apellido;
+          const telefono = JSON.parse(voluntarioData).Telefono;
+          const cargo = JSON.parse(voluntarioData).Cargo;
+          const username = JSON.parse(voluntarioData).UsserName;
+          const password = JSON.parse(voluntarioData).Password;
+          actualizarVoluntario(nombre,
+            cedula,
+            cargo,
+            telefono,
+            username,
+            password
+            );
+    }
+    });
+
+
     return (
         <div>
             <IconButton variant="outlined" onClick={handleClickOpen}>
@@ -44,20 +75,23 @@ export default function MasOpcionesVoluntarios(row) {
                 </Tooltip>
             </IconButton>
             <Dialog open={open} onClose={handleClose} >
+            <form onSubmit={formik.handleSubmit}>
                 <div className='Contenedor-Titulo'>
                     <Button variant="text" onClick={handleClose} endIcon={<ClearIcon />}>Cancelar</Button>
                 </div>
                 <DialogContent sx={{ backgroundColor: '#EAE0D5' }}>
-                    <TextField margin="dense" id="cedula" label="Cédula" fullWidth variant="standard" defaultValue={row.row.Cedula} />
-                    <TextField margin="dense" id="nombre" label="Nombre" fullWidth variant="standard" defaultValue={row.row.Nombre} />
-                    <TextField margin="dense" id="apellido" label="Apellido" fullWidth variant="standard" defaultValue={row.row.Apellido} />
-                    <TextField margin="dense" id="correo" label="Correo electrónico" fullWidth variant="standard" defaultValue={row.row.Correo} />
-                    <TextField margin="dense" id="telefono" label="Teléfono" fullWidth variant="standard" defaultValue={row.row.Telefono} />
+                    <TextField margin="dense" name="Cedula" id="Cedula" label="Cedula" fullWidth variant="standard" value={formik.values.Cedula} onChange={formik.handleChange} />
+                    <TextField margin="dense" name="Nombre" id="Nombre" label="Nombre" fullWidth variant="standard" value={formik.values.Nombre} onChange={formik.handleChange} />
+                    <TextField margin="dense" name="Telefono" id="Telefono" label="Numero telefonico" fullWidth variant="standard" value={formik.values.Telefono} onChange={formik.handleChange} />
+                    <TextField margin="dense" name="Cargo" id="Cargo" label="Cargo" fullWidth variant="standard" value={formik.values.Cargo} onChange={formik.handleChange} />
+                    <TextField margin="dense" name="UsserName" id="UsserName" label="Nombre de usuario" fullWidth variant="standard" value={formik.values.UsserName} onChange={formik.handleChange} />
+                    <TextField margin="dense" name="Password" id="Password" label="Contraseña" fullWidth variant="standard" value={formik.values.Password} onChange={formik.handleChange} />
                 </DialogContent>
                 <DialogActions sx={{ backgroundColor: '#EAE0D5', justifyContent: "space-between" }}>
                     <Button variant="contained" onClick={eliminarReg} endIcon={<DeleteIcon />} >Eliminar Registro</Button>
-                    <Button variant="contained" onClick={handleClose} endIcon={<SaveAsIcon />} >Guardar</Button>
+                    <Button variant="contained" type='submit' onClick={handleClose} endIcon={<SaveAsIcon />} >Guardar</Button>
                 </DialogActions>
+                </form>
             </Dialog> 
         </div>
     );

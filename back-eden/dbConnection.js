@@ -3,7 +3,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'Eden2',
-    password: 'Contralacena2014',
+    password: 'pg123',
     port: 5432,
 });
 
@@ -21,7 +21,7 @@ const getAnimales = () => {
 const getPatrocinador = (tipoDato,dato) => {
     return new Promise(function (resolve, reject) {
         if (tipoDato == "Todos") {
-            pool.query(`SELECT * FROM patrocinador ORDER BY cedula ASC;`, (error, results) => {
+            pool.query(`SELECT * FROM datos_patrocinador ORDER BY cedula ASC;`, (error, results) => {
                 if (error) {
                     reject(error)
                 }
@@ -29,7 +29,7 @@ const getPatrocinador = (tipoDato,dato) => {
             })
         }
         else if (tipoDato == "Cedula") {
-            pool.query(`SELECT * FROM patrocinador WHERE cedula = '${dato}' ORDER BY cedula ASC;`, (error, results) => {
+            pool.query(`SELECT * FROM datos_patrocinador WHERE cedula = '${dato}' ORDER BY cedula ASC;`, (error, results) => {
                 if (error) {
                     reject(error)
                 }
@@ -37,7 +37,7 @@ const getPatrocinador = (tipoDato,dato) => {
             })
         }
         else {
-            pool.query(`SELECT * FROM patrocinador WHERE nombre = '${dato}' ORDER BY cedula ASC;`, (error, results) => {
+            pool.query(`SELECT * FROM datos_patrocinador WHERE nombre = '${dato}' ORDER BY cedula ASC;`, (error, results) => {
                 if (error) {
                     reject(error)
                 }
@@ -50,7 +50,7 @@ const getPatrocinador = (tipoDato,dato) => {
 const getAnimal = (tipoDato, dato) => {
     return new Promise(function (resolve, reject) {
         if (tipoDato == "Todos") {
-            pool.query(`SELECT * FROM animales ORDER BY id_animal ASC;`, (error, results) => {
+            pool.query(`SELECT * FROM datos_animal ORDER BY id_animal ASC;`, (error, results) => {
                 if (error) {
                     reject(error)
                 }
@@ -58,7 +58,7 @@ const getAnimal = (tipoDato, dato) => {
             })
         }
         else if (tipoDato == "Id Animal") {
-            pool.query(`SELECT * FROM animales WHERE id_animal = '${dato}' ORDER BY id_animal ASC;`, (error, results) => {
+            pool.query(`SELECT * FROM datos_animal WHERE id_animal = '${dato}' ORDER BY id_animal ASC;`, (error, results) => {
                 if (error) {
                     reject(error)
                 }
@@ -66,7 +66,7 @@ const getAnimal = (tipoDato, dato) => {
             })
         }
         else {
-            pool.query(`SELECT * FROM animales WHERE nombre_animal = '${dato}' ORDER BY id_animal ASC;`, (error, results) => {
+            pool.query(`SELECT * FROM datos_animal WHERE nombre_animal = '${dato}' ORDER BY id_animal ASC;`, (error, results) => {
                 if (error) {
                     reject(error)
                 }
@@ -81,7 +81,7 @@ const getVoluntario = (tipoDato, dato) => {
         console.log(tipoDato)
         console.log(dato)
         if (tipoDato == "Todos") {
-            pool.query(`SELECT * FROM voluntarios ORDER BY id_voluntario ASC;`, (error, results) => {
+            pool.query(`SELECT * FROM datos_voluntario ORDER BY cedula ASC;`, (error, results) => {
                 if (error) {
                     reject(error)
                 }
@@ -89,7 +89,7 @@ const getVoluntario = (tipoDato, dato) => {
             })
         }
         else if (tipoDato == "Id Voluntario") {
-            pool.query(`SELECT * FROM voluntarios WHERE id_voluntario = '${dato}' ORDER BY id_voluntario ASC;`, (error, results) => {
+            pool.query(`SELECT * FROM datos_voluntario WHERE cedula = '${dato}' ORDER BY cedula ASC;`, (error, results) => {
                 if (error) {
                     reject(error)
                 }
@@ -97,13 +97,39 @@ const getVoluntario = (tipoDato, dato) => {
             })
         }
         else {
-            pool.query(`SELECT * FROM voluntarios WHERE nombre_voluntario = '${dato}' ORDER BY id_voluntario ASC;`, (error, results) => {
+            pool.query(`SELECT * FROM datos_voluntario WHERE nombre = '${dato}' ORDER BY cedula ASC;`, (error, results) => {
                 if (error) {
                     reject(error)
                 }
                 resolve(results.rows);
             })
         }
+    })
+}
+
+const validarLogin = (body) => {
+    return new Promise(function (resolve, reject) {
+        const { usuario, contrasena } = body
+        let encontrado = false
+        let resultados = []
+        pool.query(`SELECT * FROM usuarios WHERE user_name = '${usuario}' AND password= '${contrasena}' ORDER BY id_voluntario ASC;`, (error, results) => {
+            if (error) {
+                reject(error)
+            }
+            console.log(usuario)
+            console.log(contrasena)
+            console.log(results.rowCount)
+            if (results.rowCount>0) {
+                encontrado = true
+                resultados.push(encontrado)
+                resultados.push(results.rows)
+                resolve(resultados)
+            }
+            else {
+                resolve("No se encontraron datos")
+            }
+
+        })
     })
 }
 
@@ -183,6 +209,44 @@ const createVoluntario = (body) => {
     })
 }
 
+const actualizarAnimal = (body) => {
+    return new Promise(function (resolve, reject) {
+        const { id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida } = body
+        console.log(id_animal)
+        pool.query(`UPDATE datos_animal SET nombre_animal = $1, talla = $2, edad = $3, tipo= $4, motivo_ingreso = $5, observaciones = $6, estado =$7, fecha_ingreso = $8, fecha_salida = $9 WHERE id_animal = '${id_animal}';`, [nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida], (error, results) => {
+            if (error) {
+                reject(error)
+            }
+            resolve(`Se ha actualizado: ${nombre_animal}`)
+        })
+    })
+}
+
+const actualizarPatrocinador = (body) => {
+    return new Promise(function (resolve, reject) {
+        const { cedula, nombre, apellido, correo, telefono, tipo_via, numero_calle, numero_casa, tipo } = body
+        console.log(cedula)
+        pool.query(`UPDATE datos_patrocinador SET nombre = $1, apellido = $2, correo= $3, telefono = $4, tipo_via = $5, numero_calle =$6, numero_casa = $7, tipo = $8 WHERE cedula = '${cedula}';`, [nombre, apellido, correo, telefono, tipo_via, numero_calle, numero_casa, tipo], (error, results) => {
+            if (error) {
+                reject(error)
+            }
+            resolve(`Se ha actualizado: ${nombre}`)
+        })
+    })
+}
+
+const actualizarVoluntario = (body) => {
+    return new Promise(function (resolve, reject) {
+        const { nombre, cedula, cargo, telefono, usuario, contrasena } = body
+        console.log(cargo)
+        pool.query(`UPDATE datos_voluntario SET nombre = $1, cargo = $2, telefono = $3, username = $4, password = $5 WHERE cedula = '${cedula}';`, [nombre, cargo, telefono, usuario, contrasena], (error, results) => {
+            if (error) {
+                reject(error)
+            }
+            resolve(`Se ha actualizado: ${nombre}`)
+        })
+    })
+}
 
 const deleteAnimal = (id) => {
     return new Promise(function (resolve, reject) {
@@ -200,8 +264,12 @@ module.exports = {
     getAnimal,
     getPatrocinador,
     getVoluntario,
+    validarLogin,
     createAnimal,
     createPatrocinador,
     createVoluntario,
+    actualizarAnimal,
+    actualizarPatrocinador,
+    actualizarVoluntario,
     deleteAnimal,
 }

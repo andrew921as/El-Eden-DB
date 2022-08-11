@@ -6,6 +6,8 @@ import { useFormik } from 'formik';
 
 import MenuArriba from '../Components/MenuArriba';
 
+import ButtonBack from '../Components/ButtonBack';
+
 import { createVoluntario } from '../Functions/SqlFunctions';
 
 import '../styles/RegistrarUsu.css';
@@ -44,6 +46,7 @@ export default function RegistrarVolun() {
   return (
     <div className='RegistrarUsuCont'>
       <MenuArriba />
+      <ButtonBack/>
       <Box sx={{
         width: {
           xs: '100%',
@@ -99,6 +102,7 @@ export default function RegistrarVolun() {
               <Container>
                 <TextField fullWidth id="Telefono" label="Télefono" variant="filled" name='Telefono' value={formik.values.Telefono} onChange={formik.handleChange} />
               </Container>
+              
 
               <Stack spacing={4}
               direction='row'

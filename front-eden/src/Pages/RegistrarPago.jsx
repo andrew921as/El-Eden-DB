@@ -1,7 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Container, Grid, Stack, TextField, Typography, Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { 
+	Button, 
+	Container, 
+	Grid, 
+	Stack, 
+	TextField, 
+	Typography, 
+	Box, 
+	FormControl, 
+	InputLabel, 
+	Select, 
+	MenuItem,
+	Dialog,
+	DialogContent,
+	DialogTitle,
+	DialogContentText,
+	DialogActions
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
+import tarifas from '../Images/Tarifas.png';
 
 import { useFormik } from 'formik';
 
@@ -9,9 +27,24 @@ import MenuArriba from '../Components/MenuArriba';
 
 import '../styles/RegistrarUsu.css';
 
-import { clientId, clientName, getClientDataP, clienteCedula, clienteNombre, getCliente, idAnimal, nombreAnimal, especieAnimal} from '../Functions/UtilityF';
+import { clientId, clientName, getClientDataP, clienteCedula, clienteNombre, getCliente, idAnimal, nombreAnimal, especieAnimal, reset} from '../Functions/UtilityF';
 
 export default function RegistrarPago(nombre) {
+
+	const [open, setOpen] = React.useState(false);
+
+	const handleClickOpen = () => {
+	  setOpen(true);
+	};
+  
+	const handleClose = () => {
+	  setOpen(false);
+	};
+
+	const cancel = () => {
+		reset();
+		navigate('/');
+	}
 
 	const [noDonor, setNoDonor]=useState(true);
 	const [namepage, setNamePage]=useState("");
@@ -199,14 +232,15 @@ export default function RegistrarPago(nombre) {
 								</Grid>
 								<Grid item xs={4} md={4}>
 									<Container>
-									<Button
-										variant="text"
+										
+											<Button
+											variant="text"
 										size='small'
 										fullWidth
-										onClick={""}
+										onClick={handleClickOpen}
 
 									>
-										<Typography
+										 <Typography
 											sx={{
 												fontSize: {
 													xs: 20,
@@ -218,9 +252,17 @@ export default function RegistrarPago(nombre) {
 											}}
 											color={'#881600'}
 										>
-											Tarifas:
-										</Typography>
+											Tarifas
+										</Typography> */
 									</Button>
+									<Dialog
+        							open={open}
+        							onClose={handleClose}
+      								>  
+									<DialogContent sx={{width: '600px'}}>
+										<img className='precios' src={tarifas}/>
+									</DialogContent>
+      								</Dialog>
 									</Container>
 							  </Grid>
 								<Grid item xs={7} md={8}>
@@ -244,7 +286,7 @@ export default function RegistrarPago(nombre) {
 										variant="outlined"
 										size='medium'
 										fullWidth
-										onClick={() => { navigate('/') }}
+										onClick={cancel}
 										sx={{ border: '3px solid #881600', borderRadius: 10, ':hover': { border: '3px solid #881600' } }}
 
 									>

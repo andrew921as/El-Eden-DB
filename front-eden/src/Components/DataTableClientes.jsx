@@ -27,18 +27,10 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 
-export default function ClienteTable({datosBd}) {
+export default function ClienteTable({datosBd, reload}) {
 
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
-
-
-    const rows = [{"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"},
-    {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"}, 
-    {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"111111", "correo":"Noes@noes"}, 
-    {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"}, 
-    {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"}, 
-    {"cedula":"123", "nombre":"Estenoes", "apellido":"Tampocoes", "telefono":"123445", "correo":"Noes@noes"},  ];
 
     return (
         <ThemeProvider theme={theme}>
@@ -55,7 +47,7 @@ export default function ClienteTable({datosBd}) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                    {rows.map((row) => (
+                    {datosBd.map((row) => (
                             <TableRow
                                 key={row.id}
                             >
@@ -64,7 +56,7 @@ export default function ClienteTable({datosBd}) {
                                 <TableCell align="center">{row.apellido}</TableCell>
                                 <TableCell align="center">{row.telefono}</TableCell>
                                 <TableCell align="center">{row.correo}</TableCell>
-                                <MasOpcionesClientes row={row}  />
+                                <TableCell align="center"> <MasOpcionesClientes row={row} reload={reload}/> </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

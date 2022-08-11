@@ -1,6 +1,7 @@
-
-const user = "Carlos es gay";
+let user;
 let busquedas;
+let encontrado;
+let idVoluntario;
 
 
 async function getPatrocinadores(tipoBusqueda, data) {
@@ -31,6 +32,7 @@ async function getAnimales(tipoBusqueda, data) {
             return response.text();
         })
         .then(data => {
+            busquedas=JSON.parse(data);
             console.log(data);
         });
 }
@@ -41,18 +43,27 @@ async function getAllAnimales() {
             return response.text();
         })
         .then(data => {
-            busquedas = data;
+            busquedas=JSON.parse(data);
             console.log(data)
         });
 }
 
-async function getVoluntarios(tipoBusqueda, data) {
+async function getVoluntarios(tipoBusqueda, data, login) {
     await fetch(`http://localhost:3001/voluntarios/${tipoBusqueda}/${data}`)
         .then(response => {
             return response.text();
+            
         })
         .then(data => {
-            console.log(data)
+            if (login) {
+                console.log(data)
+                user = JSON.parse(data);
+                console.log(user)
+
+
+            }else if(!login){
+            busquedas=JSON.parse(data);
+            }
         });
 }
 
@@ -62,7 +73,110 @@ async function getAllVoluntarios() {
             return response.text();
         })
         .then(data => {
+            busquedas=JSON.parse(data);
             console.log(data)
+        });
+}
+
+async function validarLogin(usuario, contrasena) {
+    await fetch(`http://localhost:3001/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({usuario,contrasena}),
+    })
+        .then(response => {
+            return response.text();
+        })
+        .then(data => {
+            console.log(data)
+            data = JSON.parse(data)
+            encontrado = data[0];
+            console.log(encontrado)
+            
+            idVoluntario = data[1][0].id_voluntario;
+            console.log(idVoluntario)
+        })
+}
+
+async function actualizarAnimal(id_animal,
+    nombre_animal,
+    talla,
+    edad,
+    tipo,
+    motivo_ingreso,
+    observaciones,
+    estado,
+    fecha_ingreso,
+    fecha_salida) {
+    console.log(nombre_animal)
+    await fetch(`http://localhost:3001/animales`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        //akki sepuede pone el console log creo
+        body: JSON.stringify({ id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida }),
+    })
+        .then(response => {
+            return response.text();
+        })
+        .then(data => {
+            alert(data);
+            getAnimales();
+        });
+}
+async function actualizarPatrocinador(cedula,
+    nombre,
+    apellido,
+    correo,
+    telefono,
+    tipo_via,
+    numero_calle,
+    numero_casa,
+    tipo
+    ) {
+    await fetch(`http://localhost:3001/patrocinadores`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        //akki sepuede pone el console log creo
+        body: JSON.stringify({
+            cedula,
+            nombre,
+            apellido,
+            correo,
+            telefono,
+            tipo_via,
+            numero_calle,
+            numero_casa,
+            tipo}),
+    })
+        .then(response => {
+            return response.text();
+        })
+        .then(data => {
+            alert(data);
+            getAnimales();
+        });
+}
+async function actualizarVoluntario(nombre, cedula, cargo, telefono, usuario, contrasena) {
+    await fetch(`http://localhost:3001/voluntarios`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        //akki sepuede pone el console log creo
+        body: JSON.stringify({ nombre, cedula, cargo, telefono, usuario, contrasena }),
+    })
+        .then(response => {
+            return response.text();
+        })
+        .then(data => {
+            alert(data);
+            getAnimales();
         });
 }
 
@@ -176,11 +290,18 @@ export {
   getAllAnimales,
   getAllPatrocinadores,
   getAllVoluntarios,
+  validarLogin,
   createAnimal,
   createPatrocinador,
   createVoluntario,
+  actualizarAnimal,
+  actualizarPatrocinador,
+  actualizarVoluntario,
   deleteAnimal,
   user,
   busquedas,
+  encontrado,
+  idVoluntario
+
 
 }

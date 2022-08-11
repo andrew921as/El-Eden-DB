@@ -10,12 +10,39 @@ import {
 import '../styles/Login.css';
 import iconoOso from '../Images/IconoOso.png'
 import { useNavigate } from 'react-router-dom';
-import ForestIcon from '@mui/icons-material/Forest';;
+import { useFormik } from 'formik';
+import ForestIcon from '@mui/icons-material/Forest';
+import {validarLogin, encontrado} from '../Functions/SqlFunctions'
+
+
 
 
 function Login() {
   const navigate = useNavigate();
   const match = useMediaQuery('(min-height: 900px)');
+
+  const formik = useFormik({
+    initialValues: {
+      userName: '',
+      password: '',
+    },
+      onSubmit: async (values) => {
+          let loginData = JSON.stringify(values, null, 2)
+          const user = JSON.parse(loginData).userName;
+          const contra = JSON.parse(loginData).password;
+
+          console.log(user)
+          console.log(contra)
+          
+          await validarLogin(user, contra);
+
+          if(encontrado){
+            navigate('/');
+          }
+          
+   }
+  });
+
   return (
     <div className="Contenedor-login">
       <Box
@@ -38,6 +65,7 @@ function Login() {
           height: '95%',
           maring: '5px',
         }}>
+         <form onSubmit={formik.handleSubmit}>
 
         <Stack
           spacing={match ? 8.3 : 5}
@@ -54,10 +82,12 @@ function Login() {
           </Box>
           <Box sx={{ width: '80%', display: 'flex' }}>
             <TextField
-              fullWidth id="User"
-              label="Username"
+              fullWidth id="userName"
+              label="Usuario"
               variant="filled"
-              name='Username'
+              name='userName'
+              value={formik.values.userName}
+              onChange={formik.handleChange}
               sx={{ background: '#fff' }}
             />
           </Box>
@@ -65,9 +95,12 @@ function Login() {
             <TextField
               fullWidth
               id="password"
-              label="password"
+              label="Password"
               variant="filled"
               name='password'
+              type='password'
+              value={formik.values.password}
+              onChange={formik.handleChange}
               sx={{ background: '#fff' }}
             />
           </Box>
@@ -75,12 +108,13 @@ function Login() {
             <Button
               variant="contained"
               sx={{ backgroundColor: '#F25019', width: '100%', height: '50px' }}
-              onClick={() => navigate('/')}
+              type='submit'
             >
               Sign In
             </Button>
           </Box>
         </Stack>
+        </form> 
 
       </Box>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Link,
   Container,
@@ -14,7 +14,8 @@ import {
   Menu,
   MenuItem,
   ThemeProvider,
-  styled
+  styled,
+  IconButton
 
 } from '@mui/material'
 import IconoSinTitulo from '../Images/IconoSinTitulo.png'
@@ -22,7 +23,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-import {user} from '../Functions/SqlFunctions'
+import { user, getVoluntarios, idVoluntario } from '../Functions/SqlFunctions';
 
 import "../styles/Menu.css"
 
@@ -41,12 +42,16 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
 
 }));
 
-
 function MenuArriba() {
   const [isOpen, setIsOpen] = useState(false)
   const theme = useTheme();
   const match = useMediaQuery(theme.breakpoints.down('md'));
+
+
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [esAdimin, setEsAdmin]=useState(false);
+  const [nombree, setNombree]=useState("Username");
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -118,6 +123,7 @@ function MenuArriba() {
             <Stack direction="row" spacing={2} alignItems='center'>
               <img src={IconoSinTitulo} />
               <Typography variant='h2' sx={{ fontWeight: 'bold' }} color='#ff5c0c'>EL EDEN</Typography>
+
             </Stack>
             <ThemeProvider theme={theme}>
               <Box sx={{ justifyContent: 'center', margin: 2 }}>
@@ -130,33 +136,10 @@ function MenuArriba() {
                   onClick={handleClick}
                   size='large'
                   sx={{ color: '#FE6A16', fontSize: '20px' }}
-                  endIcon={<KeyboardArrowDownIcon />}
+                  endIcon={<LogoutIcon/>}
                 >
-                  {user}
+                  Sign out
                 </Button>
-                <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                  }}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                >
-
-                  <StyledMenuItem onClick={handleClose}>
-                    <LogoutIcon />
-                    Cerrar sesion
-                  </StyledMenuItem>
-                </Menu>
               </Box>
             </ThemeProvider>
           </Stack>

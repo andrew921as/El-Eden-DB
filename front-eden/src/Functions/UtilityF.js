@@ -31,9 +31,17 @@ const getCliente = (object) =>{
 }
 
 const getAnimal = (object) =>{
-	idAnimal=object.id;
-	nombreAnimal=object.Nombre;
-	especieAnimal=object.Especie;
+	idAnimal=object.id_animal;
+	nombreAnimal=object.nombre_animal;
+	especieAnimal=object.tipo;
+}
+
+const reset = () =>{
+	clienteCedula = '';
+	clienteNombre = '';
+	idAnimal = '';
+	nombreAnimal = '';
+	especieAnimal = '';
 }
 
 
@@ -51,6 +59,7 @@ getCliente,
 getAnimal, 
 idAnimal,
 nombreAnimal,
-especieAnimal
+especieAnimal,
+reset
 
 };

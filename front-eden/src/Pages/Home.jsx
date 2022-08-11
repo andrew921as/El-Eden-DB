@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react'
 import ButtonHome from '../Components/ButtonHome'
 import '../styles/Home.css';
 import {
@@ -12,7 +12,8 @@ import {
   styled,
   IconButton,
   useMediaQuery,
-  Box
+  Box,
+  Button
 } from '@mui/material';
 
 import PersonIcon from '@mui/icons-material/Person';
@@ -24,8 +25,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useNavigate } from 'react-router-dom';
 import iconoOso from '../Images/IconoOso.png'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import AddIcon from '@mui/icons-material/Add';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
-import { user } from '../Functions/SqlFunctions';
+import { user, getVoluntarios, idVoluntario } from '../Functions/SqlFunctions';
 
 
 const StyledAcordion = styled(Accordion)(({ theme }) => ({
@@ -53,6 +58,9 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 function Home() {
+  const [esAdimin, setEsAdmin]=useState(false);
+  const [nombree, setNombree]=useState("Username");
+  
   const navigate = useNavigate();
   const theme = useTheme();
   const match = useMediaQuery(theme.breakpoints.down('md'));
@@ -61,7 +69,20 @@ function Home() {
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
-  
+
+    const voluntario = async () => {
+        await getVoluntarios("Identificador", idVoluntario, true);
+        console.log(user)
+    if(user[0].cargo == "Administrador"){
+        setEsAdmin(true);
+    }else{
+        setEsAdmin(false);
+    }
+    setNombree(user[0].nombre);
+    }
+
+    voluntario();
+
   return (
     <div className='Contenedor-principal'>
           <Box
@@ -77,15 +98,15 @@ function Home() {
              height:'100%',
           }}
           >
+            {esAdimin ?
           <Stack
             spacing={2}
             direction={'column'}
             alignItems={'center'}
             sx={{ padding: 1, paddingTop:'20%'}}
-          >
+          >  
             <img className='Icono-main' src={iconoOso} />
-            <Typography sx={{ fontSize: '1.8rem', color: '#d84707', fontWeight: 3 }} >{"Bienvenido, "+user}</Typography>
-
+            <Typography sx={{ fontSize: '1.8rem', color: '#d84707', fontWeight: 3 }} >{"Bienvenido, " + nombree}</Typography>
             <StyledAcordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
               <AccordionSummary aria-controls="panel1d-content" id="panel1d-header" expandIcon={<ExpandMoreIcon />}>
                 <PersonIcon sx={{ fontSize: '2.7rem' }} />
@@ -110,7 +131,7 @@ function Home() {
               </AccordionSummary>
               <AccordionDetails>
 
-                <MenuItem onClick={() => navigate('/Registro-Voluntario')}><ChevronRightIcon fontSize='1.5rem' />Añadir nuevo voluntario</MenuItem>
+                <MenuItem onClick={() => navigate('/Registro-Voluntario')} disabled={false}><ChevronRightIcon fontSize='1.5rem' />Añadir nuevo voluntario</MenuItem>
                 <MenuItem onClick={() => navigate('/Buscar-Voluntario')}><ChevronRightIcon fontSize='1.5rem' />Buscar voluntario</MenuItem>
 
               </AccordionDetails>
@@ -149,10 +170,88 @@ function Home() {
 
               </AccordionDetails>
             </StyledAcordion>
-
             <IconButton  sx={{ gap: 2, borderRadius: 0, color: '#d84707' }} onClick={() => navigate('/Login')}><ArrowBackIcon />Sign off</IconButton>
 
           </Stack>
+          : 
+          <Stack
+          spacing={2}
+          direction={'column'}
+          alignItems={'center'}
+          sx={{ padding: 1, paddingTop:'20%'}}
+        >  
+            <img className='Icono-main' src={iconoOso} />
+            <Typography sx={{ fontSize: '1.8rem', color: '#d84707', fontWeight: 3 }} >{"Bienvenido, "+ nombree}</Typography>
+            
+              <Button 
+              variant='contained' 
+              onClick={() => navigate('/Registro-Usuario')} 
+              startIcon={<PersonAddIcon/>} 
+              sx={{
+                width: '45%', 
+                backgroundColor: '#fff',
+                color: '#000000', 
+                border: '1.7px solid #FE6A16',
+                borderRadius: '10px',
+                '&:hover':{
+                  backgroundColor: '#F2F2F2'
+                }
+              }}>
+                Registrar cliente
+              </Button>
+              <Button 
+              variant='contained' 
+              onClick={() => navigate('/Buscar-Cliente')} 
+              sx={{width: '45%'}} 
+              startIcon={<PersonSearchIcon/>}
+              sx={{
+                width: '45%', 
+                backgroundColor: '#fff',
+                color: '#000000', 
+                border: '1.7px solid #FE6A16',
+                borderRadius: '10px',
+                '&:hover':{
+                  backgroundColor: '#F2F2F2'
+                }
+              }}>
+              Buscar cliente
+              </Button>
+              <Button 
+              variant='contained' 
+              onClick={() => navigate('/Registro-Animal')} 
+              startIcon={<AddIcon/>}
+              sx={{
+                width: '45%', 
+                backgroundColor: '#fff',
+                color: '#000000', 
+                border: '1.7px solid #FE6A16',
+                borderRadius: '10px',
+                '&:hover':{
+                  backgroundColor: '#F2F2F2'
+                }
+              }}>
+                Registrar animal
+                </Button>
+              <Button 
+              variant='contained' 
+              onClick={() => navigate('/Buscar-Animal')} 
+              startIcon={<ManageSearchIcon/>}
+              sx={{
+                width: '45%', 
+                backgroundColor: '#fff',
+                color: '#000000', 
+                border: '1.7px solid #FE6A16',
+                borderRadius: '10px', 
+                '&:hover':{
+                  backgroundColor: '#F2F2F2'
+                }
+              }}>
+                Buscar animal
+                </Button>
+
+            <IconButton  sx={{ gap: 2, borderRadius: 0, color: '#d84707', fontSize: '1rem' }} onClick={() => navigate('/Login')}><ArrowBackIcon />Sign off</IconButton>
+            </Stack>
+          }
           </Box> 
     </div>
   )

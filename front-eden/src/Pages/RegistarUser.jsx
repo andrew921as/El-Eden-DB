@@ -2,6 +2,9 @@ import React from 'react'
 import { Button, Container, Grid, Stack, TextField, Typography, Box, ThemeProvider, useTheme, useMediaQuery, InputLabel, MenuItem, FormControl, Select} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
+import { useState } from "react";
+
+import ButtonBack from '../Components/ButtonBack';
 
 import { useFormik } from 'formik';
 
@@ -14,6 +17,7 @@ import '../styles/RegistrarUsu.css';
 
 export default function RegistarUser() {
 
+  const [campoError, setCampoError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -28,6 +32,33 @@ export default function RegistarUser() {
       Telefono: '',
       Cedula: ''
     },
+      validate: (values) => {
+        if(!values.Nombre){
+          setCampoError(true);
+          console.log('por favor llene este campo')
+        }
+        if(!values.Apellido){
+          setCampoError(true);
+        }
+        if(!values.Email){
+          setCampoError(true);
+        }
+        if(!values.TipoVia){
+          setCampoError(true);
+        }
+        if(!values.Calle){
+          setCampoError(true);
+        }
+        if(!values.Casa){
+          setCampoError(true);
+        }
+        if(!values.Telefono){
+          setCampoError(true);
+        }
+        if(!values.Cedula){
+          setCampoError(true);
+        }
+      },
       onSubmit: (values) => {
           let userData = JSON.stringify(values, null, 2)
           alert(userData);
@@ -43,7 +74,7 @@ export default function RegistarUser() {
           /* createAnimal('008', nombre, talla, edad, tipo, motivoIngreso, observaciones, estado, fechaI, fechaS);*/
           createPatrocinador(cedula, nombre, apellido, correo, telefono, tipo_via, numero_calle, numero_casa, 'albergue');
           //createPatrocinador('59485217', 'Carlos', 'Carloscaceres', 'carlitos@carlitos.com','3156421563', 'larga', 'primer', '56-56','albergue');
-      }
+      },
   });
 
   return (
@@ -78,6 +109,7 @@ export default function RegistarUser() {
         }
 
         }}>
+        
       <Grid container component="main">
 
           <Stack 
@@ -94,7 +126,7 @@ export default function RegistarUser() {
               <Grid container rowSpacing={6}>
                 <Grid item xs={11} md={3.5}>
                   <Container>
-                    <TextField fullWidth id="Nombre" label="Nombre" variant="filled" name='Nombre' value={formik.values.Nombre} onChange={formik.handleChange} />
+                    <TextField fullWidth id="Nombre" label="Nombre" variant="filled" name='Nombre' value={formik.values.Nombre} onChange={formik.handleChange} error={campoError}/>
                   </Container>
                 </Grid>
                 <Grid item xs={11} md={3.5}>

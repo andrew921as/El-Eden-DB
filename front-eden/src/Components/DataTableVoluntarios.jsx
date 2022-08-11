@@ -27,7 +27,7 @@ const rows = [
     {Cedula:123, Nombre:"Holaloco", Apellido:"Queloquiza", Telefono:123456, Correo:"locos@loquiando.com"}
 ];
 
-export default function VolutariosTable() {
+export default function VolutariosTable({datosBd}) {
     return (
         <ThemeProvider theme={theme}>
             <TableContainer component={Paper}>
@@ -36,23 +36,21 @@ export default function VolutariosTable() {
                         <TableRow>
                             <StyledTableCell align="center">Cedula</StyledTableCell>
                             <StyledTableCell align="center">Nombre</StyledTableCell>
-                            <StyledTableCell align="center">Apellido</StyledTableCell>
+                            <StyledTableCell align="center">Cargo</StyledTableCell>
                             <StyledTableCell align="center">Telefono</StyledTableCell>
-                            <StyledTableCell align="center">Correo</StyledTableCell>
                             <StyledTableCell align="center">Acciones</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {datosBd.map((row) => (
                             <TableRow
                                 key={row.id}
                             >
-                                <TableCell component="th" scope="row" align="center"> {row.Cedula}</TableCell>
-                                <TableCell align="center">{row.Nombre}</TableCell>
-                                <TableCell align="center">{row.Apellido}</TableCell>
-                                <TableCell align="center">{row.Telefono}</TableCell>
-                                <TableCell align="center">{row.Correo}</TableCell>
-                                <MasOpcionesBotonVoluntarios row={row} />
+                                <TableCell component="th" scope="row" align="center"> {row.cedula}</TableCell>
+                                <TableCell align="center">{row.nombre}</TableCell>
+                                <TableCell align="center">{row.cargo}</TableCell>
+                                <TableCell align="center">{row.telefono}</TableCell>
+                                <TableCell align="center"> <MasOpcionesBotonVoluntarios row={row} /> </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
