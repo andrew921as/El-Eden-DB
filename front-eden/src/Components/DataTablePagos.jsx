@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     Paper,
     TableRow,
@@ -13,11 +13,11 @@ import {
     TableFooter,
 
 } from '@mui/material';
+import MasOpcionesBotonAnimales from './MasOpcionesAnimales';
 import theme from '../Theme';
-import MasOpcionesBotonVoluntarios from './MasOpcionesVoluntarios';
 
-function createData(Cedula, Nombre, Apellido, Telefono, Correo, Acciones) {
-    return { Cedula, Nombre, Apellido, Telefono, Correo, Acciones };
+function createData(id, nombre, especie, estado, MotivoIngreso, FechaIngreso, FechaSalida) {
+    return { id, nombre, especie, estado, MotivoIngreso, FechaIngreso, FechaSalida };
 }
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -25,11 +25,8 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     color: '#fff'
 }));
 
-const rows = [
-    {Cedula:123, Nombre:"Holaloco", Apellido:"Queloquiza", Telefono:123456, Correo:"locos@loquiando.com"}
-];
 
-export default function VolutariosTable({datosBd, reload}) {
+export default function PagosTable({datosBd, reload}) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(4);
 
@@ -41,30 +38,30 @@ export default function VolutariosTable({datosBd, reload}) {
      setRowsPerPage(parseInt(event.target.value, 5));
      setPage(0);
     };
-
     return (
         <ThemeProvider theme={theme}>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead sx={{}}>
                         <TableRow>
-                            <StyledTableCell align="center">Cedula</StyledTableCell>
-                            <StyledTableCell align="center">Nombre</StyledTableCell>
-                            <StyledTableCell align="center">Cargo</StyledTableCell>
-                            <StyledTableCell align="center">Telefono</StyledTableCell>
-                            <StyledTableCell align="center">Acciones</StyledTableCell>
+                            <StyledTableCell align="center">Identificador</StyledTableCell>
+                            <StyledTableCell align="center">Id Cliente</StyledTableCell>
+                            <StyledTableCell align="center">Nombre Cliente</StyledTableCell>
+                            <StyledTableCell align="center">Tipo de cliente</StyledTableCell>
+                            <StyledTableCell align="center">Id Animal</StyledTableCell>
+                            <StyledTableCell align="center">Pago</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {datosBd.slice(page * rowsPerPage, page*rowsPerPage+rowsPerPage).map((row) => (
+                        {datosBd.map((row) => (
                             <TableRow
                                 key={row.id}
                             >
-                                <TableCell component="th" scope="row" align="center"> {row.cedula}</TableCell>
-                                <TableCell align="center">{row.nombre}</TableCell>
-                                <TableCell align="center">{row.cargo}</TableCell>
-                                <TableCell align="center">{row.telefono}</TableCell>
-                                <TableCell align="center"> <MasOpcionesBotonVoluntarios row={row} reload={reload} /> </TableCell>
+                                <TableCell component="th" scope="row" align="center"> {row.id_animal}</TableCell>
+                                <TableCell align="center">{row.nombre_animal}</TableCell>
+                                <TableCell align="center">{row.tipo}</TableCell>
+                                <TableCell align="center">{row.estado}</TableCell>
+                                <TableCell align="center">{row.motivo_ingreso}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

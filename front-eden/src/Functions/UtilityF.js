@@ -12,6 +12,9 @@ let animalType="";
 let idAnimal='';
 let nombreAnimal='';
 let especieAnimal='';
+let cliente;
+let animal;
+
 
 
 const getClientDataP = (object)=>{
@@ -26,11 +29,13 @@ const getAnimalDataP = (Aobject)=>{
 }
 
 const getCliente = (object) =>{
+	cliente=object;
 	clienteCedula=object.cedula;
 	clienteNombre=object.nombre;
 }
 
 const getAnimal = (object) =>{
+	animal=object;
 	idAnimal=object.id_animal;
 	nombreAnimal=object.nombre_animal;
 	especieAnimal=object.tipo;
@@ -42,6 +47,7 @@ const reset = () =>{
 	idAnimal = '';
 	nombreAnimal = '';
 	especieAnimal = '';
+	animal={};
 }
 
 
@@ -60,6 +66,8 @@ getAnimal,
 idAnimal,
 nombreAnimal,
 especieAnimal,
-reset
+reset,
+animal,
+cliente
 
 };

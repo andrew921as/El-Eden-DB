@@ -7,6 +7,8 @@ import {
     TableCell,
     TableBody,
     Table,
+    TablePagination,
+    TableFooter,
     ThemeProvider,
     styled
 
@@ -25,6 +27,19 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 
 export default function AnimalesTable({datosBd, reload}) {
+
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(4);
+
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+      };
+    
+    const handleChangeRowsPerPage = (event) => {
+     setRowsPerPage(parseInt(event.target.value, 5));
+     setPage(0);
+    };
+
     return (
         <ThemeProvider theme={theme}>
             <TableContainer component={Paper}>
@@ -40,7 +55,7 @@ export default function AnimalesTable({datosBd, reload}) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {datosBd.map((row) => (
+                        {datosBd.slice(page * rowsPerPage, page*rowsPerPage+rowsPerPage).map((row) => (
                             <TableRow
                                 key={row.id}
                             >
@@ -53,6 +68,20 @@ export default function AnimalesTable({datosBd, reload}) {
                             </TableRow>
                         ))}
                     </TableBody>
+                    <TableFooter>
+                        <TableRow>
+                        <TablePagination
+                            rowsPerPageOptions={[4]}
+                            component="div"
+                            count={datosBd.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                            sx={{backgroundColor: '#881600', color: '#fff'}}
+                        />
+                        </TableRow>
+                    </TableFooter>
                 </Table>
             </TableContainer>
         </ThemeProvider>

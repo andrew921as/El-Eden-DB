@@ -16,10 +16,10 @@ import {
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../styles/MasOpciones.css';
 import ClearIcon from '@mui/icons-material/Clear';
-import { actualizarVoluntario, getAllVoluntarios, busquedas } from '../Functions/SqlFunctions'
+import { borrarVoluntario, actualizarVoluntario, getAllVoluntarios, busquedas, /**borrarVoluntario */ } from '../Functions/SqlFunctions'
 
 
-export default function MasOpcionesVoluntarios(row) {
+export default function MasOpcionesVoluntarios({row, reload}) {
 
     const [open, setOpen] = React.useState(false);
 
@@ -31,22 +31,23 @@ export default function MasOpcionesVoluntarios(row) {
         setOpen(false);
     };
 
-    const eliminarReg = () => {
-        //Row te devuelve un dato raro busca a ver
-        console.log(row);
-        console.log(row.row.nombre);
+    const eliminarReg = async() => {
+        await borrarVoluntario(row.cedula);
+        await getAllVoluntarios();
+             reload(busquedas);
+             setOpen(false);
     }
 
     const formik = useFormik({
         initialValues: {
-            Cedula: row.row.cedula,
-            Nombre: row.row.nombre,
-            Telefono: row.row.telefono,
-            Cargo: row.row.cargo,
-            UsserName: row.row.username,
-            Password: row.row.password
+            Cedula: row.cedula,
+            Nombre: row.nombre,
+            Telefono: row.telefono,
+            Cargo: row.cargo,
+            UsserName: row.username,
+            Password: row.password
     },
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
         let voluntarioData = JSON.stringify(values, null, 2)
           alert(voluntarioData);
           const cedula = JSON.parse(voluntarioData).Cedula;
@@ -63,6 +64,9 @@ export default function MasOpcionesVoluntarios(row) {
             username,
             password
             );
+            await getAllVoluntarios();
+            reload(busquedas);
+            setOpen(false);
     }
     });
 

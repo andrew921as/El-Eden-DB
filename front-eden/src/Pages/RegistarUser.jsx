@@ -17,6 +17,37 @@ import '../styles/RegistrarUsu.css';
 
 export default function RegistarUser() {
 
+  const validacion = (values) => {
+    const errors = {};
+  
+    if (!values.Nombre) {
+      errors.Nombre = 'Campo obligatorio*';
+    }
+    if (!values.Apellido) {
+      errors.Apellido = 'Campo obligatorio*';
+    }
+    if (!values.Email) {
+      errors.Email = 'Campo obligatorio*';
+    }
+    if (!values.TipoVia) {
+      errors.TipoVia = 'Campo obligatorio*';
+    }
+    if (!values.Calle) {
+      errors.Calle = 'Campo obligatorio*';
+    }
+    if (!values.Casa) {
+      errors.Casa = 'Campo obligatorio*';
+    }
+    if (!values.Telefono) {
+      errors.Telefono = 'Campo obligatorio*';
+    }
+    if (!values.Cedula) {
+      errors.Cedula = 'Campo obligatorio*';
+    }
+
+    return errors;
+  };
+
   const [campoError, setCampoError] = useState(false);
 
   const navigate = useNavigate();
@@ -32,33 +63,7 @@ export default function RegistarUser() {
       Telefono: '',
       Cedula: ''
     },
-      validate: (values) => {
-        if(!values.Nombre){
-          setCampoError(true);
-          console.log('por favor llene este campo')
-        }
-        if(!values.Apellido){
-          setCampoError(true);
-        }
-        if(!values.Email){
-          setCampoError(true);
-        }
-        if(!values.TipoVia){
-          setCampoError(true);
-        }
-        if(!values.Calle){
-          setCampoError(true);
-        }
-        if(!values.Casa){
-          setCampoError(true);
-        }
-        if(!values.Telefono){
-          setCampoError(true);
-        }
-        if(!values.Cedula){
-          setCampoError(true);
-        }
-      },
+      validate: validacion,
       onSubmit: (values) => {
           let userData = JSON.stringify(values, null, 2)
           alert(userData);
@@ -80,6 +85,7 @@ export default function RegistarUser() {
   return (
     <div className='RegistrarUsuCont'>
       <MenuArriba />
+      <ButtonBack/>
         <Box sx={{ 
         width: {
           xs: '100%',
@@ -93,19 +99,12 @@ export default function RegistarUser() {
         borderRadius: '15px', 
         flexDirection: "column", 
         alignContent: "right", 
-        marginTop: {
-          xs: 0,
-          sm: 0,
-          md: 0,
-          lg: 8,
-          xl: 8
-        },
         marginLeft: {
           xs: 0,
           sm: 0,
           md: 0,
-          lg: 15,
-          xl: 15
+          lg: 20,
+          xl: 20
         }
 
         }}>
@@ -117,7 +116,7 @@ export default function RegistarUser() {
           justifyContent="center" 
           direction={'column'}
           alignItems={'center'}
-          sx={{paddingBottom:4, paddingTop:3}}
+          sx={{paddingBottom:4}}
           >
 
               <Typography alignSelf={'center'} variant='h1' color={'#881600'}>Registrar nuevo usuario</Typography>
@@ -126,17 +125,48 @@ export default function RegistarUser() {
               <Grid container rowSpacing={6}>
                 <Grid item xs={11} md={3.5}>
                   <Container>
-                    <TextField fullWidth id="Nombre" label="Nombre" variant="filled" name='Nombre' value={formik.values.Nombre} onChange={formik.handleChange} error={campoError}/>
+                    <TextField 
+                    fullWidth 
+                    id="Nombre" 
+                    label="Nombre" 
+                    variant="filled" 
+                    name='Nombre'
+                    value={formik.values.Nombre} 
+                    onChange={formik.handleChange} 
+                    error={formik.touched.Nombre && Boolean(formik.errors.Nombre)}
+                    helperText= {formik.touched.Nombre && formik.errors.Nombre}
+                    />
+                    
                   </Container>
                 </Grid>
                 <Grid item xs={11} md={3.5}>
                   <Container>
-                    <TextField fullWidth id="Apellido" label="Apellido" variant="filled" name='Apellido' value={formik.values.Apellido} onChange={formik.handleChange} />
+                    <TextField 
+                    fullWidth 
+                    id="Apellido" 
+                    label="Apellido" 
+                    variant="filled" 
+                    name='Apellido' 
+                    value={formik.values.Apellido} 
+                    onChange={formik.handleChange} 
+                    error={formik.touched.Apellido && Boolean(formik.errors.Apellido)}
+                    helperText= {formik.touched.Apellido && formik.errors.Apellido}
+                    />
                   </Container>
                 </Grid>
                 <Grid item xs={11} md={5}>
                   <Container>
-                    <TextField fullWidth id="Email" label="E-mail" variant="filled" name='Email' value={formik.values.Email} onChange={formik.handleChange} />
+                    <TextField 
+                    fullWidth 
+                    id="Email" 
+                    label="E-mail" 
+                    variant="filled" 
+                    name='Email' 
+                    value={formik.values.Email} 
+                    onChange={formik.handleChange}
+                    error={formik.touched.Email && Boolean(formik.errors.Email)}
+                    helperText= {formik.touched.Email && formik.errors.Email}
+                     />
                   </Container>
                 </Grid>
                 <Grid item md={4}>
@@ -163,22 +193,62 @@ export default function RegistarUser() {
                   </Grid>
                   <Grid item md={4}>
                     <Container>
-                    <TextField fullWidth id="Calle" label="# Calle" variant="filled" name='Calle' value={formik.values.Calle} onChange={formik.handleChange} />
+                    <TextField 
+                    fullWidth 
+                    id="Calle" 
+                    label="# Calle" 
+                    variant="filled" 
+                    name='Calle' 
+                    value={formik.values.Calle} 
+                    onChange={formik.handleChange} 
+                    error={formik.touched.Calle && Boolean(formik.errors.Calle)}
+                    helperText= {formik.touched.Calle && formik.errors.Calle}
+                    />
                     </Container>
                   </Grid>
                   <Grid item md={4}>
                     <Container>
-                    <TextField fullWidth id="Casa" label="# Casa" variant="filled" name='Casa' value={formik.values.Casa} onChange={formik.handleChange}/>
+                    <TextField 
+                    fullWidth 
+                    id="Casa" 
+                    label="# Casa" 
+                    variant="filled" 
+                    name='Casa' 
+                    value={formik.values.Casa}
+                    onChange={formik.handleChange}
+                    error={formik.touched.Casa && Boolean(formik.errors.Casa)}
+                    helperText= {formik.touched.Casa && formik.errors.Casa}
+                    />
                     </Container>
                   </Grid>
                 <Grid item xs={11} md={6}>
                   <Container>
-                    <TextField fullWidth id="Telefono" label="Télefono" variant="filled" name='Telefono' value={formik.values.Telefono} onChange={formik.handleChange} />
+                    <TextField 
+                    fullWidth 
+                    id="Telefono" 
+                    label="Télefono" 
+                    variant="filled" 
+                    name='Telefono' 
+                    value={formik.values.Telefono} 
+                    onChange={formik.handleChange} 
+                    error={formik.touched.Telefono && Boolean(formik.errors.Telefono)}
+                    helperText= {formik.touched.Telefono && formik.errors.Telefono}
+                    />
                   </Container>
                 </Grid>
                 <Grid item xs={11} md={6}>
                   <Container>
-                    <TextField fullWidth id="Cedula" label="Cedula" variant="filled" name='Cedula' value={formik.values.Cedula} onChange={formik.handleChange} />
+                    <TextField 
+                    fullWidth 
+                    id="Cedula" 
+                    label="Cedula" 
+                    variant="filled" 
+                    name='Cedula' 
+                    value={formik.values.Cedula} 
+                    onChange={formik.handleChange}
+                    error={formik.touched.Cedula && Boolean(formik.errors.Cedula)}
+                    helperText= {formik.touched.Cedula && formik.errors.Cedula}
+                    />
                   </Container>
                 </Grid>
               </Grid>

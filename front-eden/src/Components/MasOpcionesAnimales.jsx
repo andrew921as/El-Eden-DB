@@ -26,7 +26,7 @@ import {
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../styles/MasOpciones.css';
 import ClearIcon from '@mui/icons-material/Clear';
-import { actualizarAnimal, getAllAnimales, busquedas } from '../Functions/SqlFunctions'
+import { borrarAnimal, actualizarAnimal, getAllAnimales, busquedas } from '../Functions/SqlFunctions'
 
 export default function MasOpcionesAnimales({ row, reload }) {
 
@@ -50,9 +50,11 @@ export default function MasOpcionesAnimales({ row, reload }) {
         setOpen(false);
     };
 
-    const eliminarReg = () => {
-        //Row te devuelve un dato raro busca a ver
-        console.log(row);
+    const eliminarReg = async() => {
+      await borrarAnimal(row.id_animal);
+      await getAllAnimales();
+            reload(busquedas);
+            setOpen(false);
     }
 
     const formik = useFormik({

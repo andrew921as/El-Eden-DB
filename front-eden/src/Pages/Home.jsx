@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import ButtonHome from '../Components/ButtonHome'
 import '../styles/Home.css';
 import {
   Stack, Accordion,
@@ -58,12 +57,12 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 function Home() {
-  const [esAdimin, setEsAdmin]=useState(false);
-  const [nombree, setNombree]=useState("Username");
+  const [esAdimin, setEsAdmin]=useState(true);
+  const [nombree, setNombree]=useState("Administrador");
   
   const navigate = useNavigate();
   const theme = useTheme();
-  const match = useMediaQuery(theme.breakpoints.down('md'));
+  const match = useMediaQuery('(min-height: 900px)');
   const [expanded, setExpanded] = React.useState('');
 
   const handleChange = (panel) => (event, newExpanded) => {
@@ -71,6 +70,7 @@ function Home() {
   };
 
     const voluntario = async () => {
+      console.log("Este es mi id"+idVoluntario);
         await getVoluntarios("Identificador", idVoluntario, true);
         console.log(user)
     if(user[0].cargo == "Administrador"){
@@ -100,25 +100,25 @@ function Home() {
           >
             {esAdimin ?
           <Stack
-            spacing={2}
+            spacing={match? 3 : 1}
             direction={'column'}
             alignItems={'center'}
-            sx={{ padding: 1, paddingTop:'20%'}}
+            sx={match? { padding: 13 } :{ padding: 4 }}
           >  
             <img className='Icono-main' src={iconoOso} />
-            <Typography sx={{ fontSize: '1.8rem', color: '#d84707', fontWeight: 3 }} >{"Bienvenido, " + nombree}</Typography>
+            <Typography sx={{ fontSize: '1.5rem', color: '#d84707', fontWeight: 3 }} >{"Bienvenido, Administrador"}</Typography>
             <StyledAcordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
               <AccordionSummary aria-controls="panel1d-content" id="panel1d-header" expandIcon={<ExpandMoreIcon />}>
-                <PersonIcon sx={{ fontSize: '2.7rem' }} />
-                <Typography>Clientes</Typography>
+                <PersonIcon sx={{ fontSize: '2.2rem' }} />
+                <Typography sx={{fontSize: '1.7rem'}}>Clientes</Typography>
               </AccordionSummary>
               <AccordionDetails>
 
-                <MenuItem onClick={() => navigate('/Registro-Usuario')}>
-                  <ChevronRightIcon fontSize='1.5rem' />Registrar nuevo cliente
+                <MenuItem onClick={() => navigate('/Registro-Usuario')} >
+                  <ChevronRightIcon fontSize='1.4rem' />Registrar nuevo cliente
                 </MenuItem>
                 <MenuItem onClick={() => navigate('/Buscar-Cliente')}>
-                  <ChevronRightIcon fontSize='1.5rem' />Buscar cliente
+                  <ChevronRightIcon fontSize='1.4rem' />Buscar cliente
                 </MenuItem>
 
               </AccordionDetails>
@@ -126,8 +126,8 @@ function Home() {
 
             <StyledAcordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
               <AccordionSummary aria-controls="panel2d-content" id="panel2d-header" expandIcon={<ExpandMoreIcon />}>
-                <HandshakeIcon sx={{ fontSize: '2.7rem' }} />
-                <Typography>Voluntarios</Typography>
+                <HandshakeIcon sx={{ fontSize: '2.2rem' }} />
+                <Typography sx={{fontSize: '1.7rem'}}>Voluntarios</Typography>
               </AccordionSummary>
               <AccordionDetails>
 
@@ -139,8 +139,8 @@ function Home() {
 
             <StyledAcordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
               <AccordionSummary aria-controls="panel3d-content" id="panel3d-header" expandIcon={<ExpandMoreIcon />}>
-                <PetsIcon sx={{ fontSize: '2.7rem' }} />
-                <Typography>Animales</Typography>
+                <PetsIcon sx={{ fontSize: '2.2rem' }} />
+                <Typography sx={{ fontSize: '1.7rem' }}>Animales</Typography>
               </AccordionSummary>
               <AccordionDetails>
 
@@ -156,15 +156,15 @@ function Home() {
 
             <StyledAcordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
               <AccordionSummary aria-controls="panel4d-content" id="panel4d-header" expandIcon={<ExpandMoreIcon />}>
-                <StoreIcon sx={{ fontSize: '2.7rem' }} />
-                <Typography>Caja</Typography>
+                <StoreIcon sx={{ fontSize: '2.2rem' }} />
+                <Typography sx={{ fontSize: '1.7rem' }}>Caja</Typography>
               </AccordionSummary>
               <AccordionDetails>
 
                 <MenuItem onClick={() => navigate('/Registro-Pago')}>
                   <ChevronRightIcon fontSize='1.5rem' />Pago
                 </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={() => navigate('/Buscar-Pago')}>
                   <ChevronRightIcon fontSize='1.5rem' />Buscar transacción
                 </MenuItem>
 
@@ -178,17 +178,17 @@ function Home() {
           spacing={2}
           direction={'column'}
           alignItems={'center'}
-          sx={{ padding: 1, paddingTop:'20%'}}
+          sx={match ? { padding: 20} : {padding: 5}}
         >  
             <img className='Icono-main' src={iconoOso} />
-            <Typography sx={{ fontSize: '1.8rem', color: '#d84707', fontWeight: 3 }} >{"Bienvenido, "+ nombree}</Typography>
+            <Typography sx={{ fontSize: '1.8rem', color: '#d84707', fontWeight: 3 }} >{"Bienvenido, Voluntario"}</Typography>
             
               <Button 
               variant='contained' 
               onClick={() => navigate('/Registro-Usuario')} 
               startIcon={<PersonAddIcon/>} 
               sx={{
-                width: '45%', 
+                width: '80%',
                 backgroundColor: '#fff',
                 color: '#000000', 
                 border: '1.7px solid #FE6A16',
@@ -197,15 +197,14 @@ function Home() {
                   backgroundColor: '#F2F2F2'
                 }
               }}>
-                Registrar cliente
+              <Typography sx={{fontSize:{md: '1.4rem'}}}>Registrar Cliente</Typography>
               </Button>
               <Button 
               variant='contained' 
-              onClick={() => navigate('/Buscar-Cliente')} 
-              sx={{width: '45%'}} 
+              onClick={() => navigate('/Buscar-Cliente')}  
               startIcon={<PersonSearchIcon/>}
               sx={{
-                width: '45%', 
+                width: '80%', 
                 backgroundColor: '#fff',
                 color: '#000000', 
                 border: '1.7px solid #FE6A16',
@@ -214,14 +213,14 @@ function Home() {
                   backgroundColor: '#F2F2F2'
                 }
               }}>
-              Buscar cliente
+              <Typography sx={{fontSize:{md: '1.4rem'}}}>Buscar Cliente</Typography>
               </Button>
               <Button 
               variant='contained' 
               onClick={() => navigate('/Registro-Animal')} 
               startIcon={<AddIcon/>}
               sx={{
-                width: '45%', 
+                width: '80%', 
                 backgroundColor: '#fff',
                 color: '#000000', 
                 border: '1.7px solid #FE6A16',
@@ -230,14 +229,14 @@ function Home() {
                   backgroundColor: '#F2F2F2'
                 }
               }}>
-                Registrar animal
+               <Typography sx={{fontSize:{md: '1.4rem'}}}>Registrar Animal</Typography>
                 </Button>
               <Button 
               variant='contained' 
               onClick={() => navigate('/Buscar-Animal')} 
               startIcon={<ManageSearchIcon/>}
               sx={{
-                width: '45%', 
+                width: '80%', 
                 backgroundColor: '#fff',
                 color: '#000000', 
                 border: '1.7px solid #FE6A16',
@@ -246,10 +245,10 @@ function Home() {
                   backgroundColor: '#F2F2F2'
                 }
               }}>
-                Buscar animal
+                <Typography sx={{fontSize:{md: '1.4rem'}}}>Buscar Animal</Typography>
                 </Button>
 
-            <IconButton  sx={{ gap: 2, borderRadius: 0, color: '#d84707', fontSize: '1rem' }} onClick={() => navigate('/Login')}><ArrowBackIcon />Sign off</IconButton>
+            <IconButton  sx={{ gap: 2, borderRadius: 0, color: '#d84707', fontSize: '1.5rem' }} onClick={() => navigate('/Login')}><ArrowBackIcon />Sign off</IconButton>
             </Stack>
           }
           </Box> 

@@ -78,8 +78,6 @@ const getAnimal = (tipoDato, dato) => {
 
 const getVoluntario = (tipoDato, dato) => {
     return new Promise(function (resolve, reject) {
-        console.log(tipoDato)
-        console.log(dato)
         if (tipoDato == "Todos") {
             pool.query(`SELECT * FROM datos_voluntario ORDER BY cedula ASC;`, (error, results) => {
                 if (error) {
@@ -116,9 +114,6 @@ const validarLogin = (body) => {
             if (error) {
                 reject(error)
             }
-            console.log(usuario)
-            console.log(contrasena)
-            console.log(results.rowCount)
             if (results.rowCount>0) {
                 encontrado = true
                 resultados.push(encontrado)
@@ -130,6 +125,35 @@ const validarLogin = (body) => {
             }
 
         })
+    })
+}
+
+const registrarPago  = (tipoPago, body) => {
+    return new Promise(function (resolve, reject) {
+        const { id_animal,cedula, id_voluntario, ingresos, today} = body
+        console.log(id_animal)
+        console.log(cedula)
+        console.log(id_voluntario)
+        console.log(ingresos)
+        console.log(today)
+        if(tipoPago == "Donador"){
+            pool.query(`INSERT INTO d_pagan_a (cedula,id_voluntario,ingresos,fecha) VALUES ($1, $2, $3, $4) RETURNING *;`, [cedula, id_voluntario, ingresos, today], (error, results) => {
+                if (error) {
+                    reject(error)
+                }
+                resolve(`Se insertó donación por: ${ingresos}`)
+    
+            })
+        }
+        else{
+            pool.query(`INSERT INTO c_pagan_por (id_animal,cedula,id_voluntario,ingresos,fecha) VALUES ($1, $2, $3, $4, $5) RETURNING *;`, [id_animal,cedula, id_voluntario, ingresos, today], (error, results) => {
+                if (error) {
+                    reject(error)
+                }
+                resolve(`Se insertó pago por: ${ingresos}`)
+    
+            })
+        }
     })
 }
 
@@ -251,11 +275,35 @@ const actualizarVoluntario = (body) => {
 const deleteAnimal = (id) => {
     return new Promise(function (resolve, reject) {
         //const id = parseInt(request.params.id)
-        pool.query(`DELETE FROM animales WHERE id_animal = $1;`, [id], (error, results) => {
+        pool.query(`DELETE FROM datos_animal WHERE id_animal = $1;`, [id], (error, results) => {
             if (error) {
                 reject(error)
             }
-            resolve(`Se borraron todos los animales con el siguiente id: ${id}`)
+            resolve(`Se borro el animal con el id: ${id}`)
+        })
+    })
+}
+
+const deletePatrocinador = (id) => {
+    return new Promise(function (resolve, reject) {
+        //const id = parseInt(request.params.id)
+        pool.query(`DELETE FROM datos_patrocinador WHERE cedula = $1;`, [id], (error, results) => {
+            if (error) {
+                reject(error)
+            }
+            resolve(`Se borro el patrocinador con el id: ${id}`)
+        })
+    })
+}
+
+const deleteVoluntario = (id) => {
+    return new Promise(function (resolve, reject) {
+        //const id = parseInt(request.params.id)
+        pool.query(`DELETE FROM datos_voluntario WHERE cedula = $1;`, [id], (error, results) => {
+            if (error) {
+                reject(error)
+            }
+            resolve(`Se borro el patrocinador con el id: ${id}`)
         })
     })
 }
@@ -268,8 +316,11 @@ module.exports = {
     createAnimal,
     createPatrocinador,
     createVoluntario,
+    registrarPago,
     actualizarAnimal,
     actualizarPatrocinador,
     actualizarVoluntario,
     deleteAnimal,
+    deletePatrocinador,
+    deleteVoluntario,
 }

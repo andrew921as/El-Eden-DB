@@ -17,7 +17,7 @@ import {
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../styles/MasOpciones.css';
 import ClearIcon from '@mui/icons-material/Clear';
-import { actualizarPatrocinador, getAllPatrocinadores, busquedas  } from '../Functions/SqlFunctions'
+import { borrarPatrocinador, actualizarPatrocinador, getAllPatrocinadores, busquedas, /**borrarCliente */  } from '../Functions/SqlFunctions'
 
 
 export default function MasOpcionesCliente({row, reload}) {
@@ -40,9 +40,14 @@ export default function MasOpcionesCliente({row, reload}) {
         setOpen(false);
     };
 
-    const eliminarReg = () => {
-        //Row te devuelve un dato raro busca a ver
+    const eliminarReg = async() => {
+        await borrarPatrocinador(row.cedula);
+        await getAllPatrocinadores();
+                reload(busquedas);
+                setOpen(false);
+
     }
+    
     const formik = useFormik({
         initialValues: {
           Cedula: row.cedula,  

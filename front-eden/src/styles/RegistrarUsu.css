@@ -2,10 +2,15 @@
   background: url('../Images/PandaRed.png');
   background-size: cover;
   background-attachment: fixed;
-  min-width: 100%;
-  height: 100vh;
+  background-position: center center;
+  height: auto;
+  padding-bottom: 2rem;
 }
 
+.main-container{
+  display: flex;
+  flex-direction: column;
+}
 .precios{
   height: 500px;
   width: 600px;

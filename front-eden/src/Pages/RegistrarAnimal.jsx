@@ -34,6 +34,36 @@ import '../styles/RegistrarUsu.css';
 
 export default function RegistarAnimal() {
 
+  const validacion = (values) => {
+    const errors = {};
+    if (!values.Nombre) {
+      errors.Nombre = 'Campo obligatorio';
+    }
+    if (!values.Tipo) {
+      errors.Tipo = 'Campo obligatorio';
+    }
+    if (!values.Edad) {
+      errors.Edad = 'Campo obligatorio';
+    }
+    if (!values.MotivoI) {
+      errors.MotivoI = 'Campo obligatorio';
+    }
+    if (!values.FechaI) {
+      errors.FechaI = 'Campo obligatorio';
+    }
+    if (!values.Observaciones) {
+      errors.Observaciones = 'Campo obligatorio';
+    }
+    if (!values.Talla) {
+      errors.Talla = 'Campo obligatorio';
+    }
+    if (!values.Estado) {
+      errors.Estado = 'Campo obligatorio';
+    }
+
+    return errors;
+  };
+
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -48,6 +78,7 @@ export default function RegistarAnimal() {
       Talla: '',
       Estado: ''
     },
+    validate: validacion,
     onSubmit: (values) => {
       let animalData = JSON.stringify(values, null, 2)
       alert(animalData);
@@ -79,48 +110,50 @@ export default function RegistarAnimal() {
           xl: '45%'
         },
         backgroundColor: 'rgba(226, 226, 226, 0.95)',
-        paddingTop: 5,
+        paddingTop: 2,
         borderRadius: '15px',
         flexDirection: "column",
         alignContent: "right",
-        marginTop: {
-          xs: 0,
-          sm: 0,
-          md: 0,
-          lg: 8,
-          xl: 8
-        },
         marginLeft: {
           xs: 0,
           sm: 0,
           md: 0,
-          lg: 15,
-          xl: 15
+          lg: 20,
+          xl: 20
         }
 
       }}>
         <Stack
-          spacing={8}
+          spacing={2}
           justifyContent="center"
           direction={'column'}
           alignItems={'center'}
-          sx={{ paddingBottom: 4, paddingTop: 3 }}>
+          sx={{ paddingBottom: 4}}>
           <Typography alignSelf={'center'} variant='h1' color={'#881600'}>Registrar nuevo animal</Typography>
           <form onSubmit={formik.handleSubmit}>
             <Grid container rowSpacing={6}>
               <Grid item xs={12} md={4}>
                 <Container>
-                  <TextField fullWidth id="Nombre" label="Nombre" variant="filled" name='Nombre' value={formik.values.Nombre} onChange={formik.handleChange} />
+                  <TextField fullWidth id="Nombre" label="Nombre" variant="filled" name='Nombre'
+                   value={formik.values.Nombre} onChange={formik.handleChange} 
+                   error={formik.touched.Nombre && Boolean(formik.errors.Nombre)} 
+                   helperText= {formik.touched.Nombre && formik.errors.Nombre}/>
                 </Container>
               </Grid>
               <Grid item xs={12} md={4}>
                 <Container>
-                  <TextField fullWidth id="Tipo" label="Tipo" variant="filled" name='Tipo' value={formik.values.Tipo} onChange={formik.handleChange} />
+                  <TextField fullWidth id="Tipo" label="Tipo" variant="filled" name='Tipo' 
+                  value={formik.values.Tipo} onChange={formik.handleChange} 
+                  error={formik.touched.Tipo && Boolean(formik.errors.Tipo)} 
+                   helperText= {formik.touched.Tipo && formik.errors.Tipo}/>
                 </Container>
               </Grid>
               <Grid item xs={12} md={4}>
                 <Container>
-                  <TextField fullWidth id="Edad" label="Edad" variant="filled" name='Edad' value={formik.values.Edad} onChange={formik.handleChange} />
+                  <TextField fullWidth id="Edad" label="Edad" variant="filled" name='Edad'
+                   value={formik.values.Edad} onChange={formik.handleChange} 
+                   error={formik.touched.Edad && Boolean(formik.errors.Edad)} 
+                   helperText= {formik.touched.Edad && formik.errors.Edad}/>
                 </Container>
               </Grid>
               <Grid item xs={12} md={6}>
@@ -143,7 +176,7 @@ export default function RegistarAnimal() {
                           inputVariant="filled"
                           format="MM/dd/yyyy"
                           {...params}
-                          />}
+                           />}
                     />
                   </LocalizationProvider>
                 </Container>
@@ -156,6 +189,8 @@ export default function RegistarAnimal() {
                       label="Fecha de salida"
                       inputFormat="MM/dd/yyyy"
                       value={formik.values.FechaS}
+                      error={formik.touched.FechaS && Boolean(formik.errors.FechaS)} 
+                      helperText= {formik.touched.FechaS && formik.errors.FechaS}
                       onChange={(val) => {
                         formik.setFieldValue("FechaS", val);
                       }}
@@ -167,7 +202,8 @@ export default function RegistarAnimal() {
                           label="Fecha Salida"
                           inputVariant="filled"
                           format="MM/dd/yyyy"
-                          {...params} />}
+                          {...params}
+                          />}
                     />
                   </LocalizationProvider>
                 </Container>
@@ -193,7 +229,11 @@ export default function RegistarAnimal() {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Container>
-                  <TextField sx={{ minHeight: 6 }} fullWidth id="Observaciones" label="Observaciones" variant="filled" name='Observaciones' value={formik.values.Observaciones} onChange={formik.handleChange} />
+                  <TextField sx={{ minHeight: 6 }} fullWidth id="Observaciones"
+                   label="Observaciones" variant="filled" name='Observaciones'
+                    value={formik.values.Observaciones} onChange={formik.handleChange}
+                    error={formik.touched.Observaciones && Boolean(formik.errors.Observaciones)} 
+                   helperText= {formik.touched.Observaciones && formik.errors.Observaciones} />
                 </Container>
               </Grid>
               <Grid item xs={12} md={6}>

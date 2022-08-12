@@ -111,6 +111,26 @@ app.get('/voluntarios/Identificador/:data', (req, res) => {
         })
 })
 
+app.post('/pago/patrocinador', (req, res) => {
+    dbConnection.registrarPago("Patrocinador", req.body)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        })
+})
+
+app.post('/pago/donador', (req, res) => {
+    dbConnection.registrarPago("Donador", req.body)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        })
+})
+
 app.post('/login', (req, res) => {
     dbConnection.validarLogin(req.body)
         .then(response => {
@@ -190,6 +210,27 @@ app.delete('/animales/:id', (req, res) => {
             res.status(500).send(error);
         })
 })
+
+app.delete('/patrocinadores/:id', (req, res) => {
+    dbConnection.deletePatrocinador(req.params.id)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        })
+})
+
+app.delete('/voluntarios/:id', (req, res) => {
+    dbConnection.deleteVoluntario(req.params.id)
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        })
+})
+
 app.listen(port, () => {
     console.log(`App running on port ${port}.`)
 })
