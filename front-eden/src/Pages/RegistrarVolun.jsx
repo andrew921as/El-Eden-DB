@@ -54,7 +54,6 @@ export default function RegistrarVolun() {
     validate: validacion,
     onSubmit: (values) => {
       let volunteerData = JSON.stringify(values, null, 2)
-      alert(volunteerData);
       const nombre = JSON.parse(volunteerData).Nombre
       const cedula = JSON.parse(volunteerData).Cedula
       const cargo = JSON.parse(volunteerData).Cargo

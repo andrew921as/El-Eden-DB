@@ -82,7 +82,6 @@ export default function RegistarAnimal() {
     validate: validacion,
     onSubmit: (values) => {
       let animalData = JSON.stringify(values, null, 2)
-      alert(animalData);
        const nombre = JSON.parse(animalData).Nombre
        const tipo = JSON.parse(animalData).Tipo
        const talla = JSON.parse(animalData).Talla

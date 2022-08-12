@@ -48,8 +48,7 @@ export default function MasOpcionesVoluntarios({row, reload}) {
             Password: row.password
     },
     onSubmit: async (values) => {
-        let voluntarioData = JSON.stringify(values, null, 2)
-          alert(voluntarioData);
+        let voluntarioData = JSON.stringify(values, null, 2);
           const cedula = JSON.parse(voluntarioData).Cedula;
           const nombre = JSON.parse(voluntarioData).Nombre;
           const apellido_voluntario = JSON.parse(voluntarioData).Apellido;

@@ -161,9 +161,6 @@ function Home() {
               </AccordionSummary>
               <AccordionDetails>
 
-                <MenuItem onClick={() => navigate('/Registro-Pago')}>
-                  <ChevronRightIcon fontSize='1.5rem' />Pago
-                </MenuItem>
                 <MenuItem onClick={() => navigate('/Buscar-Pago')}>
                   <ChevronRightIcon fontSize='1.5rem' />Buscar transacción
                 </MenuItem>

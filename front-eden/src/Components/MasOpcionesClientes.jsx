@@ -60,8 +60,7 @@ export default function MasOpcionesCliente({row, reload}) {
           Telefono: row.telefono,
         },
         onSubmit: async(values) => {
-            let clienteData = JSON.stringify(values, null, 2)
-              alert(clienteData);
+            let clienteData = JSON.stringify(values, null, 2);
               const cedula = JSON.parse(clienteData).Cedula;
               const nombre = JSON.parse(clienteData).Nombre;
               const apellido = JSON.parse(clienteData).Apellido;

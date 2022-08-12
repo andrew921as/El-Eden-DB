@@ -125,23 +125,6 @@ function MenuArriba() {
               <Typography variant='h2' sx={{ fontWeight: 'bold' }} color='#ff5c0c'>EL EDEN</Typography>
 
             </Stack>
-            <ThemeProvider theme={theme}>
-              <Box sx={{ justifyContent: 'center', margin: 2 }}>
-
-                <Button
-                  id="basic-button"
-                  aria-controls={open ? 'basic-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClick}
-                  size='large'
-                  sx={{ color: '#FE6A16', fontSize: '20px' }}
-                  endIcon={<LogoutIcon/>}
-                >
-                  Sign out
-                </Button>
-              </Box>
-            </ThemeProvider>
           </Stack>
 
         )

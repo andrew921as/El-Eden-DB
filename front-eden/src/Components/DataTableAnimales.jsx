@@ -72,7 +72,6 @@ export default function AnimalesTable({datosBd, reload}) {
                         <TableRow>
                         <TablePagination
                             rowsPerPageOptions={[4]}
-                            component="div"
                             count={datosBd.length}
                             rowsPerPage={rowsPerPage}
                             page={page}

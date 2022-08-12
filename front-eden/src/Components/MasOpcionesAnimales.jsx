@@ -74,7 +74,6 @@ export default function MasOpcionesAnimales({ row, reload }) {
         },
         onSubmit: async (values) => {
           let animalData = JSON.stringify(values, null, 2)
-            alert(animalData);
             const id_animal = JSON.parse(animalData).Id;
             const nombre_animal = JSON.parse(animalData).Nombre;
             const talla = JSON.parse(animalData).Talla;

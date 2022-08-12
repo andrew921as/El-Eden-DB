@@ -90,7 +90,6 @@ export default function RegistrarPago(nombre) {
 	return (
 		<div className='RegistrarUsuCont'>
 			<MenuArriba />
-			<ButtonBack />
 			<Box sx={{
 				width: {
 					xs: '100%',
@@ -104,6 +103,13 @@ export default function RegistrarPago(nombre) {
 				borderRadius: '15px',
 				flexDirection: "column",
 				alignContent: "right",
+				marginTop:{
+					xs: 0,
+					sm: 0,
+					md: 0,
+					lg: 4,
+					xl: 4
+				},
 				marginLeft: {
 					xs: 0,
 					sm: 0,
@@ -265,9 +271,9 @@ export default function RegistrarPago(nombre) {
 												open={open}
 												onClose={handleClose}
 											>
-												<DialogContent sx={{ width: '600px' }}>
+												
 													<img className='precios' src={tarifas} />
-												</DialogContent>
+
 											</Dialog>
 										</Container>
 									</Grid>

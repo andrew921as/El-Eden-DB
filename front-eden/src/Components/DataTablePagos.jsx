@@ -68,7 +68,6 @@ export default function PagosTable({datosBd}) {
                         <TableRow>
                         <TablePagination
                             rowsPerPageOptions={[4]}
-                            component="div"
                             count={datosBd.length}
                             rowsPerPage={rowsPerPage}
                             page={page}

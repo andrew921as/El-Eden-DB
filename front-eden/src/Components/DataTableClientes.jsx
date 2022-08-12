@@ -74,8 +74,7 @@ export default function ClienteTable({datosBd, reload}) {
                     <TableFooter>
                         <TableRow>
                         <TablePagination
-                            rowsPerPageOptions={[4]}
-                            component="div"
+                            rowsPerPageOptions={[4]}                       
                             count={datosBd.length}
                             rowsPerPage={rowsPerPage}
                             page={page}
