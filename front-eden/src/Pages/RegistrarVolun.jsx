@@ -168,7 +168,7 @@ export default function RegistrarVolun() {
                           sm: 20,
                           md: 30,
                           lg: 30,
-                          xl: 20
+                          xl: 30
                         }
                       }}
                       color={'#881600'}
@@ -192,7 +192,7 @@ export default function RegistrarVolun() {
                           sm: 20,
                           md: 30,
                           lg: 30,
-                          xl: 20
+                          xl: 30
                         }
                       }}
                       color={'#881600'}

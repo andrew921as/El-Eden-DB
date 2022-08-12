@@ -229,6 +229,7 @@ export default function RegistarUser() {
                     label="Télefono" 
                     variant="filled" 
                     name='Telefono' 
+                    inputProps={{ maxLength: 10, inputMode: 'numeric', pattern: '[0-9]*' }}
                     value={formik.values.Telefono} 
                     onChange={formik.handleChange} 
                     error={formik.touched.Telefono && Boolean(formik.errors.Telefono)}
@@ -244,6 +245,7 @@ export default function RegistarUser() {
                     label="Cedula" 
                     variant="filled" 
                     name='Cedula' 
+                    inputProps={{ maxLength: 10, inputMode: 'numeric', pattern: '[0-9]*' }}
                     value={formik.values.Cedula} 
                     onChange={formik.handleChange}
                     error={formik.touched.Cedula && Boolean(formik.errors.Cedula)}
