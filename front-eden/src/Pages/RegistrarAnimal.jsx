@@ -11,6 +11,7 @@ import {
   MenuItem,
   FormControl,
   Select,
+  FormHelperText
 
   } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -210,7 +211,7 @@ export default function RegistarAnimal() {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Container>
-                <FormControl fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
+                <FormControl required fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
                   <InputLabel id="demo-simple-select-filled-label">Motivo Ingreso</InputLabel>
                   <Select
                    labelId="MotivoI"
@@ -219,6 +220,7 @@ export default function RegistarAnimal() {
                    value={formik.values.MotivoI}
                     label="MotivoI"
                     onChange={formik.handleChange}
+                    error={formik.touched.MotivoI && Boolean(formik.errors.MotivoI)} 
                   >
                     <MenuItem sx={{ borderRadius: 0}} value={"Albergue"}>Albergue</MenuItem>
                     <MenuItem sx={{ borderRadius: 0}} value={"Rescate"}>Rescate</MenuItem>
@@ -238,7 +240,7 @@ export default function RegistarAnimal() {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Container>
-                <FormControl fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
+                <FormControl required fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
                   <InputLabel id="demo-simple-select-filled-label">Talla</InputLabel>
                   <Select
                    labelId="Talla"
@@ -258,7 +260,7 @@ export default function RegistarAnimal() {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Container>
-                <FormControl fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
+                <FormControl required fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
                   <InputLabel id="demo-simple-select-filled-label">Estado</InputLabel>
                   <Select
                    labelId="Estado"

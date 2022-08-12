@@ -171,7 +171,7 @@ export default function RegistarUser() {
                 </Grid>
                 <Grid item md={4}>
                 <Container>
-                  <FormControl fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
+                  <FormControl required fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
 											<InputLabel id="TipoVia">Via</InputLabel>
 											  <Select
 												  labelId="TipoVia"
