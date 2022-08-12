@@ -92,7 +92,7 @@ export default function RegistarAnimal() {
        const estado = JSON.parse(animalData).Estado
        const fechaI = JSON.parse(animalData).FechaI
        const fechaS = JSON.parse(animalData).FechaS
-        createAnimal('008', nombre, talla, edad, tipo, motivoIngreso, observaciones, estado, fechaI, fechaS);
+        createAnimal(nombre, talla, edad, tipo, motivoIngreso, observaciones, estado, fechaI, fechaS);
         //createAnimal('008', 'pija', 'M', '5', 'gay', 'porgay', 'ninguna', 'S', '2022-08-18T05:00:00.000Z', '2022-08-20T05:00:00.000Z');
     }
   });

@@ -11,7 +11,6 @@ async function getPatrocinadores(tipoBusqueda, data) {
       })
       .then(data => {
         busquedas=JSON.parse(data);
-          console.log("Es la busqueda pa "+JSON.stringify(data))
       });
 }
 
@@ -72,6 +71,17 @@ async function getAllVoluntarios() {
         })
         .then(data => {
             busquedas=JSON.parse(data);
+            console.log(data)
+        });
+}
+
+async function getPagos() {
+    await fetch(`http://localhost:3001/pago`)
+        .then(response => {
+            return response.text();
+        })
+        .then(data => {
+            busquedas = JSON.parse(data);
             console.log(data)
         });
 }
@@ -141,7 +151,7 @@ async function registrarPago(id_animal,cedula, id_voluntario, ingresos, tipoPago
             return response.text();
         })
         .then(data => {
-            alert(data)
+            alert(data);
         })
     }
     else {
@@ -245,7 +255,6 @@ async function actualizarVoluntario(nombre, cedula, cargo, telefono, usuario, co
 
 //Crear animales
 async function createAnimal(
-  id_animal,
   nombre_animal,
   talla,
   edad,
@@ -261,7 +270,7 @@ async function createAnimal(
           'Content-Type': 'application/json',
       },
       //akki sepuede pone el console log creo
-      body: JSON.stringify({ id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida }),
+      body: JSON.stringify({ nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida }),
   })
       .then(response => {
           return response.text();
@@ -377,6 +386,7 @@ export {
   getAllAnimales,
   getAllPatrocinadores,
   getAllVoluntarios,
+  getPagos,
   calcularTarifa,
   validarLogin,
   registrarPago,

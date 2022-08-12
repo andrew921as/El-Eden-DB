@@ -111,6 +111,16 @@ app.get('/voluntarios/Identificador/:data', (req, res) => {
         })
 })
 
+app.get('/pago', (req, res) => {
+    dbConnection.getPago()
+        .then(response => {
+            res.status(200).send(response);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        })
+})
+
 app.post('/pago/patrocinador', (req, res) => {
     dbConnection.registrarPago("Patrocinador", req.body)
         .then(response => {
@@ -120,6 +130,7 @@ app.post('/pago/patrocinador', (req, res) => {
             res.status(500).send(error);
         })
 })
+
 
 app.post('/pago/donador', (req, res) => {
     dbConnection.registrarPago("Donador", req.body)

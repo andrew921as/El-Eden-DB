@@ -1,5 +1,5 @@
 CREATE TABLE ANIMALES(
-Id_animal char(5) NOT NULL,
+Id_animal SERIAL NOT NULL,
 Nombre_animal varchar(10) NOT NULL,
 Talla char(1) NULL,
 Edad float(2) NULL,
@@ -9,20 +9,20 @@ Observaciones  text NULL,
 CONSTRAINT PK_ANIMALES PRIMARY KEY ( Id_animal));
 
 CREATE TABLE FECHA_SALIDA_ANIMAL(
-Id_animal char(5) NOT NULL,
+Id_animal SERIAL NOT NULL,
 Estado char(1) NOT NULL,
 Fecha_salida date NULL,
 CONSTRAINT PK_FECHA_SALIDA_ANIMAL PRIMARY KEY ( Id_animal));
 
 CREATE TABLE TIEMPO_ESTANCIA_ANIMAL(
-Id_animal char(5) NOT NULL,
+Id_animal SERIAL NOT NULL,
 Fecha_ingreso date NULL,
 Fecha_salida date NULL,
 Tiempo_estancia integer NULL,
 CONSTRAINT PK_TIEMPO_ESTANCIA_ANIMAL PRIMARY KEY ( Id_animal));
 
 CREATE TABLE C_PAGAN_POR(
-Id_animal char(5) NOT NULL,
+Id_animal SERIAL NOT NULL,
 Cedula varchar(11) NOT NULL,
 Id_voluntario varchar(11) NOT NULL,
 Ingresos float(10) NULL,
@@ -31,7 +31,7 @@ CONSTRAINT PK_C_PAGAN_POR PRIMARY KEY ( Id_animal ,Cedula,  Id_voluntario));
 
 CREATE TABLE CUIDAN(
 Id_voluntario varchar(11) NOT NULL,
-Id_animal char(5) NOT NULL,
+Id_animal SERIAL NOT NULL,
 CONSTRAINT PK_CUIDAN PRIMARY KEY ( Id_voluntario, Id_animal));
 
 CREATE TABLE VOLUNTARIOS(
@@ -69,9 +69,9 @@ Cedula varchar(11) NOT NULL,
 CONSTRAINT PK_DONADOR PRIMARY KEY ( Cedula));
 
 CREATE TABLE D_PAGAN_A(
-Cedula char(5) NOT NULL,
+Cedula varchar(11) NOT NULL,
 Id_voluntario varchar(11) NOT NULL,
-Ingresos float(10) NULL,
+Ingresos float(15) NULL,
 Fecha date NULL,
 CONSTRAINT PK_D_PAGAN_A PRIMARY KEY ( Cedula, Id_voluntario));
 
@@ -82,11 +82,11 @@ Id_voluntario varchar(11) NOT NULL,
 CONSTRAINT PK_USUARIOS PRIMARY KEY ( User_name, Id_voluntario));
 
 CREATE TABLE datos_animal (
-    Id_animal char(5) NOT NULL,
-    Nombre_animal varchar(10) NOT NULL,
+    Id_animal SERIAL NOT NULL,
+    Nombre_animal varchar(20) NOT NULL,
     Talla char(1) NULL,
     Edad float(2) NULL,
-    Tipo varchar(10) NULL,
+    Tipo varchar(15) NULL,
     Motivo_ingreso text NULL,
     Observaciones  text NULL,
     estado char(1) NULL,
@@ -98,8 +98,8 @@ CONSTRAINT PK_DATOS_ANIMAL PRIMARY KEY (id_animal)
 
 CREATE TABLE datos_patrocinador (
     cedula varchar(11) NOT NULL,
-    nombre varchar(15) NOT NULL,
-    apellido varchar(15) NULL,
+    nombre varchar(30) NOT NULL,
+    apellido varchar(30) NULL,
     correo varchar(80) NULL,
     telefono varchar(20) NULL,
     tipo_via varchar(15) NULL,
@@ -127,11 +127,6 @@ CONSTRAINT PK_DATOS_VOLUNTARIO PRIMARY KEY (cedula)
 ALTER TABLE DONADOR
 ADD CONSTRAINT FK_DONADOR_PATROCINADOR FOREIGN KEY(Cedula)
 REFERENCES PATROCINADOR(Cedula)
-on delete cascade on update cascade;
-
-ALTER TABLE D_PAGAN_A
-ADD CONSTRAINT FK_D_PAGAN_A_DONADOR FOREIGN KEY(Cedula)
-REFERENCES DONADOR(Cedula)
 on delete cascade on update cascade;
 
 ALTER TABLE D_PAGAN_A
@@ -189,13 +184,16 @@ ADD CONSTRAINT FK_TIEMPO_ESTANCIA_ANIMAL_ANIMALES FOREIGN KEY(Id_animal)
 REFERENCES ANIMALES(Id_animal)
 on delete cascade on update cascade;
 
+--------------------functiones----------------------
+
+
 CREATE OR REPLACE FUNCTION f_crear_animal() RETURNS trigger AS
 $$
 
 BEGIN
-    INSERT INTO animales (id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones) VALUES (new.id_animal, new.nombre_animal, new.talla, new.edad, new.tipo, new.motivo_ingreso, new.observaciones);
-    INSERT INTO fecha_salida_animal(id_animal, estado, fecha_salida) VALUES (new.id_animal, new.estado, new.fecha_salida);
-    INSERT INTO tiempo_estancia_animal(id_animal, fecha_ingreso, fecha_salida, tiempo_estancia) VALUES (new.id_animal, new.fecha_ingreso, new.fecha_salida, new.tiempo_estancia);
+    INSERT INTO animales (nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones) VALUES (new.nombre_animal, new.talla, new.edad, new.tipo, new.motivo_ingreso, new.observaciones);
+    INSERT INTO fecha_salida_animal(estado, fecha_salida) VALUES (new.estado, new.fecha_salida);
+    INSERT INTO tiempo_estancia_animal(fecha_ingreso, fecha_salida, tiempo_estancia) VALUES (new.fecha_ingreso, new.fecha_salida, new.tiempo_estancia);
 RETURN NULL;
 END
 $$ LANGUAGE plpgsql
@@ -243,3 +241,19 @@ CREATE TRIGGER insertar_voluntario AFTER INSERT ON datos_voluntario FOR EACH ROW
 drop function f_crear_voluntario cascade;
 delete from patrocinador cascade;
 delete from datos_patrocinador cascade;
+
+drop table datos_animal cascade;
+drop table animales cascade;
+drop table cuidan cascade;
+drop table fecha_salida_animal cascade;
+drop table tiempo_estancia_animal cascade;
+drop table c_pagan_por cascade;
+drop table cliente cascade;
+drop table d_pagan_a cascade;
+drop table datos_patrocinador cascade;
+drop table datos_voluntario cascade;
+drop table donador cascade;
+drop table patrocinador cascade;
+drop table tipo_cliente cascade;
+drop table usuarios cascade;
+drop table voluntarios cascade;

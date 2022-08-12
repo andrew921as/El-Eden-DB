@@ -26,7 +26,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 
-export default function PagosTable({datosBd, reload}) {
+export default function PagosTable({datosBd}) {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(4);
 
@@ -44,24 +44,23 @@ export default function PagosTable({datosBd, reload}) {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead sx={{}}>
                         <TableRow>
-                            <StyledTableCell align="center">Identificador</StyledTableCell>
-                            <StyledTableCell align="center">Id Cliente</StyledTableCell>
-                            <StyledTableCell align="center">Nombre Cliente</StyledTableCell>
-                            <StyledTableCell align="center">Tipo de cliente</StyledTableCell>
+                            <StyledTableCell align="center">Fecha</StyledTableCell>
+                            <StyledTableCell align="center">Cedula Cliente</StyledTableCell>
+                            <StyledTableCell align="center">Id Voluntario</StyledTableCell>
                             <StyledTableCell align="center">Id Animal</StyledTableCell>
-                            <StyledTableCell align="center">Pago</StyledTableCell>
+                            <StyledTableCell align="center">Monto</StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {datosBd.map((row) => (
+                        {datosBd.slice(page * rowsPerPage, page*rowsPerPage+rowsPerPage).map((row) => (
                             <TableRow
                                 key={row.id}
                             >
-                                <TableCell component="th" scope="row" align="center"> {row.id_animal}</TableCell>
-                                <TableCell align="center">{row.nombre_animal}</TableCell>
-                                <TableCell align="center">{row.tipo}</TableCell>
-                                <TableCell align="center">{row.estado}</TableCell>
-                                <TableCell align="center">{row.motivo_ingreso}</TableCell>
+                                <TableCell component="th" scope="row" align="center"> {row.fecha.substring(0,10)}</TableCell>
+                                <TableCell align="center">{row.cedula}</TableCell>
+                                <TableCell align="center">{row.id_voluntario}</TableCell>
+                                <TableCell align="center">{row.id_animal}</TableCell>
+                                <TableCell align="center">{row.ingresos}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

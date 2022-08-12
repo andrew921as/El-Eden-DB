@@ -66,7 +66,6 @@ export default function RegistarUser() {
       validate: validacion,
       onSubmit: (values) => {
           let userData = JSON.stringify(values, null, 2)
-          alert(userData);
           const cedula = JSON.parse(userData).Cedula
           const nombre = JSON.parse(userData).Nombre
           const apellido = JSON.parse(userData).Apellido
@@ -77,7 +76,7 @@ export default function RegistarUser() {
           const numero_casa = JSON.parse(userData).Casa
 
           /* createAnimal('008', nombre, talla, edad, tipo, motivoIngreso, observaciones, estado, fechaI, fechaS);*/
-          createPatrocinador(cedula, nombre, apellido, correo, telefono, tipo_via, numero_calle, numero_casa, 'albergue');
+          createPatrocinador(cedula, nombre, apellido, correo, telefono, tipo_via, numero_calle, numero_casa, 'normal');
           //createPatrocinador('59485217', 'Carlos', 'Carloscaceres', 'carlitos@carlitos.com','3156421563', 'larga', 'primer', '56-56','albergue');
       },
   });

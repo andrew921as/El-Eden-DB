@@ -53,7 +53,7 @@ export default function RegistrarPago(nombre) {
 	}
 
 	const [noDonor, setNoDonor] = useState(true);
-	const [namePage, setNamePage] = useState("");
+	const [namePage, setNamePage] = useState("Apadrinamiento");
 	const [valorTarifa, setValorTarifa] = useState(0)
 
 	useEffect(() => {
@@ -81,6 +81,7 @@ export default function RegistrarPago(nombre) {
 				console.log("Primer elemento de array " + user[0].cedula);
 				await registrarPago(idAnimal, clienteCedula, user[0].cedula, valorTarifa, "Patrocinador");
 			} else {
+				console.log("Monda");
 				await registrarPago(null, clienteCedula, user[0].cedula, pagoFinalD, "Donador");
 			}
 		}

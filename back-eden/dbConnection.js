@@ -105,6 +105,17 @@ const getVoluntario = (tipoDato, dato) => {
     })
 }
 
+const getPago = () => {
+    return new Promise(function (resolve, reject) {
+            pool.query(`SELECT * FROM c_pagan_por ORDER BY cedula ASC;`, (error, results) => {
+                if (error) {
+                    reject(error)
+                }
+                resolve(results.rows);
+            })
+    })
+}
+
 const validarLogin = (body) => {
     return new Promise(function (resolve, reject) {
         const { usuario, contrasena } = body
@@ -136,7 +147,8 @@ const registrarPago  = (tipoPago, body) => {
         console.log(id_voluntario)
         console.log(ingresos)
         console.log(today)
-        if(tipoPago == "Donador"){
+        if (tipoPago == "Donador") {
+            console.log("Entró")
             pool.query(`INSERT INTO d_pagan_a (cedula,id_voluntario,ingresos,fecha) VALUES ($1, $2, $3, $4) RETURNING *;`, [cedula, id_voluntario, ingresos, today], (error, results) => {
                 if (error) {
                     reject(error)
@@ -159,37 +171,18 @@ const registrarPago  = (tipoPago, body) => {
 
 const createAnimal = (body) => {
     return new Promise(function (resolve, reject) {
-        const { id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida } = body
+        const { nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida } = body
         let tiempo_estancia = 0;
         const tiempo_estancia_func = (fecha_ingreso, fecha_salida) => {
-            let indexIngreso = 0;
-            let indexSalida = 0;
-            let counter = 0;
-            for (let i = 0; i < fecha_ingreso.length; i++) {
-                if (fecha_ingreso[i] === "-") {
-                    counter++;
-                }
-                if (counter == 2) {
-                    indexIngreso = i;
-                    counter = 0;
-                    break;
-                }
-            }
-            for (let i = 0; i < fecha_salida.length; i++) {
-                if (fecha_salida[i] == "-") {
-                    counter++;
-                }
-                if (counter == 2) {
-                    indexSalida = i;
-                    break;
-                }
-            }
-            indexSalida = parseInt(fecha_salida.slice(indexSalida + 1, indexSalida + 3))
-            indexIngreso = parseInt(fecha_ingreso.slice(indexIngreso + 1, indexIngreso + 3))
-            tiempo_estancia = indexSalida - indexIngreso
+            var fechaInicio = new Date('2016-07-12').getTime();
+            var fechaFin = new Date('2017-08-01').getTime();
+
+            var diff = fechaFin - fechaInicio;
+
+            tiempo_estancia = (diff / (1000 * 60 * 60 * 24));
         }
         if (!fecha_salida) {
-            pool.query('INSERT INTO datos_animal (id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida, tiempo_estancia) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NULL, NULL) RETURNING *;', [id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso], (error, results) => {
+            pool.query('INSERT INTO datos_animal (nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida, tiempo_estancia) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, NULL, NULL) RETURNING *;', [nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso], (error, results) => {
                 if (error) {
                     reject(error)
                 }
@@ -198,7 +191,15 @@ const createAnimal = (body) => {
         }
         else {
             tiempo_estancia_func(fecha_ingreso, fecha_salida)
-            pool.query('INSERT INTO datos_animal (id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida, tiempo_estancia) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING *;', [id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida, tiempo_estancia], (error, results) => {
+            console.log(nombre_animal)
+            console.log(talla)
+            console.log(edad)
+            console.log(tipo)
+            console.log(motivo_ingreso)
+            console.log(observaciones)
+            console.log(estado)
+            console.log(tiempo_estancia)
+            pool.query('INSERT INTO datos_animal (nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida, tiempo_estancia) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;', [nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida, tiempo_estancia], (error, results) => {
                 if (error) {
                     reject(error)
                 }
@@ -228,7 +229,7 @@ const createVoluntario = (body) => {
             if (error) {
                 reject(error)
             }
-            resolve(`A new patrocinador has been added: ${nombre}`)
+            resolve(`A new voluntario has been added: ${nombre}`)
         })
     })
 }
@@ -312,6 +313,7 @@ module.exports = {
     getAnimal,
     getPatrocinador,
     getVoluntario,
+    getPago,
     validarLogin,
     createAnimal,
     createPatrocinador,

@@ -10,7 +10,9 @@ import {
   InputLabel,
   MenuItem,
   FormControl,
-  Select,} from '@mui/material';
+  Select,
+  Stack,
+  } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { getAnimal } from '../Functions/UtilityF';
@@ -120,7 +122,7 @@ export default function MasOpcionesAnimales({ row, reload }) {
                     <TextField margin="dense" name="MotivoI" id="MotivoI" label="Motivo de ingreso" fullWidth variant="standard"   value={formik.values.MotivoI} onChange={formik.handleChange}/>
                     <TextField margin="dense" name="Edad" id="Edad" label="Edad" fullWidth variant="standard" value={formik.values.Edad} onChange={formik.handleChange}/>
                     
-
+                    <Stack spacing={2}>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DesktopDatePicker
                       id= "Calendario S"
@@ -166,11 +168,12 @@ export default function MasOpcionesAnimales({ row, reload }) {
                     /> 
                     </LocalizationProvider>
 
+                    </Stack>
 
                     <TextField margin="dense" name="Observaciones" id="Observaciones" label="observacion" fullWidth variant="standard"  value={formik.values.Observaciones} onChange={formik.handleChange}/>
                    
                    
-                    <FormControl fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
+                    <FormControl fullWidth variant="filled">
                        <InputLabel id="demo-simple-select-filled-label">Estado</InputLabel>
                         <Select
                           labelId="Estado"
