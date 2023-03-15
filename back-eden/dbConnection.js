@@ -2,7 +2,7 @@ const Pool = require('pg').Pool
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
-    database: 'Eden2',
+    database: 'Eden',
     password: 'pg123',
     port: 5432,
 });
@@ -13,7 +13,7 @@ const getAnimales = () => {
             if (error) {
                 reject(error)
             }
-            resolve(`???'`);
+            resolve(results.rows);
         })
     })
 }
@@ -325,4 +325,5 @@ module.exports = {
     deleteAnimal,
     deletePatrocinador,
     deleteVoluntario,
+    getAnimales
 }
