@@ -103,27 +103,28 @@ function calcularTarifa(animal) {
 
 }
 
-async function validarLogin(usuario, contrasena) {
-    await fetch(`http://localhost:3001/login`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({usuario,contrasena}),
-    })
-        .then(response => {
-            return response.text();
-        })
-        .then(data => {
-            console.log(data)
-            data = JSON.parse(data)
-            encontrado = data[0];
-            console.log(encontrado)
+// async function validarLogin(username, password) {
+//     await fetch(`http://localhost:3002/user/login`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({username,password}),
+//     })
+//         .then(response => {
+//             return response.text();
+//         })
+//         .then(data => {
+//             console.log(data)
+//             data = JSON.parse(data)
+//             encontrado = data[0];
+//             console.log(encontrado)
             
-            idVoluntario = data[1][0].id_voluntario;
-            console.log(idVoluntario)
-        })
-}
+//             idVoluntario = data[1][0].id_voluntario;
+//             console.log(idVoluntario)
+//         })
+// }
+
 
 async function registrarPago(id_animal,cedula, id_voluntario, ingresos, tipoPago){
     let today = new Date().toISOString()
@@ -388,7 +389,7 @@ export {
   getAllVoluntarios,
   getPagos,
   calcularTarifa,
-  validarLogin,
+//   validarLogin,
   registrarPago,
   createAnimal,
   createPatrocinador,

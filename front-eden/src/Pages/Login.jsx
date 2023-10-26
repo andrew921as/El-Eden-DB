@@ -14,9 +14,9 @@ import {
 import "../styles/Login.css";
 import iconoOso from "../Images/IconoOso.png";
 import { useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
+// import { useFormik } from "formik";
 import ForestIcon from "@mui/icons-material/Forest";
-import { validarLogin, encontrado } from "../Functions/SqlFunctions";
+// import { validarLogin, encontrado } from "../Functions/SqlFunctions";
 
 function Login() {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
@@ -24,6 +24,8 @@ function Login() {
   const match = useMediaQuery("(min-height: 900px)");
   const [reUser, setReUser] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const openRegisterModal = () => {
     setShowRegisterModal(true);
@@ -70,26 +72,62 @@ function Login() {
 
 
 
-  const formik = useFormik({
-    initialValues: {
-      userName: "",
-      password: "",
-    },
-    onSubmit: async (values) => {
-      let loginData = JSON.stringify(values, null, 2);
-      const user = JSON.parse(loginData).userName;
-      const contra = JSON.parse(loginData).password;
+  // const formik = useFormik({
+  //   initialValues: {
+  //     userName: "",
+  //     password: "",
+  //   },
+  //   onSubmit: async (values) => {
+  //     let loginData = JSON.stringify(values, null, 2);
+  //     const user = JSON.parse(loginData).userName;
+  //     const contra = JSON.parse(loginData).password;
 
-      console.log(user);
-      console.log(contra);
+  //     console.log(user);
+  //     console.log(contra);
 
-      await validarLogin(user, contra);
+  //     await validarLogin(user, contra);
+  //     // si validarlogin retorna 201, significa que el usuario y contraseña son correctos y se redirige a la pagina principal
+      
 
-      if (encontrado) {
+  //   },
+  // });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(JSON.stringify({
+      username: username,
+      password: password
+    }));
+    try {
+      const response = await fetch("http://localhost:3002/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Cross-Origin-Opener-Policy": "same-origin",
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password,
+        }),
+      });
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        // inicio de sesion exitoso
+        alert("Inicio de sesion exitoso");
+        console.log("Inicio de sesion exitoso");
         navigate("/");
+      } else {
+        // Hubo un error en el registro
+        alert("Hubo un error en el inicio de sesion");
+        console.log("Hubo un error en el inicio de sesion");
       }
-    },
-  });
+    } catch (error) {
+      console.log("Error en la solucitud:", error);
+    }
+  };
+
+
 
   return (
     <div className="Contenedor-login">
@@ -114,7 +152,7 @@ function Login() {
           maring: "5px",
         }}
       >
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <Stack
             spacing={match ? 8.3 : 5}
             justifyContent="center"
@@ -151,8 +189,8 @@ function Login() {
                 label="Usuario"
                 variant="filled"
                 name="userName"
-                value={formik.values.userName}
-                onChange={formik.handleChange}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 sx={{ background: "#fff" }}
               />
             </Box>
@@ -164,8 +202,8 @@ function Login() {
                 variant="filled"
                 name="password"
                 type="password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
+                value={[password]}
+                onChange={(e) => setPassword(e.target.value)}
                 sx={{ background: "#fff" }}
               />
             </Box>
