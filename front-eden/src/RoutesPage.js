@@ -10,6 +10,7 @@ import RegistrarPago from "./Pages/RegistrarPago";
 import BuscarCliente from "./Pages/BuscarCliente"
 import BuscarVoluntario from "./Pages/BuscarVoluntario";
 import BuscarPago from "./Pages/BuscarPago";
+import LadingPage from "./Pages/LadingPage";
 
 export default function Routes() {
   return useRoutes([
@@ -23,6 +24,7 @@ export default function Routes() {
     { path:'/Buscar-Cliente', element:<BuscarCliente/> },
     { path:'/Buscar-Voluntario', element:<BuscarVoluntario/> },
     { path:'/Buscar-Pago', element:<BuscarPago/> },
+    { path:'/Landing-Page', element:<LadingPage/> },
     {path:'*', element:<NotFound/>}
   ])
 }
