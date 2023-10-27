@@ -18,7 +18,12 @@ import { useNavigate } from "react-router-dom";
 import ForestIcon from "@mui/icons-material/Forest";
 // import { validarLogin, encontrado } from "../Functions/SqlFunctions";
 
+import { useUser } from "../Components/Context.jsx";
+
+
 function Login() {
+
+  const { loginUser } = useUser();
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const navigate = useNavigate();
   const match = useMediaQuery("(min-height: 900px)");
@@ -26,6 +31,8 @@ function Login() {
   const [rePassword, setRePassword] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [verifyPassword, setVerifyPassword] = useState("");
+
 
   const openRegisterModal = () => {
     setShowRegisterModal(true);
@@ -112,6 +119,8 @@ function Login() {
       });
       const data = await response.json();
       console.log(data);
+      loginUser(data);
+      console.log("Datos del usuario logueado",loginUser);
       if (response.ok) {
         // inicio de sesion exitoso
         alert("Inicio de sesion exitoso");
@@ -244,7 +253,14 @@ function Login() {
       {/* Modal de Registro */}
 
       <Dialog open={showRegisterModal} onClose={closeRegisterModal}>
-  <DialogTitle>Registro</DialogTitle>
+  <DialogTitle
+    sx={{
+      backgroundColor: "#F25019",
+      color: "#fff",
+      textAlign: "center",
+    }}
+  
+  >Registro</DialogTitle>
   <DialogContent>
     <form onSubmit={handleRegister}>
       <Stack
@@ -253,7 +269,13 @@ function Login() {
         direction={"column"}
         alignItems={"center"}
       >
-        <img className='Icono-main' src={iconoOso} height='100' />
+        {/* icono */}
+        <img 
+        className='Icono-register' 
+        src={iconoOso} 
+        height='100'
+        />
+        {/* username */}
         <Box sx={{ width: "80%", display: "flex" }}>
           <TextField
             fullWidth
@@ -266,6 +288,7 @@ function Login() {
             sx={{ background: "#fff" }}
           />
         </Box>
+        {/* password */}
         <Box sx={{ width: "80%" }}>
           <TextField
             fullWidth
@@ -278,7 +301,21 @@ function Login() {
             onChange={(e) => setRePassword(e.target.value)}
             sx={{ background: "#fff" }}
           />
+
+          {/* confirm password */}
+          <TextField
+            fullWidth
+            id="confirmPassword"
+            label="Confirmar Password"
+            variant="filled"
+            name="confirmPassword"
+            value={verifyPassword}
+            onChange={(e) => setVerifyPassword(e.target.value)}
+            type="password"
+            sx={{ background: "#fff" }}
+          />
         </Box>
+
         <Box
           sx={{
             alignItems: "center",

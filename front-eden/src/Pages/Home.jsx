@@ -15,6 +15,8 @@ import {
   Button
 } from '@mui/material';
 
+import { useUser } from '../Components/Context';
+
 import PersonIcon from '@mui/icons-material/Person';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 import PetsIcon from '@mui/icons-material/Pets';
@@ -57,6 +59,10 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 function Home() {
+
+  const { user } = useUser();
+  console.log(user);
+
   const [esAdimin, setEsAdmin]=useState(true);
   const [nombree, setNombree]=useState("Administrador");
   

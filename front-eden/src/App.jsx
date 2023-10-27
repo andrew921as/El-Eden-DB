@@ -3,6 +3,24 @@ import Routes from "./RoutesPage";
 import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
 import Footer from "./Components/Footer";
 import theme from "./Theme";
+import ContextProvider from "./Components/Context";
+
+function App() {
+  
+  return (
+    <div className="App">
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <ContextProvider>
+        <Routes/>
+        </ContextProvider>
+      </ThemeProvider>
+    </div>
+  );
+}
+
+export default App;
+
 
 
 // const theme = createTheme({
@@ -20,18 +38,3 @@ import theme from "./Theme";
 //     },
 //   },
 // });
-
-
-function App() {
-  
-  return (
-    <div className="App">
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Routes/>
-      </ThemeProvider>
-    </div>
-  );
-}
-
-export default App;
