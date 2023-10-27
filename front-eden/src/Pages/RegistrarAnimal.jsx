@@ -283,7 +283,7 @@ export default function RegistarAnimal() {
                   variant="outlined"
                   size='medium'
                   fullWidth
-                  onClick={() => { navigate('/') }}
+                  onClick={() => { navigate('/Home') }}
                   sx={{ border: '3px solid #881600', borderRadius: 10, ':hover': { border: '3px solid #881600' } }}
                 >
                   <Typography

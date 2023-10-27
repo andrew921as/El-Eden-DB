@@ -13,12 +13,12 @@ import BuscarPago from "./Pages/BuscarPago";
 
 export default function Routes() {
   return useRoutes([
-    { path:'/', element:<Home/> },
+    { path:'/', element:<Login/> },
+    { path:'/Home', element:<Home/> },
     { path:'/Registro-Usuario', element:<RegistarUser/> },
     { path:'/Registro-Animal', element:<RegistrarAnimal/> },
     { path:'/Buscar-Animal', element:<BuscarAnimal/> },
     { path:'/Registro-Voluntario', element:<RegistrarVolun/> },
-    { path:'/Login', element:<Login/> },
     { path:'/Registro-Pago', element:<RegistrarPago/> },
     { path:'/Buscar-Cliente', element:<BuscarCliente/> },
     { path:'/Buscar-Voluntario', element:<BuscarVoluntario/> },

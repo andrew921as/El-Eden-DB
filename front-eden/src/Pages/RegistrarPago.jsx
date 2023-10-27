@@ -49,7 +49,7 @@ export default function RegistrarPago(nombre) {
 
 	const cancel = () => {
 		reset();
-		navigate('/');
+		navigate('/Home');
 	}
 
 	const [noDonor, setNoDonor] = useState(true);
