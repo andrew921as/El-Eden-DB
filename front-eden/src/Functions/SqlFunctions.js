@@ -37,15 +37,18 @@ async function getAnimales(tipoBusqueda, data) {
 }
 
 async function getAllAnimales() {
-    await fetch(`http://localhost:3001/animales/todos`)
+    await fetch(`http://localhost:8000/animals`)
         .then(response => {
             return response.text();
         })
         .then(data => {
-            busquedas=JSON.parse(data);
-            console.log(data)
+            busquedas = JSON.parse(data);
+            console.log(busquedas[0])         
         });
 }
+        // .then(response => {
+        //     return response.text();
+        // })
 
 async function getVoluntarios(tipoBusqueda, data, login) {
     await fetch(`http://localhost:3001/voluntarios/${tipoBusqueda}/${data}`)

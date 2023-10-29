@@ -1,15 +1,26 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import animales_landingPage from '../Images/Fondo_login.png';
 import Icono from '../Images/IconoSinTitulo.png';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import koala from '../Images/FondoKoala.png';
 import CardCatalog from '../Components/CardCatalog';
 import Fondo_Mapache from '../Images/Fondo_Mapache.png';
+import {getAllAnimales, busquedas} from '../Functions/SqlFunctions';
 import { useNavigate } from 'react-router-dom';
+
+import axios from 'axios';
 
 import '../styles/LandingPage.css';
 
 export default function LadingPage() {
+    const [animales, setAnimales] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/animals').then(res => {
+            const animalsData =  res.data;
+            setAnimales(animalsData);
+        })
+    }, [])
     const navigate = useNavigate();
     return (
         <div className='mainContaier-landingPage'>
@@ -39,7 +50,10 @@ export default function LadingPage() {
             <div className='catalogo-landingPage'>
                 <p className='introduction-title-ladingPage'>Patrocina alguno de nuestros animales</p>
                 <div className='cards-catalogo-landingPage'>
-                    <CardCatalog nombreAnimal='Mapache' foto={Fondo_Mapache}/>
+                    { animales.map((animal) => (
+                            <CardCatalog key={animal.id} animal={animal} />                     
+                    ))
+                    }
                 </div>
             </div>
         </div>
