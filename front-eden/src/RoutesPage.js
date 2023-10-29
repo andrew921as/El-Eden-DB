@@ -14,7 +14,7 @@ import LadingPage from "./Pages/LadingPage";
 
 export default function Routes() {
   return useRoutes([
-    { path:'/', element:<Login/> },
+    { path:'/', element:<LadingPage/>  },
     { path:'/Home', element:<Home/> },
     { path:'/Registro-Usuario', element:<RegistarUser/> },
     { path:'/Registro-Animal', element:<RegistrarAnimal/> },
@@ -24,7 +24,7 @@ export default function Routes() {
     { path:'/Buscar-Cliente', element:<BuscarCliente/> },
     { path:'/Buscar-Voluntario', element:<BuscarVoluntario/> },
     { path:'/Buscar-Pago', element:<BuscarPago/> },
-    { path:'/Landing-Page', element:<LadingPage/> },
+    { path:'/Login', element:<Login /> },
     {path:'*', element:<NotFound/>}
   ])
 }
