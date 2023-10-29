@@ -114,7 +114,7 @@ export default function RegistrarPago(nombre) {
 
 	useEffect(() => {
 		const q = new URLSearchParams(window.location.search)
-		if(q.get("success")) {
+		if(q.get("success") === "true") {
 			paymentCheck(q.get("session_id"))
 		}
 		async function traemeDatos() {
@@ -388,7 +388,12 @@ export default function RegistrarPago(nombre) {
 											"unit_amount": 120000,
 											"quantity": 1,
 											"donation": noDonor,
-											"type_animal": "Mamifero"
+											"type_animal": "Mamifero",
+											"metadata": {
+												"client_id": "2546",
+												"client_name": "Juan Esteban",
+												"animal_id": "65588",
+											}
 										})}
 										type='submit'
 										sx={{ border: '3px solid #881600', borderRadius: 10, ':hover': { border: '3px solid #881600' } }}
