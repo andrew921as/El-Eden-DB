@@ -17,7 +17,7 @@ import {
 	DialogContentText,
 	DialogActions,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 import tarifas from '../Images/Tarifas.png';
 
@@ -36,6 +36,7 @@ import { clientId, clientName, getClientDataP, clienteCedula, clienteNombre, get
 export default function RegistrarPago(nombre) {
 
 	const [open, setOpen] = React.useState(false);
+	const [urlVar, setUrlVar] = React.useState("");
 
 	const handleClickOpen = async () => {
 		setOpen(true);
@@ -52,11 +53,70 @@ export default function RegistrarPago(nombre) {
 		navigate('/Home');
 	}
 
+	// const paymentProcess = async function paymentService(data) {
+	// 	console.log(JSON.stringify(data))
+	// 	try {
+	// 		const res = await fetch('http://localhost:6800/payment', {
+	// 			method: 'POST',
+	// 			headers: {
+	// 				"Content-Type": "application/json"
+	// 			},
+	// 			body: JSON.stringify(data)
+	// 		})
+
+	// 		//const result = await res
+	// 		console.log(res)
+	// 	} catch(err) {
+	// 		console.log("Error Sempai:", err)
+	// 	}
+	// }
+
+	async function paymentService(data) {
+		const bodyContent = JSON.stringify(data)
+		console.log(bodyContent)
+
+		try {
+			const response = await fetch("http://localhost:6800/payment", { 
+				method: "POST",
+				//credentials: "include",
+				body: bodyContent,
+				headers: {
+					"Accept": "*/*",
+					"Content-Type": "application/json"
+				}
+			})
+
+			// const val = await response.text()
+			// window.location.href = val
+			const data = await response.json();
+			window.location.href = data.url
+
+		} catch(err) {
+			console.log("Error:", err)
+		}
+	}
+
+
+	async function paymentCheck(session_id) {
+		try {
+			const res = await fetch(`http://localhost:6800/order?session_id=${session_id}`)
+			// const data = await res.json()
+			// console.log(data)
+			console.log(res)
+		} catch(err) {
+			console.log("Error de paymentCheck:", err)
+		}
+	}
+
 	const [noDonor, setNoDonor] = useState(true);
 	const [namePage, setNamePage] = useState("Apadrinamiento");
 	const [valorTarifa, setValorTarifa] = useState(0)
 
 	useEffect(() => {
+		const q = new URLSearchParams(window.location.search)
+		if(q.get("success") === "true") {
+			paymentCheck(q.get("session_id"))
+		}
 		async function traemeDatos() {
 			await getClientDataP({ id: "1234", name: "Julio" });
 		}
@@ -323,6 +383,18 @@ export default function RegistrarPago(nombre) {
 										variant="outlined"
 										size='medium'
 										fullWidth
+										onClick={() => paymentService({
+											"name": "Nutria",
+											"unit_amount": 120000,
+											"quantity": 1,
+											"donation": noDonor,
+											"type_animal": "Mamifero",
+											"metadata": {
+												"client_id": "2546",
+												"client_name": "Juan Esteban",
+												"animal_id": "65588",
+											}
+										})}
 										type='submit'
 										sx={{ border: '3px solid #881600', borderRadius: 10, ':hover': { border: '3px solid #881600' } }}
 
