@@ -32,6 +32,7 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [verifyPassword, setVerifyPassword] = useState("");
+  const [reEmail, setReEmail] = useState("");
 
 
   const openRegisterModal = () => {
@@ -48,6 +49,7 @@ function Login() {
     console.log(JSON.stringify({
       username: reUser,
       password: rePassword,
+      email: reEmail
     }));
     try {
       const response = await fetch("http://localhost:3002/user/add-user", {
@@ -59,6 +61,7 @@ function Login() {
         body: JSON.stringify({
           username: reUser,
           password: rePassword,
+          email: reEmail
         }),
       });
       const data = await response.json();
@@ -67,6 +70,7 @@ function Login() {
         // El registro fue exitoso
         alert("Registro exitoso");
         console.log("Registro exitoso");
+        closeRegisterModal();
       } else {
         // Hubo un error en el registro
         alert("Hubo un error en el registro");
@@ -288,6 +292,24 @@ function Login() {
             sx={{ background: "#fff" }}
           />
         </Box>
+
+        {/* Email */}
+        <Box sx={{ width: "80%" }}>
+          <TextField
+            fullWidth
+            id="email"
+            label="Email"
+            variant="filled"
+            name="email"
+            sx={{ background: "#fff" }}
+            value={reEmail}
+            onChange={(e) => setReEmail(e.target.value)}
+          />
+        </Box>
+
+
+
+
         {/* password */}
         <Box sx={{ width: "80%" }}>
           <TextField
