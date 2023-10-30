@@ -31,16 +31,16 @@ import '../styles/RegistrarUsu.css';
 
 import { calcularTarifa, user, registrarPago, } from '../Functions/SqlFunctions';
 
-import { clientId, clientName, getClientDataP, clienteCedula, clienteNombre, getCliente, idAnimal, nombreAnimal, especieAnimal, animal, reset } from '../Functions/UtilityF';
+import { clientId, clientName, getClientDataP, clienteCedula, clienteNombre, getCliente, idAnimal, nombreAnimal, especieAnimal, reset } from '../Functions/UtilityF';
 
-export default function RegistrarPago(nombre) {
+export default function RegistrarPago({client, animal}) {
 
 	const [open, setOpen] = React.useState(false);
 	const [urlVar, setUrlVar] = React.useState("");
 
 	const handleClickOpen = async () => {
 		setOpen(true);
-		const byTarifa = await calcularTarifa(animal)
+		const byTarifa = 300000
 		setValorTarifa(byTarifa);
 	};
 
@@ -289,17 +289,17 @@ export default function RegistrarPago(nombre) {
 								<Grid container rowSpacing={2} sx={{ paddingTop: 3 }}>
 									<Grid item xs={11} md={4} >
 										<Container>
-											<TextField fullWidth id="Telefono" label="Id Animal" variant="filled" name='Telefono' value={idAnimal} disabled />
+											<TextField fullWidth id="Telefono" label="Id Animal" variant="filled" name='Telefono' value={animal.id??" "} disabled />
 										</Container>
 									</Grid>
 									<Grid item xs={11} md={4}>
 										<Container>
-											<TextField fullWidth id="Cedula" label="Nombre Animal" variant="filled" name='Cedula' value={nombreAnimal} disabled />
+											<TextField fullWidth id="Cedula" label="Nombre Animal" variant="filled" name='Cedula' value={animal.Estado??" "} disabled />
 										</Container>
 									</Grid>
 									<Grid item xs={11} md={4}>
 										<Container>
-											<TextField fullWidth id="Cedula" label="Tipo de animal" variant="filled" name='Cedula' value={especieAnimal} disabled />
+											<TextField fullWidth id="Cedula" label="Tipo de animal" variant="filled" name='Cedula' value={animal.Tipo??" "} disabled />
 										</Container>
 									</Grid>
 									<Grid item xs={4} md={4}>

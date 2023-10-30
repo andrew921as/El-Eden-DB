@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&family=Kalam:wght@700&family=Noto+Sans+TC&family=Playpen+Sans:wght@100;500&display=swap');
 
 
-.mainContaier-landingPage{
+.mainContaier-landingPage {
     background-color: #c05213;
     height: 100%;
+    width: 100%;
 }
+
 .container-hero-landingPage {
     position: relative;
 }
@@ -14,7 +16,7 @@
     height: 35rem;
 }
 
-.img-logo-landingPage{
+.img-logo-landingPage {
     width: 30%;
     height: 20rem;
 }
@@ -31,13 +33,14 @@
     width: 100%;
     height: 35rem;
     z-index: 100;
-    font-family: 'Kalam', sans-serif; /* Aplicar la fuente Playpen Sans a la clase .filter */
+    font-family: 'Kalam', sans-serif;
+    /* Aplicar la fuente Playpen Sans a la clase .filter */
     font-size: 4rem;
     color: white;
     text-align: left;
 }
 
-.message-landingPage{
+.message-landingPage {
     font-size: 2.5rem;
 }
 
@@ -45,43 +48,46 @@
     transition: all .5s ease;
     line-height: 1;
     border: none;
-    background-color : transparent;
+    background-color: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1rem;
     position: absolute;
-    top: 20px; /* Ajusta la posición vertical según tus necesidades */
-    right: 20px; /* Ajusta la posición horizontal según tus necesidades */
+    top: 20px;
+    /* Ajusta la posición vertical según tus necesidades */
+    right: 20px;
+    /* Ajusta la posición horizontal según tus necesidades */
     color: #fff;
     padding: 10px 20px;
     outline: none;
     cursor: pointer;
     font-size: 16px;
 }
-.login-button:hover{
+
+.login-button:hover {
     color: #fff;
     background-color: #fe6a16;
 }
 
-.body-landingPage{
+.body-landingPage {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 5rem;
-    font-family: 'IBM Plex Sans', sans-serif;	
+    font-family: 'IBM Plex Sans', sans-serif;
     padding: 0 2rem;
     height: 30em;
     font-size: 1rem;
     color: #fff;
 }
 
-.info-landingPage{
+.info-landingPage {
     width: 50%;
     font-size: 1.5rem;
 }
 
-.introduction-title-ladingPage{
+.introduction-title-ladingPage {
     font-family: 'Kalam', cursive;
     font-size: 4rem;
     color: #fff;
@@ -90,17 +96,43 @@
 }
 
 
-.introduction-image-landingPage{
+.introduction-image-landingPage {
     width: 50%;
     height: 70%;
 }
 
-.catalogo-landingPage{
+.catalogo-landingPage {
     background-color: #5a2507;
-    height: 50em;
+    height: auto;
     padding: 1rem 2rem;
 }
 
-.cards-catalogo-landingPage{
+.cards-catalogo-landingPage {
+    width: 100%;
     padding: 3rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(25%, auto));
+
+}
+
+@media (max-width: 1200px) {
+    .cards-catalogo-landingPage {
+        grid-template-columns: repeat(3, minmax(33%, auto));
+        margin-bottom: 120px;
+        max-width: auto;
+        text-align: center;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 970px) {
+    .cards-catalogo-landingPage {
+        grid-template-columns: repeat(2, minmax(50%, auto));
+    }
+}
+
+@media (max-width: 675px) {
+    .cards-catalogo-landingPage {
+        grid-template-columns: 1fr;
+    }
 }

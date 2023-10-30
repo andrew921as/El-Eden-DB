@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;700&family=Kalam:wght@700&family=Noto+Sans+TC&family=Playpen+Sans:wght@100;500&display=swap');
 
 .card {
-    width: 20%;
+    width: auto;
     height: 20rem;
     border-radius: 2rem;
     background: #ffbf9a;
     position: relative;
     padding: 1.8rem;
+    margin: 1rem;
     border: .5rem solid #fe6a16;
     transition: 0.5s ease-out;
     overflow: visible;
