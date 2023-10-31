@@ -127,15 +127,20 @@ export default function RegistrarPago() {
 						setAnimal(animalsData)
     	})
 	}
-	//const sendNotification = (email) =>{
+	// const sendNotification = (user) =>{
 		
-	//}
+	// 	axios.post(`http://localhost:7600/send_email/`,user).then((response)=>{
+	// 		console.log(response)
+	// 	}
+
+	// 	)
+	// }
 	
 	useEffect(() => {
 		const q = new URLSearchParams(window.location.search)
 		if(q.get("success") === "true") {
 			paymentCheck(q.get("session_id"))
-			//sendNotification(user.user.email)
+			//sendNotification(user.user)
 		}
 
 		
