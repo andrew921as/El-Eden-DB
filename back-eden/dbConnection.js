@@ -142,13 +142,7 @@ const validarLogin = (body) => {
 const registrarPago  = (tipoPago, body) => {
     return new Promise(function (resolve, reject) {
         const { id_animal,cedula, id_voluntario, ingresos, today} = body
-        console.log(id_animal)
-        console.log(cedula)
-        console.log(id_voluntario)
-        console.log(ingresos)
-        console.log(today)
         if (tipoPago == "Donador") {
-            console.log("Entró")
             pool.query(`INSERT INTO d_pagan_a (cedula,id_voluntario,ingresos,fecha) VALUES ($1, $2, $3, $4) RETURNING *;`, [cedula, id_voluntario, ingresos, today], (error, results) => {
                 if (error) {
                     reject(error)
@@ -191,14 +185,6 @@ const createAnimal = (body) => {
         }
         else {
             tiempo_estancia_func(fecha_ingreso, fecha_salida)
-            console.log(nombre_animal)
-            console.log(talla)
-            console.log(edad)
-            console.log(tipo)
-            console.log(motivo_ingreso)
-            console.log(observaciones)
-            console.log(estado)
-            console.log(tiempo_estancia)
             pool.query('INSERT INTO datos_animal (nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida, tiempo_estancia) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *;', [nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida, tiempo_estancia], (error, results) => {
                 if (error) {
                     reject(error)
@@ -237,7 +223,6 @@ const createVoluntario = (body) => {
 const actualizarAnimal = (body) => {
     return new Promise(function (resolve, reject) {
         const { id_animal, nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida } = body
-        console.log(id_animal)
         pool.query(`UPDATE datos_animal SET nombre_animal = $1, talla = $2, edad = $3, tipo= $4, motivo_ingreso = $5, observaciones = $6, estado =$7, fecha_ingreso = $8, fecha_salida = $9 WHERE id_animal = '${id_animal}';`, [nombre_animal, talla, edad, tipo, motivo_ingreso, observaciones, estado, fecha_ingreso, fecha_salida], (error, results) => {
             if (error) {
                 reject(error)
@@ -250,7 +235,6 @@ const actualizarAnimal = (body) => {
 const actualizarPatrocinador = (body) => {
     return new Promise(function (resolve, reject) {
         const { cedula, nombre, apellido, correo, telefono, tipo_via, numero_calle, numero_casa, tipo } = body
-        console.log(cedula)
         pool.query(`UPDATE datos_patrocinador SET nombre = $1, apellido = $2, correo= $3, telefono = $4, tipo_via = $5, numero_calle =$6, numero_casa = $7, tipo = $8 WHERE cedula = '${cedula}';`, [nombre, apellido, correo, telefono, tipo_via, numero_calle, numero_casa, tipo], (error, results) => {
             if (error) {
                 reject(error)
@@ -263,7 +247,6 @@ const actualizarPatrocinador = (body) => {
 const actualizarVoluntario = (body) => {
     return new Promise(function (resolve, reject) {
         const { nombre, cedula, cargo, telefono, usuario, contrasena } = body
-        console.log(cargo)
         pool.query(`UPDATE datos_voluntario SET nombre = $1, cargo = $2, telefono = $3, username = $4, password = $5 WHERE cedula = '${cedula}';`, [nombre, cargo, telefono, usuario, contrasena], (error, results) => {
             if (error) {
                 reject(error)

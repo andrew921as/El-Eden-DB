@@ -1,9 +1,10 @@
 
 import Routes from "./RoutesPage";
-import { createTheme, ThemeProvider, CssBaseline } from "@mui/material";
-import Footer from "./Components/Footer";
+import { ThemeProvider, CssBaseline } from "@mui/material";
+// import Footer from "./Components/Footer";
 import theme from "./Theme";
 import ContextProvider from "./Components/Context";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   
@@ -13,6 +14,7 @@ function App() {
         <CssBaseline />
         <ContextProvider>
         <Routes/>
+        <ToastContainer />
         </ContextProvider>
       </ThemeProvider>
     </div>

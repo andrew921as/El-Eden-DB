@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CardCatalog({animal}) {
 
-    console.log("ID", animal)
+    // console.log("ID", animal)
     const navigate = useNavigate();
     return (
         <div className="card">

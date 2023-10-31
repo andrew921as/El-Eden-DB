@@ -19,8 +19,8 @@
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0",
-    "axios":"1.6.0",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.1.3",
     "sweetalert2": "^11.4.26",
     "web-vitals": "^2.1.4"
   },

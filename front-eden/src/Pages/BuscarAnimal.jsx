@@ -32,7 +32,6 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
 
 
 
-
 export default function BuscarAnimal() {
 
   const [animal, setAnimal]=useState([]);
@@ -51,12 +50,6 @@ export default function BuscarAnimal() {
             setAnimal(busquedas);
         }
     });
-
-  const [Tipo, setTipo] = React.useState('');
-
-  const handleChange = (event) => {
-    setTipo(event.target.value);
-  }
 
   const todosDatos = async()=> {
     await getAllAnimales();

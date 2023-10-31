@@ -4,8 +4,8 @@ import Icono from '../Images/IconoSinTitulo.png';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import koala from '../Images/FondoKoala.png';
 import CardCatalog from '../Components/CardCatalog';
-import Fondo_Mapache from '../Images/Fondo_Mapache.png';
-import {getAllAnimales, busquedas} from '../Functions/SqlFunctions';
+// import Fondo_Mapache from '../Images/Fondo_Mapache.png';
+// import {getAllAnimales, busquedas} from '../Functions/SqlFunctions';
 import { useNavigate } from 'react-router-dom';
 
 import axios from 'axios';

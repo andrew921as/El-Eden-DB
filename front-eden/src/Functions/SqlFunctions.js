@@ -92,16 +92,16 @@ async function getPagos() {
 function calcularTarifa(animal) {
     console.log(animal)
     let multiplicador
-    if(animal.talla == "P"){
+    if(animal.talla === "P"){
         multiplicador = 50000
     }
-    else if(animal.talla == "M"){
+    else if(animal.talla === "M"){
         multiplicador = 200000
     }
-    else if(animal.talla == "G"){
+    else if(animal.talla === "G"){
         multiplicador = 300000
     }
-    console.log(Math.round(animal.tiempo_estancia*multiplicador/31))
+    // console.log(Math.round(animal.tiempo_estancia*multiplicador/31))
     return (Math.round(animal.tiempo_estancia*multiplicador/31))
 
 }
@@ -131,7 +131,7 @@ function calcularTarifa(animal) {
 
 async function registrarPago(id_animal,cedula, id_voluntario, ingresos, tipoPago){
     let today = new Date().toISOString()
-    console.log(today)
+    // console.log(today)
     const nulo = null;
     /*
     let dd = String(today.getDate()).padStart(2, '0');
@@ -142,7 +142,7 @@ async function registrarPago(id_animal,cedula, id_voluntario, ingresos, tipoPago
     */
     console.log(today)
     console.log(id_animal)
-    if (tipoPago == "Donador"){
+    if (tipoPago === "Donador"){
         await fetch(`http://localhost:3001/pago/donador`, {
             method: 'POST',
             headers: {

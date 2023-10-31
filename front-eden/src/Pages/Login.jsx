@@ -18,6 +18,10 @@ import { useNavigate } from "react-router-dom";
 import ForestIcon from "@mui/icons-material/Forest";
 // import { validarLogin, encontrado } from "../Functions/SqlFunctions";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 import { useUser } from "../Components/Context.jsx";
 
 
@@ -33,6 +37,9 @@ function Login() {
   const [password, setPassword] = useState("");
   const [verifyPassword, setVerifyPassword] = useState("");
   const [reEmail, setReEmail] = useState("");
+
+
+  // notification
 
 
   const openRegisterModal = () => {
@@ -68,8 +75,11 @@ function Login() {
       console.log(data);
       if (response.ok) {
         // El registro fue exitoso
-        alert("Registro exitoso");
-        console.log("Registro exitoso");
+        toast.success('Registro exitoso ', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000
+      });
+
         closeRegisterModal();
       } else {
         // Hubo un error en el registro
@@ -80,28 +90,6 @@ function Login() {
       console.log("Error en la solucitud:", error);
     }
   };
-
-
-
-  // const formik = useFormik({
-  //   initialValues: {
-  //     userName: "",
-  //     password: "",
-  //   },
-  //   onSubmit: async (values) => {
-  //     let loginData = JSON.stringify(values, null, 2);
-  //     const user = JSON.parse(loginData).userName;
-  //     const contra = JSON.parse(loginData).password;
-
-  //     console.log(user);
-  //     console.log(contra);
-
-  //     await validarLogin(user, contra);
-  //     // si validarlogin retorna 201, significa que el usuario y contraseña son correctos y se redirige a la pagina principal
-      
-
-  //   },
-  // });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -126,24 +114,27 @@ function Login() {
       loginUser(data);
       console.log("Datos del usuario logueado",loginUser);
       if (response.ok) {
-        // inicio de sesion exitoso
-        alert("Inicio de sesion exitoso");
-        console.log("Inicio de sesion exitoso");
+        toast.success('Inicio existoso ', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 5000
+      });
         navigate("/");
       } else {
         // Hubo un error en el registro
-        alert("Hubo un error en el inicio de sesion");
-        console.log("Hubo un error en el inicio de sesion");
+        toast.error('Usuario o contraseña incorrectos ', {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 4500
+      });
+
       }
     } catch (error) {
       console.log("Error en la solucitud:", error);
     }
   };
-
-
-
+  
   return (
     <div className="Contenedor-login">
+      <ToastContainer />
       <Box
         sx={{
           backgroundColor: "rgba(226, 226, 226, 0.65)",
@@ -160,7 +151,7 @@ function Login() {
           padding: "2rem",
           flexDirection: "column",
           alignContent: "right",
-          borderRadius: "30px",
+          // borderRadius: "30px",
           height: "95%",
           maring: "5px",
         }}
@@ -172,7 +163,9 @@ function Login() {
             direction={"column"}
             alignItems={"center"}
           >
-            <img className="Icono-main" src={iconoOso} height="100" />
+            <img className="Icono-main" 
+            alt="Icono de oso"
+            src={iconoOso} height="100" />
             <Box
               sx={{
                 display: "flex",
@@ -276,6 +269,7 @@ function Login() {
         {/* icono */}
         <img 
         className='Icono-register' 
+        alt='Icono de oso'
         src={iconoOso} 
         height='100'
         />

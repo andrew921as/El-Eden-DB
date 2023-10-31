@@ -7,21 +7,11 @@ import {
 	TextField,
 	Typography,
 	Box,
-	FormControl,
-	InputLabel,
-	Select,
-	MenuItem,
 	Dialog,
-	DialogContent,
-	DialogTitle,
-	DialogContentText,
-	DialogActions,
 } from '@mui/material';
 import { useNavigate} from 'react-router-dom';
 
 import tarifas from '../Images/Tarifas.png';
-
-import ButtonBack from '../Components/ButtonBack';
 import { useUser } from "../Components/Context";
 
 import { useFormik } from 'formik';
@@ -30,9 +20,9 @@ import MenuArriba from '../Components/MenuArriba';
 
 import '../styles/RegistrarUsu.css';
 
-import { calcularTarifa, user, registrarPago, } from '../Functions/SqlFunctions';
+import { registrarPago, } from '../Functions/SqlFunctions';
 
-import { clientId, clientName, getClientDataP, clienteCedula, clienteNombre, getCliente, idAnimal, nombreAnimal, especieAnimal, reset } from '../Functions/UtilityF';
+import { getClientDataP, clienteCedula, clienteNombre,idAnimal,reset } from '../Functions/UtilityF';
 
 import axios from 'axios';
 
@@ -40,7 +30,6 @@ export default function RegistrarPago() {
 
 	const {user} = useUser();
 	const [open, setOpen] = React.useState(false);
-	const [urlVar, setUrlVar] = React.useState("");
 	const [animal, setAnimal] =  React.useState({});
 
 	const handleClickOpen = async () => {
@@ -58,23 +47,6 @@ export default function RegistrarPago() {
 		navigate('/Home');
 	}
 
-	// const paymentProcess = async function paymentService(data) {
-	// 	console.log(JSON.stringify(data))
-	// 	try {
-	// 		const res = await fetch('http://localhost:6800/payment', {
-	// 			method: 'POST',
-	// 			headers: {
-	// 				"Content-Type": "application/json"
-	// 			},
-	// 			body: JSON.stringify(data)
-	// 		})
-
-	// 		//const result = await res
-	// 		console.log(res)
-	// 	} catch(err) {
-	// 		console.log("Error Sempai:", err)
-	// 	}
-	// }
 
 	async function paymentService(data) {
 		const bodyContent = JSON.stringify(data)
@@ -91,9 +63,6 @@ export default function RegistrarPago() {
 					"Content-Type": "application/json"
 				}
 			})
-
-			// const val = await response.text()
-			// window.location.href = val
 			const data = await response.json();
 			window.location.href = data.url
 
@@ -154,14 +123,9 @@ export default function RegistrarPago() {
 			await getClientDataP({ id: "1234", name: "Julio" });
 		}
 		traemeDatos();
-		console.log(noDonor);
-		console.log(clienteCedula)
 	},[]);
 
-
 	const navigate = useNavigate();
-
-
 
 	const formik = useFormik({
 		initialValues: {
@@ -170,11 +134,9 @@ export default function RegistrarPago() {
 		onSubmit: async (values) => {
 			const pagoDon = JSON.stringify(values, null, 2);
 			const pagoFinalD = JSON.parse(pagoDon).ValorPago
-			if (namePage != "Donador") {
-				console.log("Primer elemento de array " + user[0].cedula);
+			if (namePage !== "Donador") {
 				await registrarPago(idAnimal, clienteCedula, user[0].cedula, valorTarifa, "Patrocinador");
 			} else {
-				console.log("Monda");
 				await registrarPago(null, clienteCedula, user[0].cedula, pagoFinalD, "Donador");
 			}
 		}
@@ -364,8 +326,10 @@ export default function RegistrarPago() {
 												open={open}
 												onClose={handleClose}
 											>
-												
-													<img className='precios' src={tarifas} />
+													<img className='precios' 
+													src={tarifas} 
+													alt='Tarifas'
+													/>
 
 											</Dialog>
 										</Container>
@@ -456,24 +420,3 @@ export default function RegistrarPago() {
 		</div>
 	)
 }
-/**
- * <Container>
-										<FormControl fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
-											<InputLabel id="demo-simple-select-filled-label">Motivo Pago</InputLabel>
-											<Select
-												labelId="MotivoP"
-												id="MotivoP"
-												name='MotivoP'
-												value={formik.values.MotivoP}
-												label="Motivo Pago"
-												onChange={formik.handleChange}
-											>
-												<MenuItem sx={{ borderRadius: 0 }} value={"Albergue"}>Albergue</MenuItem>
-												<MenuItem sx={{ borderRadius: 0 }} value={"Apadrinamiento"}>Apadrinamiento</MenuItem>
-												<MenuItem sx={{ borderRadius: 0 }} value={"Donacion"}>Donacion</MenuItem>
-
-											</Select>
-										</FormControl>
-									</Container>
- * 
- */

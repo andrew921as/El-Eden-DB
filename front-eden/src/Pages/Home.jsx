@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../styles/Home.css";
 import {
   Stack,
@@ -6,9 +6,7 @@ import {
   AccordionSummary,
   AccordionDetails,
   Typography,
-  ThemeProvider,
   MenuItem,
-  useTheme,
   styled,
   IconButton,
   useMediaQuery,
@@ -32,7 +30,7 @@ import PersonSearchIcon from "@mui/icons-material/PersonSearch";
 import AddIcon from "@mui/icons-material/Add";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 
-import { getVoluntarios, idVoluntario } from "../Functions/SqlFunctions";
+import { getVoluntarios} from "../Functions/SqlFunctions";
 
 
 const StyledAcordion = styled(Accordion)(({ theme }) => ({
@@ -48,12 +46,7 @@ const StyledAcordion = styled(Accordion)(({ theme }) => ({
   },
 }));
 
-const StyledBox = styled(Box)(({ theme }) => ({
-  width: "45%",
-  [theme.breakpoints.down("md")]: {
-    width: "100%",
-  },
-}));
+
 
 function Home() {
   // const { user } = useUser();
@@ -64,10 +57,8 @@ function Home() {
   console.log(user.user.id);
 
   const [esAdimin, setEsAdmin] = useState(true);
-  const [nombree, setNombree] = useState(user.username);
 
   const navigate = useNavigate();
-  const theme = useTheme();
   const match = useMediaQuery("(min-height: 900px)");
   const [expanded, setExpanded] = React.useState("");
 
@@ -79,12 +70,11 @@ function Home() {
     console.log("Este es mi id" + user.user.id);
     await getVoluntarios("Identificador", user.user.id, true);
     console.log(user);
-    if (user[0].cargo == "Administrador") {
+    if (user[0].cargo === "Administrador") {
       setEsAdmin(true);
     } else {
       setEsAdmin(false);
     }
-    setNombree(user[0].nombre);
   };
 
   voluntario();
@@ -119,7 +109,8 @@ function Home() {
             alignItems={"center"}
             sx={match ? { padding: 13 } : { padding: 4 }}
           >
-            <img className="Icono-main" src={iconoOso} />
+            <img className="Icono-main" alt="Icono de oso"
+            src={iconoOso} />
             <Typography
               sx={{ fontSize: "1.5rem", color: "#d84707", fontWeight: 3 }}
             >
@@ -234,7 +225,9 @@ function Home() {
             alignItems={"center"}
             sx={match ? { padding: 20 } : { padding: 5 }}
           >
-            <img className="Icono-main" src={iconoOso} />
+            <img className="Icono-main"
+            alt="Icono de oso"
+            src={iconoOso} />
             <Typography
               sx={{ fontSize: "1.8rem", color: "#d84707", fontWeight: 3 }}
             >

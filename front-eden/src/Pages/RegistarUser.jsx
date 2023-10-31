@@ -1,8 +1,8 @@
 import React from 'react'
-import { Button, Container, Grid, Stack, TextField, Typography, Box, ThemeProvider, useTheme, useMediaQuery, InputLabel, MenuItem, FormControl, Select} from '@mui/material';
+import { Button, Container, Grid, Stack, TextField, Typography, Box, InputLabel, MenuItem, FormControl, Select} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { useState } from "react";
+// import { useState } from "react";
 
 import ButtonBack from '../Components/ButtonBack';
 
@@ -48,7 +48,7 @@ export default function RegistarUser() {
     return errors;
   };
 
-  const [campoError, setCampoError] = useState(false);
+
 
   const navigate = useNavigate();
 
@@ -74,7 +74,7 @@ export default function RegistarUser() {
           const tipo_via = JSON.parse(userData).TipoVia
           const numero_calle = JSON.parse(userData).Calle
           const numero_casa = JSON.parse(userData).Casa
-
+          
           /* createAnimal('008', nombre, talla, edad, tipo, motivoIngreso, observaciones, estado, fechaI, fechaS);*/
           createPatrocinador(cedula, nombre, apellido, correo, telefono, tipo_via, numero_calle, numero_casa, 'normal');
           //createPatrocinador('59485217', 'Carlos', 'Carloscaceres', 'carlitos@carlitos.com','3156421563', 'larga', 'primer', '56-56','albergue');

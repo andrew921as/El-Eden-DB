@@ -31,12 +31,9 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
 }));
 
 
-
-
 export default function BuscarVoluntario() {
 
   const [voluntario, setVoluntario] = useState([]);
-  const [Tipo, setTipo] = React.useState('');
 
   const formik = useFormik({
     initialValues: {
@@ -53,10 +50,6 @@ export default function BuscarVoluntario() {
   });
 
 
-
-  const handleChange = (event) => {
-    setTipo(event.target.value);
-  }
 
   const todosDatos = async () => {
     await getAllVoluntarios();
