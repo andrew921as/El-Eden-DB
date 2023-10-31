@@ -76,7 +76,7 @@ export default function RegistrarPago(nombre) {
 		console.log(bodyContent)
 
 		try {
-			const response = await fetch("http://localhost:6800/payment", { 
+			const response = await fetch("https://eledenapi.com/payment/api/payment", { 
 				method: "POST",
 				//credentials: "include",
 				body: bodyContent,
@@ -99,7 +99,7 @@ export default function RegistrarPago(nombre) {
 
 	async function paymentCheck(session_id) {
 		try {
-			const res = await fetch(`http://localhost:6800/order?session_id=${session_id}`)
+			const res = await fetch(`https://eledenapi.com/payment/api/order?session_id=${session_id}`)
 			// const data = await res.json()
 			// console.log(data)
 			console.log(res)
