@@ -22,6 +22,7 @@ import { useNavigate} from 'react-router-dom';
 import tarifas from '../Images/Tarifas.png';
 
 import ButtonBack from '../Components/ButtonBack';
+import { useUser } from "../Components/Context";
 
 import { useFormik } from 'formik';
 
@@ -33,10 +34,14 @@ import { calcularTarifa, user, registrarPago, } from '../Functions/SqlFunctions'
 
 import { clientId, clientName, getClientDataP, clienteCedula, clienteNombre, getCliente, idAnimal, nombreAnimal, especieAnimal, reset } from '../Functions/UtilityF';
 
-export default function RegistrarPago({client, animal}) {
+import axios from 'axios';
 
+export default function RegistrarPago() {
+
+	const {user} = useUser();
 	const [open, setOpen] = React.useState(false);
 	const [urlVar, setUrlVar] = React.useState("");
+	const [animal, setAnimal] =  React.useState({});
 
 	const handleClickOpen = async () => {
 		setOpen(true);
@@ -76,7 +81,8 @@ export default function RegistrarPago({client, animal}) {
 		console.log(bodyContent)
 
 		try {
-			const response = await fetch("https://eledenapi.com/payment/api/payment", { 
+			//const response = await fetch("https://eledenapi.com/payment/api/payment", { 
+			const response = await fetch("http://localhost:6800/payment", { 
 				method: "POST",
 				//credentials: "include",
 				body: bodyContent,
@@ -99,7 +105,8 @@ export default function RegistrarPago({client, animal}) {
 
 	async function paymentCheck(session_id) {
 		try {
-			const res = await fetch(`https://eledenapi.com/payment/api/order?session_id=${session_id}`)
+			//const res = await fetch(`https://eledenapi.com/payment/api/order?session_id=${session_id}`)
+			const res = await fetch(`http://localhost:6800/order?session_id=${session_id}`)
 			// const data = await res.json()
 			// console.log(data)
 			console.log(res)
@@ -112,18 +119,39 @@ export default function RegistrarPago({client, animal}) {
 	const [namePage, setNamePage] = useState("Apadrinamiento");
 	const [valorTarifa, setValorTarifa] = useState(0)
 
+	
+	function search_animal(animal_id) { 
+		axios.get(`http://localhost:8000/animals/${animal_id}`).then(res => {
+            const animalsData =  res.data;
+						console.log(animalsData)
+						setAnimal(animalsData)
+    	})
+	}
+	//const sendNotification = (email) =>{
+		
+	//}
+	
 	useEffect(() => {
 		const q = new URLSearchParams(window.location.search)
 		if(q.get("success") === "true") {
 			paymentCheck(q.get("session_id"))
+			//sendNotification(user.user.email)
 		}
+
+		
+
+		const animal_q = new URLSearchParams(window.location.search)
+		if(animal_q.get("id") != null) {
+			search_animal(animal_q.get("id"))
+		}
+
 		async function traemeDatos() {
 			await getClientDataP({ id: "1234", name: "Julio" });
 		}
 		traemeDatos();
 		console.log(noDonor);
 		console.log(clienteCedula)
-	});
+	},[]);
 
 
 	const navigate = useNavigate();
@@ -294,7 +322,7 @@ export default function RegistrarPago({client, animal}) {
 									</Grid>
 									<Grid item xs={11} md={4}>
 										<Container>
-											<TextField fullWidth id="Cedula" label="Nombre Animal" variant="filled" name='Cedula' value={animal.Estado??" "} disabled />
+											<TextField fullWidth id="Cedula" label="Nombre Animal" variant="filled" name='Cedula' value={animal.Nombre??" "} disabled />
 										</Container>
 									</Grid>
 									<Grid item xs={11} md={4}>

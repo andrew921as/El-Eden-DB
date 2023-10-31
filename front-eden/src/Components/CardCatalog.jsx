@@ -5,6 +5,8 @@ import foto from "../Images/FondoKoala.png"
 import { useNavigate } from 'react-router-dom';
 
 export default function CardCatalog({animal}) {
+
+    console.log("ID", animal)
     const navigate = useNavigate();
     return (
         <div className="card">
@@ -12,7 +14,7 @@ export default function CardCatalog({animal}) {
                 <img className="card-image" src={foto} alt='animal'/>
                 <p className="text-title">{animal.Tipo}</p>
             </div>
-            <button className="card-button" onClick={() => navigate('/Registro-Pago')}>Patrocinar</button>
+            <button className="card-button" onClick={() => navigate('/Registro-Pago/?id='+ animal.id)}>Patrocinar</button>
         </div>
     )
 }

@@ -129,7 +129,7 @@ function Login() {
         // inicio de sesion exitoso
         alert("Inicio de sesion exitoso");
         console.log("Inicio de sesion exitoso");
-        navigate("/Home");
+        navigate("/");
       } else {
         // Hubo un error en el registro
         alert("Hubo un error en el inicio de sesion");
