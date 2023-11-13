@@ -16,6 +16,7 @@ import DataTableAnimales from '../Components/DataTableAnimales';
 import ButtonBack from '../Components/ButtonBack';
 
 import { useFormik } from 'formik';
+import axios from 'axios';
 
 import { getAnimales, busquedas, getAllAnimales } from '../Functions/SqlFunctions';
 
@@ -52,8 +53,10 @@ export default function BuscarAnimal() {
     });
 
   const todosDatos = async()=> {
-    await getAllAnimales();
-    setAnimal(busquedas)
+   axios.get('http://localhost:8000/animals').then(res => {
+            const animalsData =  res.data;
+            setAnimal(animalsData);
+        })
   }
 
   useEffect(()=>{
