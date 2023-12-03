@@ -11,8 +11,8 @@ export default function CardCatalog({animal}) {
     return (
         <div className="card">
             <div className="card-details">
-                <img className="card-image" src={foto} alt='animal'/>
-                <p className="text-title">{animal.Tipo}</p>
+                <img className="card-image" src={animal.Image} alt='animal'/>
+                <p className="text-title">{animal.Nombre}</p>
             </div>
             <button className="card-button" onClick={() => navigate('/Registro-Pago/?id='+ animal.id)}>Patrocinar</button>
         </div>
