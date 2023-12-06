@@ -253,7 +253,7 @@ export default function RegistarAnimal() {
                     helperText={formik.touched.Observaciones && formik.errors.Observaciones} />
                 </Container>
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={4}>
                 <Container>
                   <FormControl required fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
                     <InputLabel id="demo-simple-select-filled-label">Talla</InputLabel>
@@ -273,7 +273,7 @@ export default function RegistarAnimal() {
                   </FormControl>                  
                 </Container>
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={4}>
                 <Container>
                   <FormControl required fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
                     <InputLabel id="demo-simple-select-filled-label">Estado</InputLabel>
@@ -292,6 +292,11 @@ export default function RegistarAnimal() {
                   </FormControl>
                 </Container>
               </Grid>
+							<Grid item xs={12} md={4}>
+								<Container>
+									<UploadWidget setUrlImage={setUrlImage} />
+								</Container>
+							</Grid>
             </Grid>
             <Stack direction={'row'} spacing={4} justifyContent={'space-between'} sx={{ paddingTop: 7 }}>
               <Container>
@@ -343,9 +348,10 @@ export default function RegistarAnimal() {
                 </Button>
               </Container>
             </Stack>
+
           </form>
           {/**  El widget de uploadImage se tiene que editar pa ser bonito */}
-          <UploadWidget setUrlImage={setUrlImage} />
+          
         </Stack>
       </Box>
     </div>
