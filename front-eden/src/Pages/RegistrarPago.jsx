@@ -105,9 +105,6 @@ export default function RegistrarPago() {
 			paymentCheck(q.get("session_id"))
 			//sendNotification(user.user)
 		}
-
-		
-
 		const animal_q = new URLSearchParams(window.location.search)
 		if(animal_q.get("id") != null) {
 			search_animal(animal_q.get("id"))
