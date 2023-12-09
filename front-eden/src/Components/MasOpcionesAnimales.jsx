@@ -34,8 +34,8 @@ export default function MasOpcionesAnimales({ row, reload }) {
 
   const navigate = useNavigate();
 
-    const [fechaSa, setFechaSal]=useState(row.fecha_salida);
-    const [fechaIn, setFechaIn]=useState(row.fecha_ingreso);
+    const [fechaSa, setFechaSal]=useState(row.Fecha_salida);
+    const [fechaIn, setFechaIn]=useState(row.Fecha_Ingreso);
 
     function registrarPago() {
         getAnimal(row)
@@ -53,7 +53,7 @@ export default function MasOpcionesAnimales({ row, reload }) {
     };
 
     const eliminarReg = async() => {
-      await borrarAnimal(row.id_animal);
+      await borrarAnimal(row.id);
       await getAllAnimales();
             reload(busquedas);
             setOpen(false);
@@ -61,16 +61,16 @@ export default function MasOpcionesAnimales({ row, reload }) {
 
     const formik = useFormik({
         initialValues: {
-          Id: row.id_animal,  
-          Nombre: row.nombre_animal,
-          Tipo: row.tipo,
-          Edad: row.edad,
-          MotivoI: row.motivo_ingreso,
+          Id: row.id,  
+          Nombre: row.Nombre,
+          Tipo: row.Tipo,
+          Edad: row.Edad,
+          MotivoI: row.Motivo_ingreso,
           FechaI: fechaIn,
           FechaS: fechaSa,
-          Observaciones: row.observaciones,
-          Talla: row.talla,
-          Estado: row.estado,
+          Observaciones: row.Observacion,
+          Talla: row.Talla,
+          Estado: row.Estado,
         },
         onSubmit: async (values) => {
           let animalData = JSON.stringify(values, null, 2)

@@ -59,11 +59,11 @@ export default function AnimalesTable({datosBd, reload}) {
                             <TableRow
                                 key={row.id}
                             >
-                                <TableCell component="th" scope="row" align="center"> {row.id_animal}</TableCell>
-                                <TableCell align="center">{row.nombre_animal}</TableCell>
-                                <TableCell align="center">{row.tipo}</TableCell>
-                                <TableCell align="center">{row.estado}</TableCell>
-                                <TableCell align="center">{row.motivo_ingreso}</TableCell>
+                                <TableCell component="th" scope="row" align="center"> {row.id}</TableCell>
+                                <TableCell align="center">{row.Nombre}</TableCell>
+                                <TableCell align="center">{row.Tipo}</TableCell>
+                                <TableCell align="center">{row.Estado}</TableCell>
+                                <TableCell align="center">{row.Motivo_ingreso}</TableCell>
                                 <TableCell align="center"><MasOpcionesBotonAnimales row={row} reload={reload} /></TableCell>
                             </TableRow>
                         ))}
