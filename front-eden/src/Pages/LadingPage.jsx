@@ -16,7 +16,7 @@ export default function LadingPage() {
     const [animales, setAnimales] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/animals').then(res => {
+        axios.get('https://eledenapi.com/service/catalogapi/animals').then(res => {
             const animalsData =  res.data;
             setAnimales(animalsData);
         })

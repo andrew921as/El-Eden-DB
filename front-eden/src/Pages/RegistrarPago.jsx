@@ -53,10 +53,8 @@ export default function RegistrarPago() {
 		console.log(bodyContent)
 
 		try {
-			//const response = await fetch("https://eledenapi.com/payment/api/payment", { 
-			const response = await fetch("http://localhost:6800/payment", { 
+			const response = await fetch("https://eledenapi.com/service/paymentapi/payment", { 
 				method: "POST",
-				//credentials: "include",
 				body: bodyContent,
 				headers: {
 					"Accept": "*/*",
@@ -74,11 +72,7 @@ export default function RegistrarPago() {
 
 	async function paymentCheck(session_id) {
 		try {
-			//const res = await fetch(`https://eledenapi.com/payment/api/order?session_id=${session_id}`)
-			const res = await fetch(`http://localhost:6800/order?session_id=${session_id}`)
-			// const data = await res.json()
-			// console.log(data)
-			console.log(res)
+			const res = await fetch(`https://eledenapi.com/service/paymentapi/order?session_id=${session_id}`)
 		} catch(err) {
 			console.log("Error de paymentCheck:", err)
 		}
@@ -90,7 +84,7 @@ export default function RegistrarPago() {
 
 	
 	function search_animal(animal_id) { 
-		axios.get(`http://localhost:8000/animals/${animal_id}`).then(res => {
+		axios.get(`https://eledenapi.com/service/catalogapi/animals/${animal_id}`).then(res => {
             const animalsData =  res.data;
 						console.log(animalsData)
 						setAnimal(animalsData)

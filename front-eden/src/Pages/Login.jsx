@@ -59,7 +59,7 @@ function Login() {
       email: reEmail
     }));
     try {
-      const response = await fetch("http://localhost:3002/user/add-user", {
+      const response = await fetch("https://eledenapi.com/service/loginapi/user/adduser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -98,11 +98,11 @@ function Login() {
       password: password
     }));
     try {
-      const response = await fetch("http://localhost:3002/user/login", {
+      const response = await fetch("https://eledenapi.com/service/loginapi/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Cross-Origin-Opener-Policy": "same-origin",
+          //"Cross-Origin-Opener-Policy": "same-origin",
         },
         body: JSON.stringify({
           username: username,
