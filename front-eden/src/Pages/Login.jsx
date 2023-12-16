@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Stack,
@@ -40,6 +40,21 @@ function Login() {
 
 
   // notification
+
+
+  // PARA NAVEGAR A ESTA RUTA CON PERSISTENCIA
+  useEffect(() => {
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      // Navega a home si ya hay un usuario logueado
+      loginUser(JSON.parse(storedUserData));
+      console.log("USUARIO LOGUEADO ANTERIORMENTE",JSON.parse(storedUserData))
+      // navego
+      console.log("navego")
+      // navegar a home
+      navigate("/Home");
+    }
+  }, []);
 
 
   const openRegisterModal = () => {
@@ -91,6 +106,11 @@ function Login() {
     }
   };
 
+  const handleLoginSuccess = (userData) => {
+    // Guarda el usuario en el local storage
+    localStorage.setItem('userData', JSON.stringify(userData));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(JSON.stringify({
@@ -98,7 +118,7 @@ function Login() {
       password: password
     }));
     try {
-      const response = await fetch("https://eledenapi.com/service/loginapi/user/login", {
+      const response = await fetch("http://localhost:3002/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -114,6 +134,7 @@ function Login() {
       loginUser(data);
       console.log("Datos del usuario logueado",loginUser);
       if (response.ok) {
+        handleLoginSuccess(data);
         toast.success('Inicio existoso ', {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 5000

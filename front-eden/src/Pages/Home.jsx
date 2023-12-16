@@ -80,8 +80,12 @@ function Home() {
   voluntario();
 
   const handleLogout = () => {
+    localStorage.removeItem("userData");
     logoutUser();
+    console.log(localStorage.getItem("userData"));
     console.log("Sesión cerrada"+ user);
+    
+    
     navigate("/");
     
   };

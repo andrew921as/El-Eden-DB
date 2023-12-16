@@ -7,6 +7,7 @@ import CardCatalog from '../Components/CardCatalog';
 // import Fondo_Mapache from '../Images/Fondo_Mapache.png';
 // import {getAllAnimales, busquedas} from '../Functions/SqlFunctions';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from "../Components/Context.jsx";
 
 import axios from 'axios';
 
@@ -14,14 +15,28 @@ import '../styles/LandingPage.css';
 
 export default function LadingPage() {
     const [animales, setAnimales] = useState([]);
+    const { loginUser } = useUser();
+    const storedUserData = localStorage.getItem("userData");
 
     useEffect(() => {
-        axios.get('https://eledenapi.com/service/catalogapi/animals').then(res => {
+        axios.get('http://localhost:8001/animals').then(res => {
             const animalsData =  res.data;
             setAnimales(animalsData);
         })
     }, [])
     const navigate = useNavigate();
+
+    // PARA NAVEGAR A ESTA RUTA CON PERSISTENCIA
+    // if (storedUserData) {
+    //     // Navega a home si ya hay un usuario logueado
+    //     loginUser(JSON.parse(storedUserData));
+    //     console.log("TRANNNNNNNNNNN",JSON.parse(storedUserData))
+    //     // navego
+    //     console.log("navego")
+    //     // navegar a home
+    //     navigate("/Home");
+    //   }
+
     return (
         <div className='mainContaier-landingPage'>
             <div className='container-hero-landingPage'>
