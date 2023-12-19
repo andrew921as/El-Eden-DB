@@ -91,22 +91,31 @@ export default function RegistrarPago() {
 						setAnimal(animalsData)
     	})
 	}
-	// const sendNotification = (user) =>{
-		
-	// 	axios.post(`http://localhost:7600/send_email/`,user).then((response)=>{
-	// 		console.log(response)
-	// 	}
+	
+	const sendNotification = async(user) =>{
+		console.log("El user:",user)
+		const data = {
+			"username": user.username,
+			"email": user.email
+		}
+		console.log("El username",user.username)
+		axios.post(`http://localhost:8000/automatic_notifications/send_email/`,data).then((response)=>{
+			console.log(response)
+		})
+	}
 
-	// 	)
-	// }
 	
 	useEffect(() => {
 		const storedUserData = localStorage.getItem('userData');
 		const q = new URLSearchParams(window.location.search)
 		if(q.get("success") === "true") {
 			paymentCheck(q.get("session_id"))
-			console.log("El user:",storedUserData)
-			//sendNotification(user.user)
+			const user = JSON.parse(storedUserData)
+			console.log("El user:",user)
+			async function Notification() {
+				sendNotification(user.user)
+			}
+			Notification();
 		}
 		const animal_q = new URLSearchParams(window.location.search)
 		if(animal_q.get("id") != null) {
