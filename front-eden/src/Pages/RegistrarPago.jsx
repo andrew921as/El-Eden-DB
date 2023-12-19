@@ -32,6 +32,7 @@ export default function RegistrarPago() {
 	const {user} = useUser();
 	const [open, setOpen] = React.useState(false);
 	const [animal, setAnimal] =  React.useState({});
+	const [userCache, setUserCache] = useState({});
 
 	const handleClickOpen = async () => {
 		setOpen(true);
@@ -45,7 +46,7 @@ export default function RegistrarPago() {
 
 	const cancel = () => {
 		reset();
-		navigate('/Home');
+		navigate('/');
 	}
 
 
@@ -107,13 +108,13 @@ export default function RegistrarPago() {
 	
 	useEffect(() => {
 		const storedUserData = localStorage.getItem('userData');
+		const userC = JSON.parse(storedUserData)
+		setUserCache(userC)
 		const q = new URLSearchParams(window.location.search)
 		if(q.get("success") === "true") {
 			paymentCheck(q.get("session_id"))
-			const user = JSON.parse(storedUserData)
-			console.log("El user:",user)
 			async function Notification() {
-				sendNotification(user.user)
+				sendNotification(userC.user)
 			}
 			Notification();
 		}
@@ -198,7 +199,7 @@ export default function RegistrarPago() {
 								</Grid>
 								<Grid item xs={11} md={6}>
 									<Container>
-										<TextField fullWidth id="Apellido" label="Nombre Cliente" variant="filled" name='Apellido' value={clienteNombre} disabled />
+										<TextField fullWidth id="Apellido" label="Nombre Cliente" variant="filled" name='Apellido' value={userCache.user.username} disabled />
 									</Container>
 								</Grid>
 								<Grid item xs={4} md={2}>
@@ -384,15 +385,15 @@ export default function RegistrarPago() {
 										size='medium'
 										fullWidth
 										onClick={() => paymentService({
-											"name": "Nutria",
+											"name": animal.Nombre,
 											"unit_amount": 120000,
 											"quantity": 1,
 											"donation": noDonor,
-											"type_animal": "Mamifero",
+											"type_animal": animal.Tipo,
 											"metadata": {
 												"client_id": "2546",
-												"client_name": "Juan Esteban",
-												"animal_id": "65588",
+												"client_name": userCache.user.username,
+												"animal_id": animal.id.toString(),
 											}
 										})}
 										type='submit'
