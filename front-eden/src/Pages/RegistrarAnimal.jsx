@@ -96,7 +96,7 @@ export default function RegistarAnimal() {
         Image: urlImage
       }
       console.log(animalData)
-      const res = await axios.post('http://localhost:8000/animals', animalData);
+      const res = await axios.post('http://172.171.152.123/service/catalogapi/animals', animalData);
       alert("Animal registrado con exito");
       // const nombre = JSON.parse(animalData).Nombre
       // const tipo = JSON.parse(animalData).Tipo

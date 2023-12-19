@@ -12,6 +12,7 @@ import {
 import { useNavigate} from 'react-router-dom';
 
 import tarifas from '../Images/Tarifas.png';
+
 import { useUser } from "../Components/Context";
 
 import { useFormik } from 'formik';
@@ -53,7 +54,7 @@ export default function RegistrarPago() {
 		console.log(bodyContent)
 
 		try {
-			const response = await fetch("https://eledenapi.com/service/paymentapi/payment", { 
+			const response = await fetch("http://172.171.152.123/service/paymentapi/payment", { 
 				method: "POST",
 				body: bodyContent,
 				headers: {
@@ -72,7 +73,7 @@ export default function RegistrarPago() {
 
 	async function paymentCheck(session_id) {
 		try {
-			const res = await fetch(`https://eledenapi.com/service/paymentapi/order?session_id=${session_id}`)
+			const res = await fetch(`http://172.171.152.123/service/paymentapi/order?session_id=${session_id}`)
 		} catch(err) {
 			console.log("Error de paymentCheck:", err)
 		}
@@ -84,7 +85,7 @@ export default function RegistrarPago() {
 
 	
 	function search_animal(animal_id) { 
-		axios.get(`https://eledenapi.com/service/catalogapi/animals/${animal_id}`).then(res => {
+		axios.get(`http://172.171.152.123/service/catalogapi/animals/${animal_id}`).then(res => {
             const animalsData =  res.data;
 						console.log(animalsData)
 						setAnimal(animalsData)
@@ -100,9 +101,11 @@ export default function RegistrarPago() {
 	// }
 	
 	useEffect(() => {
+		const storedUserData = localStorage.getItem('userData');
 		const q = new URLSearchParams(window.location.search)
 		if(q.get("success") === "true") {
 			paymentCheck(q.get("session_id"))
+			console.log("El user:",storedUserData)
 			//sendNotification(user.user)
 		}
 		const animal_q = new URLSearchParams(window.location.search)

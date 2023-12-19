@@ -53,7 +53,7 @@ export default function BuscarAnimal() {
     });
 
   const todosDatos = async()=> {
-   axios.get('http://localhost:8000/animals').then(res => {
+   axios.get('http://172.171.152.123/service/catalogapi/animals').then(res => {
             const animalsData =  res.data;
             setAnimal(animalsData);
         })
