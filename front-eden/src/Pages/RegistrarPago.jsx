@@ -33,6 +33,8 @@ export default function RegistrarPago() {
 	const [open, setOpen] = React.useState(false);
 	const [animal, setAnimal] =  React.useState({});
 	const [userCache, setUserCache] = useState({});
+	const storedUserData = localStorage.getItem('userData');
+	console.log("cache", storedUserData)
 
 	const handleClickOpen = async () => {
 		setOpen(true);
@@ -100,7 +102,7 @@ export default function RegistrarPago() {
 			"email": user.email
 		}
 		console.log("El username",user.username)
-		axios.post(`http://localhost:8000/automatic_notifications/send_email/`,data).then((response)=>{
+		axios.post(`http://172.171.152.123/automatic_notifications/send_email/`,data).then((response)=>{
 			console.log(response)
 		})
 	}
@@ -108,6 +110,7 @@ export default function RegistrarPago() {
 	
 	useEffect(() => {
 		const storedUserData = localStorage.getItem('userData');
+		console.log("cache", storedUserData)
 		const userC = JSON.parse(storedUserData)
 		setUserCache(userC)
 		const q = new URLSearchParams(window.location.search)
@@ -199,7 +202,7 @@ export default function RegistrarPago() {
 								</Grid>
 								<Grid item xs={11} md={6}>
 									<Container>
-										<TextField fullWidth id="Apellido" label="Nombre Cliente" variant="filled" name='Apellido' value={userCache.user.username} disabled />
+										<TextField fullWidth id="Apellido" label="Nombre Cliente" variant="filled" name='Apellido' value={storedUserData.username} disabled />
 									</Container>
 								</Grid>
 								<Grid item xs={4} md={2}>
