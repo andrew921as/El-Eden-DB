@@ -29,6 +29,12 @@
     height: 200px;
 }
 
+.Icono-register{
+    margin-top: 10px;
+    width: 100px;
+    height: 100px;
+}
+
 .Contenedor-icono{
     justify-content: center;
     display: flex;

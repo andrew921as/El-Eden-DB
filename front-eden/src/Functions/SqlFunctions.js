@@ -37,15 +37,18 @@ async function getAnimales(tipoBusqueda, data) {
 }
 
 async function getAllAnimales() {
-    await fetch(`http://localhost:3001/animales/todos`)
+    await fetch(`http://localhost:8000/animals`)
         .then(response => {
             return response.text();
         })
         .then(data => {
-            busquedas=JSON.parse(data);
-            console.log(data)
+            busquedas = JSON.parse(data);
+            console.log(busquedas[0])         
         });
 }
+        // .then(response => {
+        //     return response.text();
+        // })
 
 async function getVoluntarios(tipoBusqueda, data, login) {
     await fetch(`http://localhost:3001/voluntarios/${tipoBusqueda}/${data}`)
@@ -89,45 +92,46 @@ async function getPagos() {
 function calcularTarifa(animal) {
     console.log(animal)
     let multiplicador
-    if(animal.talla == "P"){
+    if(animal.talla === "P"){
         multiplicador = 50000
     }
-    else if(animal.talla == "M"){
+    else if(animal.talla === "M"){
         multiplicador = 200000
     }
-    else if(animal.talla == "G"){
+    else if(animal.talla === "G"){
         multiplicador = 300000
     }
-    console.log(Math.round(animal.tiempo_estancia*multiplicador/31))
+    // console.log(Math.round(animal.tiempo_estancia*multiplicador/31))
     return (Math.round(animal.tiempo_estancia*multiplicador/31))
 
 }
 
-async function validarLogin(usuario, contrasena) {
-    await fetch(`http://localhost:3001/login`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({usuario,contrasena}),
-    })
-        .then(response => {
-            return response.text();
-        })
-        .then(data => {
-            console.log(data)
-            data = JSON.parse(data)
-            encontrado = data[0];
-            console.log(encontrado)
+// async function validarLogin(username, password) {
+//     await fetch(`http://localhost:3002/user/login`, {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify({username,password}),
+//     })
+//         .then(response => {
+//             return response.text();
+//         })
+//         .then(data => {
+//             console.log(data)
+//             data = JSON.parse(data)
+//             encontrado = data[0];
+//             console.log(encontrado)
             
-            idVoluntario = data[1][0].id_voluntario;
-            console.log(idVoluntario)
-        })
-}
+//             idVoluntario = data[1][0].id_voluntario;
+//             console.log(idVoluntario)
+//         })
+// }
+
 
 async function registrarPago(id_animal,cedula, id_voluntario, ingresos, tipoPago){
     let today = new Date().toISOString()
-    console.log(today)
+    // console.log(today)
     const nulo = null;
     /*
     let dd = String(today.getDate()).padStart(2, '0');
@@ -138,7 +142,7 @@ async function registrarPago(id_animal,cedula, id_voluntario, ingresos, tipoPago
     */
     console.log(today)
     console.log(id_animal)
-    if (tipoPago == "Donador"){
+    if (tipoPago === "Donador"){
         await fetch(`http://localhost:3001/pago/donador`, {
             method: 'POST',
             headers: {
@@ -388,7 +392,7 @@ export {
   getAllVoluntarios,
   getPagos,
   calcularTarifa,
-  validarLogin,
+//   validarLogin,
   registrarPago,
   createAnimal,
   createPatrocinador,

@@ -9,7 +9,7 @@ function ButtonBack(){
 
     return(
         <div>
-            <Button variant='contained' onClick={() => navigate('/')} startIcon={<ArrowBackIcon/>}
+            <Button variant='contained' onClick={() => navigate('/Home')} startIcon={<ArrowBackIcon/>}
             sx=
             {{
                 margin: 1

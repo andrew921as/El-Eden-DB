@@ -57,11 +57,6 @@ export default function BuscarCliente() {
   });
 
 
-  const [Tipo, setTipo] = React.useState('');
-
-  const handleChange = (event) => {
-    setTipo(event.target.value);
-  }
   const todosDatos = async () => {
     await getAllPatrocinadores();
     setPatro(busquedas)
@@ -70,7 +65,7 @@ export default function BuscarCliente() {
   useEffect(() => {
     todosDatos();
   }, [])
-
+  
   return (
     <div className='FullCont'>
       <MenuArriba />

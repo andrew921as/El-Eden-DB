@@ -1,19 +1,19 @@
 import { React, useState } from 'react'
-import { 
-  Button, 
-  Container, 
-  Grid, 
-  Stack, 
-  TextField, 
-  Typography, 
+import axios from 'axios';
+import {
+  Button,
+  Container,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
   Box,
   InputLabel,
   MenuItem,
   FormControl,
   Select,
-  FormHelperText
 
-  } from '@mui/material';
+} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -26,6 +26,8 @@ import { useFormik } from 'formik';
 
 import MenuArriba from '../Components/MenuArriba';
 
+import UploadWidget from '../Components/UploadWidget';
+
 import { createAnimal } from '../Functions/SqlFunctions';
 
 import ButtonBack from '../Components/ButtonBack';
@@ -34,7 +36,7 @@ import '../styles/RegistrarUsu.css';
 
 
 export default function RegistarAnimal() {
-
+  const [urlImage, setUrlImage] = useState("");
   const validacion = (values) => {
     const errors = {};
     if (!values.Nombre) {
@@ -80,19 +82,33 @@ export default function RegistarAnimal() {
       Estado: ''
     },
     validate: validacion,
-    onSubmit: (values) => {
-      let animalData = JSON.stringify(values, null, 2)
-       const nombre = JSON.parse(animalData).Nombre
-       const tipo = JSON.parse(animalData).Tipo
-       const talla = JSON.parse(animalData).Talla
-       const edad = JSON.parse(animalData).Edad
-       const motivoIngreso = JSON.parse(animalData).MotivoI
-       const observaciones = JSON.parse(animalData).Observaciones
-       const estado = JSON.parse(animalData).Estado
-       const fechaI = JSON.parse(animalData).FechaI
-       const fechaS = JSON.parse(animalData).FechaS
-        createAnimal(nombre, talla, edad, tipo, motivoIngreso, observaciones, estado, fechaI, fechaS);
-        //createAnimal('008', 'pija', 'M', '5', 'gay', 'porgay', 'ninguna', 'S', '2022-08-18T05:00:00.000Z', '2022-08-20T05:00:00.000Z');
+    onSubmit: async(values) => {
+      let animalData = {
+        Nombre: values.Nombre,
+        Tipo: values.Tipo,
+        Edad: parseInt(values.Edad),
+        Motivo_ingreso: values.MotivoI,
+        Fecha_Ingreso: values.FechaI,
+        Fecha_salida: values.FechaS,
+        Observacion: values.Observaciones,
+        Talla: values.Talla,
+        Estado: values.Estado,
+        Image: urlImage
+      }
+      console.log(animalData)
+      const res = await axios.post('http://172.171.152.123/service/catalogapi/animals', animalData);
+      alert("Animal registrado con exito");
+      // const nombre = JSON.parse(animalData).Nombre
+      // const tipo = JSON.parse(animalData).Tipo
+      // const talla = JSON.parse(animalData).Talla
+      // const edad = JSON.parse(animalData).Edad
+      // const motivoIngreso = JSON.parse(animalData).MotivoI
+      // const observaciones = JSON.parse(animalData).Observaciones
+      // const estado = JSON.parse(animalData).Estado
+      // const fechaI = JSON.parse(animalData).FechaI
+      // const fechaS = JSON.parse(animalData).FechaS
+      
+      /*createAnimal(nombre, talla, edad, tipo, Motivo_ingreso, observaciones, estado, Fecha_Ingreso, Fecha_salida, Image);*/
     }
   });
 
@@ -100,7 +116,7 @@ export default function RegistarAnimal() {
   return (
     <div className='RegistrarUsuCont'>
       <MenuArriba />
-      <ButtonBack/>
+      <ButtonBack />
       <Box sx={{
         width: {
           xs: '100%',
@@ -128,32 +144,32 @@ export default function RegistarAnimal() {
           justifyContent="center"
           direction={'column'}
           alignItems={'center'}
-          sx={{ paddingBottom: 4}}>
+          sx={{ paddingBottom: 4 }}>
           <Typography alignSelf={'center'} variant='h1' color={'#881600'}>Registrar nuevo animal</Typography>
           <form onSubmit={formik.handleSubmit}>
             <Grid container rowSpacing={6}>
               <Grid item xs={12} md={4}>
                 <Container>
                   <TextField fullWidth id="Nombre" label="Nombre" variant="filled" name='Nombre'
-                   value={formik.values.Nombre} onChange={formik.handleChange} 
-                   error={formik.touched.Nombre && Boolean(formik.errors.Nombre)} 
-                   helperText= {formik.touched.Nombre && formik.errors.Nombre}/>
+                    value={formik.values.Nombre} onChange={formik.handleChange}
+                    error={formik.touched.Nombre && Boolean(formik.errors.Nombre)}
+                    helperText={formik.touched.Nombre && formik.errors.Nombre} />
                 </Container>
               </Grid>
               <Grid item xs={12} md={4}>
                 <Container>
-                  <TextField fullWidth id="Tipo" label="Tipo" variant="filled" name='Tipo' 
-                  value={formik.values.Tipo} onChange={formik.handleChange} 
-                  error={formik.touched.Tipo && Boolean(formik.errors.Tipo)} 
-                   helperText= {formik.touched.Tipo && formik.errors.Tipo}/>
+                  <TextField fullWidth id="Tipo" label="Tipo" variant="filled" name='Tipo'
+                    value={formik.values.Tipo} onChange={formik.handleChange}
+                    error={formik.touched.Tipo && Boolean(formik.errors.Tipo)}
+                    helperText={formik.touched.Tipo && formik.errors.Tipo} />
                 </Container>
               </Grid>
               <Grid item xs={12} md={4}>
                 <Container>
                   <TextField fullWidth id="Edad" label="Edad" variant="filled" name='Edad'
-                   value={formik.values.Edad} onChange={formik.handleChange} 
-                   error={formik.touched.Edad && Boolean(formik.errors.Edad)} 
-                   helperText= {formik.touched.Edad && formik.errors.Edad}/>
+                    value={formik.values.Edad} onChange={formik.handleChange}
+                    error={formik.touched.Edad && Boolean(formik.errors.Edad)}
+                    helperText={formik.touched.Edad && formik.errors.Edad} />
                 </Container>
               </Grid>
               <Grid item xs={12} md={6}>
@@ -176,7 +192,7 @@ export default function RegistarAnimal() {
                           inputVariant="filled"
                           format="MM/dd/yyyy"
                           {...params}
-                           />}
+                        />}
                     />
                   </LocalizationProvider>
                 </Container>
@@ -185,12 +201,12 @@ export default function RegistarAnimal() {
                 <Container>
                   <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <DesktopDatePicker
-                      id= "Calendario S"
+                      id="Calendario S"
                       label="Fecha de salida"
                       inputFormat="MM/dd/yyyy"
                       value={formik.values.FechaS}
-                      error={formik.touched.FechaS && Boolean(formik.errors.FechaS)} 
-                      helperText= {formik.touched.FechaS && formik.errors.FechaS}
+                      error={formik.touched.FechaS && Boolean(formik.errors.FechaS)}
+                      helperText={formik.touched.FechaS && formik.errors.FechaS}
                       onChange={(val) => {
                         formik.setFieldValue("FechaS", val);
                       }}
@@ -203,79 +219,84 @@ export default function RegistarAnimal() {
                           inputVariant="filled"
                           format="MM/dd/yyyy"
                           {...params}
-                          />}
+                        />}
                     />
                   </LocalizationProvider>
                 </Container>
               </Grid>
               <Grid item xs={12} md={6}>
                 <Container>
-                <FormControl required fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
-                  <InputLabel id="demo-simple-select-filled-label">Motivo Ingreso</InputLabel>
-                  <Select
-                   labelId="MotivoI"
-                   id="MotivoI"
-                   name='MotivoI'
-                   value={formik.values.MotivoI}
-                    label="MotivoI"
-                    onChange={formik.handleChange}
-                    error={formik.touched.MotivoI && Boolean(formik.errors.MotivoI)} 
-                  >
-                    <MenuItem sx={{ borderRadius: 0}} value={"Albergue"}>Albergue</MenuItem>
-                    <MenuItem sx={{ borderRadius: 0}} value={"Rescate"}>Rescate</MenuItem>
+                  <FormControl required fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
+                    <InputLabel id="demo-simple-select-filled-label">Motivo Ingreso</InputLabel>
+                    <Select
+                      labelId="MotivoI"
+                      id="MotivoI"
+                      name='MotivoI'
+                      value={formik.values.MotivoI}
+                      label="MotivoI"
+                      onChange={formik.handleChange}
+                      error={formik.touched.MotivoI && Boolean(formik.errors.MotivoI)}
+                    >
+                      <MenuItem sx={{ borderRadius: 0 }} value={"Albergue"}>Albergue</MenuItem>
+                      <MenuItem sx={{ borderRadius: 0 }} value={"Rescate"}>Rescate</MenuItem>
 
-                  </Select>
-                </FormControl>
+                    </Select>
+                  </FormControl>
                 </Container>
               </Grid>
               <Grid item xs={12} md={6}>
                 <Container>
                   <TextField sx={{ minHeight: 6 }} fullWidth id="Observaciones"
-                   label="Observaciones" variant="filled" name='Observaciones'
+                    label="Observaciones" variant="filled" name='Observaciones'
                     value={formik.values.Observaciones} onChange={formik.handleChange}
-                    error={formik.touched.Observaciones && Boolean(formik.errors.Observaciones)} 
-                   helperText= {formik.touched.Observaciones && formik.errors.Observaciones} />
+                    error={formik.touched.Observaciones && Boolean(formik.errors.Observaciones)}
+                    helperText={formik.touched.Observaciones && formik.errors.Observaciones} />
                 </Container>
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={4}>
                 <Container>
-                <FormControl required fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
-                  <InputLabel id="demo-simple-select-filled-label">Talla</InputLabel>
-                  <Select
-                   labelId="Talla"
-                   id="Talla"
-                   name='Talla'
-                   value={formik.values.Talla}
-                    label="Talla"
-                    onChange={formik.handleChange}
-                  >
-                    <MenuItem sx={{ borderRadius: 0}} value={"P"}>Pequeño</MenuItem>
-                    <MenuItem sx={{ borderRadius: 0}} value={"M"}>Mediano</MenuItem>
-                    <MenuItem sx={{ borderRadius: 0}} value={"G"}>Grande</MenuItem>
+                  <FormControl required fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
+                    <InputLabel id="demo-simple-select-filled-label">Talla</InputLabel>
+                    <Select
+                      labelId="Talla"
+                      id="Talla"
+                      name='Talla'
+                      value={formik.values.Talla}
+                      label="Talla"
+                      onChange={formik.handleChange}
+                    >
+                      <MenuItem sx={{ borderRadius: 0 }} value={"P"}>Pequeño</MenuItem>
+                      <MenuItem sx={{ borderRadius: 0 }} value={"M"}>Mediano</MenuItem>
+                      <MenuItem sx={{ borderRadius: 0 }} value={"G"}>Grande</MenuItem>
 
-                  </Select>
-                </FormControl>
+                    </Select>
+                  </FormControl>                  
                 </Container>
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={4}>
                 <Container>
-                <FormControl required fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
-                  <InputLabel id="demo-simple-select-filled-label">Estado</InputLabel>
-                  <Select
-                   labelId="Estado"
-                   id="Estado"
-                   name='Estado'
-                   value={formik.values.Estado}
-                    label="Estado"
-                    onChange={formik.handleChange}
-                  >
-                    <MenuItem sx={{ borderRadius: 0}} value={"S"}>Sano</MenuItem>
-                    <MenuItem sx={{ borderRadius: 0}} value={"E"}>Enfermo</MenuItem>
+                  <FormControl required fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
+                    <InputLabel id="demo-simple-select-filled-label">Estado</InputLabel>
+                    <Select
+                      labelId="Estado"
+                      id="Estado"
+                      name='Estado'
+                      value={formik.values.Estado}
+                      label="Estado"
+                      onChange={formik.handleChange}
+                    >
+                      <MenuItem sx={{ borderRadius: 0 }} value={"S"}>Sano</MenuItem>
+                      <MenuItem sx={{ borderRadius: 0 }} value={"E"}>Enfermo</MenuItem>
 
-                  </Select>
-                </FormControl>
+                    </Select>
+                  </FormControl>
                 </Container>
               </Grid>
+							<Grid item xs={12} md={4}>
+								<Container>
+									<UploadWidget setUrlImage={setUrlImage} />
+								</Container>
+							</Grid>
             </Grid>
             <Stack direction={'row'} spacing={4} justifyContent={'space-between'} sx={{ paddingTop: 7 }}>
               <Container>
@@ -283,7 +304,7 @@ export default function RegistarAnimal() {
                   variant="outlined"
                   size='medium'
                   fullWidth
-                  onClick={() => { navigate('/') }}
+                  onClick={() => { navigate('/Home') }}
                   sx={{ border: '3px solid #881600', borderRadius: 10, ':hover': { border: '3px solid #881600' } }}
                 >
                   <Typography
@@ -327,7 +348,10 @@ export default function RegistarAnimal() {
                 </Button>
               </Container>
             </Stack>
+
           </form>
+          {/**  El widget de uploadImage se tiene que editar pa ser bonito */}
+          
         </Stack>
       </Box>
     </div>

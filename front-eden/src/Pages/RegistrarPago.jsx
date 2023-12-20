@@ -7,21 +7,13 @@ import {
 	TextField,
 	Typography,
 	Box,
-	FormControl,
-	InputLabel,
-	Select,
-	MenuItem,
 	Dialog,
-	DialogContent,
-	DialogTitle,
-	DialogContentText,
-	DialogActions,
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 import tarifas from '../Images/Tarifas.png';
 
-import ButtonBack from '../Components/ButtonBack';
+import { useUser } from "../Components/Context";
 
 import { useFormik } from 'formik';
 
@@ -29,17 +21,22 @@ import MenuArriba from '../Components/MenuArriba';
 
 import '../styles/RegistrarUsu.css';
 
-import { calcularTarifa, user, registrarPago, } from '../Functions/SqlFunctions';
+import { registrarPago, } from '../Functions/SqlFunctions';
 
-import { clientId, clientName, getClientDataP, clienteCedula, clienteNombre, getCliente, idAnimal, nombreAnimal, especieAnimal, animal, reset } from '../Functions/UtilityF';
+import { getClientDataP, clienteCedula, clienteNombre,idAnimal,reset } from '../Functions/UtilityF';
 
-export default function RegistrarPago(nombre) {
+import axios from 'axios';
 
+export default function RegistrarPago() {
+
+	const {user} = useUser();
 	const [open, setOpen] = React.useState(false);
+	const [animal, setAnimal] =  React.useState({});
+	const [userCache, setUserCache] = useState({});
 
 	const handleClickOpen = async () => {
 		setOpen(true);
-		const byTarifa = await calcularTarifa(animal)
+		const byTarifa = 300000
 		setValorTarifa(byTarifa);
 	};
 
@@ -52,23 +49,87 @@ export default function RegistrarPago(nombre) {
 		navigate('/');
 	}
 
+
+	async function paymentService(data) {
+		const bodyContent = JSON.stringify(data)
+		console.log(bodyContent)
+
+		try {
+			const response = await fetch("http://172.171.152.123/service/paymentapi/payment", { 
+				method: "POST",
+				body: bodyContent,
+				headers: {
+					"Accept": "*/*",
+					"Content-Type": "application/json"
+				}
+			})
+			const data = await response.json();
+			window.location.href = data.url
+
+		} catch(err) {
+			console.log("Error:", err)
+		}
+	}
+
+
+	async function paymentCheck(session_id) {
+		try {
+			const res = await fetch(`http://172.171.152.123/service/paymentapi/order?session_id=${session_id}`)
+		} catch(err) {
+			console.log("Error de paymentCheck:", err)
+		}
+	}
+
 	const [noDonor, setNoDonor] = useState(true);
 	const [namePage, setNamePage] = useState("Apadrinamiento");
 	const [valorTarifa, setValorTarifa] = useState(0)
 
+	
+	function search_animal(animal_id) { 
+		axios.get(`http://172.171.152.123/service/catalogapi/animals/${animal_id}`).then(res => {
+            const animalsData =  res.data;
+						console.log(animalsData)
+						setAnimal(animalsData)
+    	})
+	}
+	
+	const sendNotification = async(user) =>{
+		console.log("El user:",user)
+		const data = {
+			"username": user.username,
+			"email": user.email
+		}
+		console.log("El username",user.username)
+		axios.post(`http://localhost:8000/automatic_notifications/send_email/`,data).then((response)=>{
+			console.log(response)
+		})
+	}
+
+	
 	useEffect(() => {
+		const storedUserData = localStorage.getItem('userData');
+		const userC = JSON.parse(storedUserData)
+		setUserCache(userC)
+		const q = new URLSearchParams(window.location.search)
+		if(q.get("success") === "true") {
+			paymentCheck(q.get("session_id"))
+			async function Notification() {
+				sendNotification(userC.user)
+			}
+			Notification();
+		}
+		const animal_q = new URLSearchParams(window.location.search)
+		if(animal_q.get("id") != null) {
+			search_animal(animal_q.get("id"))
+		}
+
 		async function traemeDatos() {
 			await getClientDataP({ id: "1234", name: "Julio" });
 		}
 		traemeDatos();
-		console.log(noDonor);
-		console.log(clienteCedula)
-	});
-
+	},[]);
 
 	const navigate = useNavigate();
-
-
 
 	const formik = useFormik({
 		initialValues: {
@@ -77,11 +138,9 @@ export default function RegistrarPago(nombre) {
 		onSubmit: async (values) => {
 			const pagoDon = JSON.stringify(values, null, 2);
 			const pagoFinalD = JSON.parse(pagoDon).ValorPago
-			if (namePage != "Donador") {
-				console.log("Primer elemento de array " + user[0].cedula);
+			if (namePage !== "Donador") {
 				await registrarPago(idAnimal, clienteCedula, user[0].cedula, valorTarifa, "Patrocinador");
 			} else {
-				console.log("Monda");
 				await registrarPago(null, clienteCedula, user[0].cedula, pagoFinalD, "Donador");
 			}
 		}
@@ -140,7 +199,7 @@ export default function RegistrarPago(nombre) {
 								</Grid>
 								<Grid item xs={11} md={6}>
 									<Container>
-										<TextField fullWidth id="Apellido" label="Nombre Cliente" variant="filled" name='Apellido' value={clienteNombre} disabled />
+										<TextField fullWidth id="Apellido" label="Nombre Cliente" variant="filled" name='Apellido' value={userCache.user.username} disabled />
 									</Container>
 								</Grid>
 								<Grid item xs={4} md={2}>
@@ -229,17 +288,17 @@ export default function RegistrarPago(nombre) {
 								<Grid container rowSpacing={2} sx={{ paddingTop: 3 }}>
 									<Grid item xs={11} md={4} >
 										<Container>
-											<TextField fullWidth id="Telefono" label="Id Animal" variant="filled" name='Telefono' value={idAnimal} disabled />
+											<TextField fullWidth id="Telefono" label="Id Animal" variant="filled" name='Telefono' value={animal.id??" "} disabled />
 										</Container>
 									</Grid>
 									<Grid item xs={11} md={4}>
 										<Container>
-											<TextField fullWidth id="Cedula" label="Nombre Animal" variant="filled" name='Cedula' value={nombreAnimal} disabled />
+											<TextField fullWidth id="Cedula" label="Nombre Animal" variant="filled" name='Cedula' value={animal.Nombre??" "} disabled />
 										</Container>
 									</Grid>
 									<Grid item xs={11} md={4}>
 										<Container>
-											<TextField fullWidth id="Cedula" label="Tipo de animal" variant="filled" name='Cedula' value={especieAnimal} disabled />
+											<TextField fullWidth id="Cedula" label="Tipo de animal" variant="filled" name='Cedula' value={animal.Tipo??" "} disabled />
 										</Container>
 									</Grid>
 									<Grid item xs={4} md={4}>
@@ -271,8 +330,10 @@ export default function RegistrarPago(nombre) {
 												open={open}
 												onClose={handleClose}
 											>
-												
-													<img className='precios' src={tarifas} />
+													<img className='precios' 
+													src={tarifas} 
+													alt='Tarifas'
+													/>
 
 											</Dialog>
 										</Container>
@@ -323,6 +384,18 @@ export default function RegistrarPago(nombre) {
 										variant="outlined"
 										size='medium'
 										fullWidth
+										onClick={() => paymentService({
+											"name": animal.Nombre,
+											"unit_amount": 120000,
+											"quantity": 1,
+											"donation": noDonor,
+											"type_animal": animal.Tipo,
+											"metadata": {
+												"client_id": "2546",
+												"client_name": userCache.user.username,
+												"animal_id": animal.id.toString(),
+											}
+										})}
 										type='submit'
 										sx={{ border: '3px solid #881600', borderRadius: 10, ':hover': { border: '3px solid #881600' } }}
 
@@ -351,24 +424,3 @@ export default function RegistrarPago(nombre) {
 		</div>
 	)
 }
-/**
- * <Container>
-										<FormControl fullWidth variant="filled" sx={{ backgroundColor: 'rgba(226, 226, 226, 0.95)' }}>
-											<InputLabel id="demo-simple-select-filled-label">Motivo Pago</InputLabel>
-											<Select
-												labelId="MotivoP"
-												id="MotivoP"
-												name='MotivoP'
-												value={formik.values.MotivoP}
-												label="Motivo Pago"
-												onChange={formik.handleChange}
-											>
-												<MenuItem sx={{ borderRadius: 0 }} value={"Albergue"}>Albergue</MenuItem>
-												<MenuItem sx={{ borderRadius: 0 }} value={"Apadrinamiento"}>Apadrinamiento</MenuItem>
-												<MenuItem sx={{ borderRadius: 0 }} value={"Donacion"}>Donacion</MenuItem>
-
-											</Select>
-										</FormControl>
-									</Container>
- * 
- */

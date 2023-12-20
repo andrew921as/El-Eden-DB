@@ -16,6 +16,7 @@ import DataTableAnimales from '../Components/DataTableAnimales';
 import ButtonBack from '../Components/ButtonBack';
 
 import { useFormik } from 'formik';
+import axios from 'axios';
 
 import { getAnimales, busquedas, getAllAnimales } from '../Functions/SqlFunctions';
 
@@ -29,7 +30,6 @@ const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
     backgroundColor: '#93493A'
   }
 }));
-
 
 
 
@@ -52,15 +52,11 @@ export default function BuscarAnimal() {
         }
     });
 
-  const [Tipo, setTipo] = React.useState('');
-
-  const handleChange = (event) => {
-    setTipo(event.target.value);
-  }
-
   const todosDatos = async()=> {
-    await getAllAnimales();
-    setAnimal(busquedas)
+   axios.get('http://172.171.152.123/service/catalogapi/animals').then(res => {
+            const animalsData =  res.data;
+            setAnimal(animalsData);
+        })
   }
 
   useEffect(()=>{
