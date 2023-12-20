@@ -74,7 +74,7 @@ function Login() {
       email: reEmail
     }));
     try {
-      const response = await fetch("http://172.171.152.123/service/loginapi/user/adduser", {
+      const response = await fetch("http://20.242.222.189/service/loginapi/user/adduser", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -118,7 +118,7 @@ function Login() {
       password: password
     }));
     try {
-      const response = await fetch("http://172.171.152.123/service/loginapi/user/login", {
+      const response = await fetch("http://20.242.222.189/service/loginapi/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

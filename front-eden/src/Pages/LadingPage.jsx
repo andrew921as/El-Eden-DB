@@ -21,7 +21,7 @@ export default function LadingPage() {
     console.log(storedUserData)
 
     useEffect(() => {
-        axios.get('http://172.171.152.123/service/catalogapi/animals').then(res => {
+        axios.get('http://20.242.222.189/service/catalogapi/animals').then(res => {
             const animalsData =  res.data;
             setAnimales(animalsData);
         })

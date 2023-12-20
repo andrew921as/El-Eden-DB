@@ -57,7 +57,7 @@ export default function RegistrarPago() {
 		console.log(bodyContent)
 
 		try {
-			const response = await fetch("http://172.171.152.123/service/paymentapi/payment", { 
+			const response = await fetch("http://20.242.222.189/service/paymentapi/payment", { 
 				method: "POST",
 				body: bodyContent,
 				headers: {
@@ -76,7 +76,7 @@ export default function RegistrarPago() {
 
 	async function paymentCheck(session_id) {
 		try {
-			const res = await fetch(`http://172.171.152.123/service/paymentapi/order?session_id=${session_id}`)
+			const res = await fetch(`http://20.242.222.189/service/paymentapi/order?session_id=${session_id}`)
 		} catch(err) {
 			console.log("Error de paymentCheck:", err)
 		}
@@ -88,7 +88,7 @@ export default function RegistrarPago() {
 
 	
 	function search_animal(animal_id) { 
-		axios.get(`http://172.171.152.123/service/catalogapi/animals/${animal_id}`).then(res => {
+		axios.get(`http://20.242.222.189/service/catalogapi/animals/${animal_id}`).then(res => {
             const animalsData =  res.data;
 						console.log(animalsData)
 						setAnimal(animalsData)
@@ -102,7 +102,7 @@ export default function RegistrarPago() {
 			"email": user.email
 		}
 		console.log("El username",user.username)
-		axios.post(`http://172.171.152.123/automatic_notifications/send_email/`,data).then((response)=>{
+		axios.post(`http://20.242.222.189/automatic_notifications/send_email/`,data).then((response)=>{
 			console.log(response)
 		})
 	}
